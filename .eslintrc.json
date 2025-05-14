@@ -31,7 +31,7 @@
     "@typescript-eslint/no-unused-vars": "warn", // 대신 사용하지 않는 변수는 @typescript/eslint를 통해 잡아줌.
     "react/require-default-props": "off",
     "no-underscore-dangle": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     "tailwindcss/no-custom-classname": "off",
     "@typescript-eslint/no-var-requires": "off"
   }
