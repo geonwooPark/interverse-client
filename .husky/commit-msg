@@ -38,4 +38,3 @@ if (!commitMessagePattern.test(commitMessage)) {
 // 조정된 커밋 메시지를 파일에 씁니다.
 fs.writeFileSync(commitMessageFilePath, commitMessage)
 process.exit(0) // 성공적으로 완료되면 프로세스를 종료합니다.
-npx --no -- commitlint --edit "$1"
