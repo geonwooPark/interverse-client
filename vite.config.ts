@@ -22,6 +22,7 @@ export default defineConfig({
       { find: '@hocs', replacement: '/src/hocs' },
       { find: '@utils', replacement: '/src/utils' },
       { find: '@store', replacement: '/src/store' },
+      { find: '@interfaces', replacement: '/src/interfaces' },
     ],
   },
   css: {

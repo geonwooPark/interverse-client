@@ -14,7 +14,7 @@ export default function useTimer() {
     INITIAL_TIMER - timer > RESEND_TIME || tryCount.current === 0
 
   useEffect(() => {
-    let interval: NodeJS.Timeout
+    let interval: ReturnType<typeof setTimeout>
 
     if (isTimerActive) {
       interval = setInterval(() => {

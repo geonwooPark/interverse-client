@@ -1,8 +1,5 @@
+import { ClientToServerEvents, ServerToClientEvents } from '@interfaces/index'
 import { io, Socket } from 'socket.io-client'
-import {
-  ClientToServerEvents,
-  ServerToClientEvents,
-} from '../../../types/socket'
 
 class SocketService {
   socket: Socket<ServerToClientEvents, ClientToServerEvents>

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { IChat } from '../../../../../../../../types/socket'
+import { IChat } from '@interfaces/index'
 
 interface ChatItemProps {
   chatItem: IChat
@@ -21,7 +21,9 @@ function ChatItem({ chatItem }: ChatItemProps) {
         <span className={`mr-2 font-bold`}>{chatItem.sender}</span>
       )}
       <span
-        className={`${chatItem.sender ? 'text-black' : 'font-bold text-purple-600'}`}
+        className={`${
+          chatItem.sender ? 'text-black' : 'font-bold text-purple-600'
+        }`}
       >
         {chatItem.message}
       </span>

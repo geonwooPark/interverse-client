@@ -3,7 +3,7 @@ import { useScene } from '@providers/SceneProvider'
 import { useState } from 'react'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import { useParams } from 'react-router-dom'
-import { IDirectMessage } from '../../../../../../../../../types/socket'
+import { IDirectMessage } from '@interfaces/index'
 import { motion as m } from 'motion/react'
 import fade from '@components/Animation/motions/fade'
 
@@ -42,7 +42,7 @@ function MessageModal({ dm, onClose }: DMProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-[500] h-screen w-screen">
+    <div className="fixed inset-0 z-dialog h-screen w-screen">
       {/* Dim */}
       <div onClick={onClose} className="size-full bg-black/70" />
 

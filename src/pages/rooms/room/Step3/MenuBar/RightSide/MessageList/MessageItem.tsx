@@ -1,5 +1,5 @@
 import React from 'react'
-import { IDirectMessage } from '../../../../../../../../../types/socket'
+import { IDirectMessage } from '@interfaces/index'
 
 interface MessageItemProps {
   message: IDirectMessage & { isRead: boolean }

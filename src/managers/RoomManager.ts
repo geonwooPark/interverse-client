@@ -1,4 +1,4 @@
-import { IJoinRoom, IRoomUserDto } from '../../../types/socket'
+import { IJoinRoom, IRoomUserDto } from '@interfaces/index'
 import OtherPlayer from '@games/avatars/OtherPlayer'
 import GameScene from '@games/scenes/Game'
 import { Observable } from './Observable'

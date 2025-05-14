@@ -1,4 +1,4 @@
-import { IAvatarPosition } from '../../../types/socket'
+import { IAvatarPosition } from '@interfaces/index'
 import GameScene from '@games/scenes/Game'
 
 export class PlayManager {

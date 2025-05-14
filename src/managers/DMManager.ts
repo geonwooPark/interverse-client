@@ -1,5 +1,5 @@
 import Game from '@games/scenes/Game'
-import { IDirectMessage } from '../../../types/socket'
+import { IDirectMessage } from '@interfaces/index'
 import { Observable } from './Observable'
 import GameScene from '@games/scenes/Game'
 

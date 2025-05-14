@@ -1,5 +1,5 @@
 import Game from '@games/scenes/Game'
-import { IChat } from '../../../types/socket'
+import { IChat } from '@interfaces/index'
 import { Observable } from './Observable'
 import GameScene from '@games/scenes/Game'
 

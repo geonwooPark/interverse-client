@@ -7,7 +7,7 @@ export default class Player extends Avatar {
   private moveSpeed = 200
   private moveDirection: 'down' | 'up' | 'left' | 'right' = 'down'
   private isInteracting = false
-  private stopTimeout: NodeJS.Timeout | null = null
+  private stopTimeout: ReturnType<typeof setTimeout> | null = null
   isEnabled: { video: boolean; audio: boolean } = {
     video: false,
     audio: false,

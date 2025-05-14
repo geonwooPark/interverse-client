@@ -1,6 +1,7 @@
 import React, {
   ComponentType,
   ForwardedRef,
+  PropsWithoutRef,
   ReactNode,
   forwardRef,
 } from 'react'
@@ -13,7 +14,7 @@ export default function withCaption<T extends object>(
   Component: ComponentType<T>,
 ) {
   const EnhancedComponent = forwardRef(
-    (props: T & CaptionProps, ref: ForwardedRef<any>) => {
+    (props: PropsWithoutRef<T & CaptionProps>, ref: ForwardedRef<any>) => {
       const { caption, ...rest } = props
 
       return (
@@ -25,7 +26,9 @@ export default function withCaption<T extends object>(
     },
   )
 
-  EnhancedComponent.displayName = `WithCaption(${Component.displayName || Component.name || 'Component'})`
+  EnhancedComponent.displayName = `WithCaption(${
+    Component.displayName || Component.name || 'Component'
+  })`
 
   return EnhancedComponent
 }
