@@ -14,6 +14,9 @@ import IconEyeSlash from './IconEyeSlash.svg?react'
 import IconEye from './IconEye.svg?react'
 import IconPlus from './IconPlus.svg?react'
 import IconEvelope from './IconEvelope.svg?react'
+import IconSuccess from './IconSuccess.svg?react'
+import IconError from './IconError.svg?react'
+import IconInfo from './IconInfo.svg?react'
 
 export {
   IconCam,
@@ -32,4 +35,7 @@ export {
   IconEye,
   IconPlus,
   IconEvelope,
+  IconSuccess,
+  IconError,
+  IconInfo,
 }

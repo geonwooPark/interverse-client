@@ -12,9 +12,12 @@ import IconButton from '@components/IconButton'
 import { useLoginMutation } from '@hooks/mutations/authMutations'
 import { useStore } from 'ventileco-store'
 import { isLoggedInStore } from '@store/index'
+import useToast from '@hooks/useToast'
 
 function LoginPage() {
   const navigate = useNavigate()
+
+  const toast = useToast()
 
   const { mutate } = useLoginMutation()
 
@@ -39,6 +42,7 @@ function LoginPage() {
         setIsLoggedIn(true)
         navigate('/rooms')
         reset()
+        toast.success('로그인 성공!')
       },
     })
   })
@@ -58,6 +62,7 @@ function LoginPage() {
                 placeholder="비밀번호"
                 endIcon={
                   <IconButton
+                    type="button"
                     iconName={showPassword ? 'IconEyeSlash' : 'IconEye'}
                     className="text-grey"
                     onClick={setShowPassword}
@@ -69,6 +74,7 @@ function LoginPage() {
             <div className="text-caption">
               <span className="mr-1">비밀번호를 잊어버리셨나요?</span>
               <button
+                type="button"
                 className="font-semibold text-cyan-600"
                 onClick={() => navigate(paths.recovery)}
               >
