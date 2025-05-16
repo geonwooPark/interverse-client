@@ -29,7 +29,7 @@ export default function ToastItem({ toast, removeToast }: ToastItemProps) {
     <m.button
       {...slide({ isFade: true, distance: 10 }).inY}
       onClick={removeToast}
-      className="relative w-[320px] overflow-hidden rounded-lg border bg-white px-4 py-3 text-left shadow-lg"
+      className="relative w-[360px] overflow-hidden rounded-lg border bg-white px-4 py-3 text-left shadow-lg"
     >
       {/* 컨텐츠 */}
       <div className="flex gap-2">

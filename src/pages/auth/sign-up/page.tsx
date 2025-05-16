@@ -9,9 +9,12 @@ import Step2 from './Step2'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
 import { useSignUpMutation } from '@hooks/mutations/authMutations'
+import useToast from '@hooks/useToast'
 
 function SignUpPage() {
   const navigate = useNavigate()
+
+  const toast = useToast()
 
   const { mutate } = useSignUpMutation()
 
@@ -34,7 +37,10 @@ function SignUpPage() {
     const { confirmPassword, ...rest } = data
 
     mutate(rest, {
-      onSuccess: () => navigate(paths.login),
+      onSuccess: () => {
+        navigate(paths.login)
+        toast.success('가입이 완료됐어요! 지금부터 함께해요 🙌')
+      },
     })
   })
 

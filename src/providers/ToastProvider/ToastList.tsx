@@ -12,7 +12,7 @@ export default function ToastList({ toasts }: ToastListProps) {
   const { removeToast } = useToastContext()
 
   return (
-    <div className="fixed right-[40px] top-[80px] z-[1000]">
+    <div className="fixed right-[40px] top-[40px] z-[1000]">
       <div className="flex flex-col gap-2">
         <AnimatePresence>
           {toasts.map((toast) => (

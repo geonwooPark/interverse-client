@@ -8,8 +8,11 @@ import { TOKEN } from '@constants/index'
 import { useStore } from 'ventileco-store'
 import { isLoggedInStore } from '@store/index'
 import slide from '@components/Animation/motions/slide'
+import useToast from '@hooks/useToast'
 
 export default function UserProfile() {
+  const toast = useToast()
+
   const queryClient = useQueryClient()
 
   const { data } = useMeQuery()
@@ -19,6 +22,7 @@ export default function UserProfile() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const logout = () => {
+    toast.success('로그아웃 완료! 편안한 하루 보내세요 😊')
     removeLocalStorageItem(TOKEN)
     setIsLoggedIn(false)
     queryClient.clear()

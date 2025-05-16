@@ -42,7 +42,7 @@ function LoginPage() {
         setIsLoggedIn(true)
         navigate('/rooms')
         reset()
-        toast.success('로그인 성공!')
+        toast.success('환영해요! 기다리고 있었어요 😊')
       },
     })
   })
