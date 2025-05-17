@@ -8,7 +8,7 @@ export default function RoomLayout({ children }: PropsWithChildren) {
       <Header />
 
       <main className="h-full pb-[80px] pt-[64px]">
-        <Container className="max-w-[1440px] px-10 desktop:px-20">
+        <Container className="mx-auto max-w-[1440px] px-10 desktop:px-20">
           {children}
         </Container>
       </main>

@@ -18,7 +18,7 @@ export default function Log({ log }: LogProps) {
       <div className="pointer-events-none mt-2">
         <p className="text-h6">{log.room.title}</p>
         <p className="text-caption text-gray-400">
-          {dayjs(log.joinedAt).format('YYYY-MM-DD HH:mm:ss')}
+          최근 참여: {dayjs(log.joinedAt).format('YYYY-MM-DD HH:mm:ss')}
         </p>
       </div>
     </a>
