@@ -4,7 +4,6 @@ import { MAX_NICKNAME_LENGTH, TEXTURE_MAP } from '@constants/index'
 import { StepFlowProps } from '@components/StepFlow/types'
 import Button from '@components/Button'
 import GameManager from '@managers/GameManager'
-import { useScene } from '@providers/SceneProvider'
 import { TextFieldWithCaption } from '@components/TextField'
 import Container from '@components/Container'
 import { useParams } from 'react-router-dom'
@@ -16,8 +15,6 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
   const { id: roomId } = useParams()
 
   const game = GameManager.getInstance()
-
-  const gameScene = useScene()
 
   const [texture, setTexture] = useState(0)
 
@@ -40,12 +37,7 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
     if (!roomId) return
 
     // 게임씬 실행
-    game.scene.start('game')
-    ;(document.getElementById('game-container') as HTMLElement).style.display =
-      'block'
-
-    // 방에 입장
-    gameScene.joinRoom({
+    game.scene.start('game', {
       roomNum: roomId,
       nickname,
       texture: Object.keys(TEXTURE_MAP)[texture],

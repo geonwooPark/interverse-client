@@ -5,6 +5,7 @@ import useMediaPermissions from '@hooks/useMediaPermissions'
 import ConfirmModal from '@components/ConfirmModal'
 import { useModal } from '@providers/ModalProvider'
 import Controller from './Controller'
+import SceneProvider from '@providers/SceneProvider'
 
 export default function Step3() {
   const { addModal, removeModal } = useModal()
@@ -24,11 +25,11 @@ export default function Step3() {
   })
 
   return (
-    <>
+    <SceneProvider>
       <MenuBar />
       <Controller />
       <Alert />
       <Modals />
-    </>
+    </SceneProvider>
   )
 }

@@ -23,6 +23,8 @@ export default class Game extends Phaser.Scene {
   private keyEscape?: Phaser.Input.Keyboard.Key
   readonly ws = socketService
   roomNum!: string
+  texture!: string
+  nickname!: string
   player!: Player
   otherPlayers!: Phaser.Physics.Arcade.Group
   room: RoomManager
@@ -72,6 +74,13 @@ export default class Game extends Phaser.Scene {
     this.input.keyboard.enabled = false
   }
 
+  // 	씬이 시작되기 전 초기화 작업
+  init(data: { roomNum: string; nickname: string; texture: string }) {
+    this.roomNum = data.roomNum
+    this.texture = data.texture
+    this.nickname = data.nickname
+  }
+
   // Scene이 로드될 때 한번 호출, 게임 오브젝트 배치
   create() {
     // 타일맵 로드
@@ -112,7 +121,13 @@ export default class Game extends Phaser.Scene {
     this.otherPlayers = this.physics.add.group({ classType: OtherPlayer })
 
     createAvatarAnims(this.anims)
-    this.player = new Player(this, INIT_POSITION[0], INIT_POSITION[1], '')
+    this.player = new Player(
+      this,
+      INIT_POSITION[0],
+      INIT_POSITION[1],
+      this.texture,
+      this.nickname,
+    )
     this.add.existing(this.player)
 
     // Camera Setting
@@ -177,31 +192,21 @@ export default class Game extends Phaser.Scene {
       undefined,
       this,
     )
+
+    this.joinRoom()
   }
 
   /** 방에 입장 */
-  joinRoom({
-    roomNum,
-    nickname,
-    texture,
-  }: {
-    roomNum: string
-    nickname: string
-    texture: string
-  }) {
+  joinRoom() {
     this.setUpKeys()
 
-    this.roomNum = roomNum
-
     this.room.joinRoom({
-      roomNum,
-      nickname,
-      texture,
+      roomNum: this.roomNum,
+      nickname: this.nickname,
+      texture: this.texture,
       x: INIT_POSITION[0],
       y: INIT_POSITION[1],
     })
-
-    this.player.initialize({ nickname, texture })
   }
 
   /** 플레이어와 오브젝트가 충돌했을 때 발생하는 콜백 함수. Player와 Object를 인수로 받음 */

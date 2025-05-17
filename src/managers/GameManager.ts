@@ -11,12 +11,10 @@ class GameManager {
     if (!GameManager.instance) {
       const config: Phaser.Types.Core.GameConfig = {
         type: Phaser.AUTO,
-        parent: 'phaser',
         pixelArt: true,
         scale: {
           width: window.innerWidth,
           height: window.innerHeight,
-          parent: 'game-container',
           mode: Phaser.Scale.RESIZE,
         },
         physics: {

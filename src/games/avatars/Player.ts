@@ -19,12 +19,11 @@ export default class Player extends Avatar {
     x: number,
     y: number,
     texture: string,
+    nickname: string,
     frame?: string | number,
   ) {
     super(scene, x, y, texture, frame)
-  }
 
-  initialize({ nickname, texture }: { nickname: string; texture: string }) {
     this.setNickname(nickname)
     this.setAvatarTexture(texture)
   }
