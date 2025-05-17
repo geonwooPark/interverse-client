@@ -1,4 +1,3 @@
-import { WATER_PURIFIER_CONTENT } from '../../constants'
 import ObjectItem from './ObjectItem'
 
 export default class WaterPurifier extends ObjectItem {
@@ -19,8 +18,5 @@ export default class WaterPurifier extends ObjectItem {
 
   undo() {}
 
-  onInteractionBox() {
-    this.setInteractionBox(WATER_PURIFIER_CONTENT[this.order].content)
-    WaterPurifier.length > this.order ? (this.order += 1) : (this.order = 0)
-  }
+  onInteractionBox() {}
 }
