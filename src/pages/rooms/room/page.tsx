@@ -13,8 +13,6 @@ import GameManager from '@managers/GameManager'
 function RoomPage() {
   const { id: roomId } = useParams()
 
-  const game = GameManager.getInstance()
-
   const { data: room, isPending } = useSingleRoomQuery(roomId as string)
 
   const [step, setStep] = useState(0)
@@ -25,6 +23,8 @@ function RoomPage() {
 
   // 필요한 에셋 프리로드
   useEffect(() => {
+    const game = GameManager.getInstance()
+
     if (!game.scene.isActive('Preload')) {
       game.scene.start('Preload')
     }

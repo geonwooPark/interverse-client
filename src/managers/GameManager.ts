@@ -12,6 +12,7 @@ class GameManager {
       const config: Phaser.Types.Core.GameConfig = {
         type: Phaser.AUTO,
         pixelArt: true,
+        parent: 'game-container',
         scale: {
           width: window.innerWidth,
           height: window.innerHeight,
@@ -31,6 +32,13 @@ class GameManager {
     }
 
     return GameManager.instance
+  }
+
+  public static destroy() {
+    if (GameManager.instance) {
+      GameManager.instance.destroy(true)
+      GameManager.instance = null
+    }
   }
 }
 

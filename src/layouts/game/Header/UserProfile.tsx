@@ -8,6 +8,7 @@ import { TOKEN } from '@constants/index'
 import { useStore } from 'ventileco-store'
 import { isLoggedInStore } from '@store/index'
 import slide from '@components/Animation/motions/slide'
+import GameManager from '@managers/GameManager'
 
 export default function UserProfile() {
   const queryClient = useQueryClient()
@@ -22,6 +23,8 @@ export default function UserProfile() {
     removeLocalStorageItem(TOKEN)
     setIsLoggedIn(false)
     queryClient.clear()
+
+    GameManager.destroy()
 
     const gameContainer = document.getElementById(
       'game-container',

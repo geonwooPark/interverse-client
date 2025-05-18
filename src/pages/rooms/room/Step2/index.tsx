@@ -14,8 +14,6 @@ interface Step2Props extends Partial<StepFlowProps> {}
 export default function Step2({ activeStep, onNext }: Step2Props) {
   const { id: roomId } = useParams()
 
-  const game = GameManager.getInstance()
-
   const [texture, setTexture] = useState(0)
 
   const [nickname, setNickname] = useState('')
@@ -35,6 +33,8 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
   const onEnter = () => {
     if (!nickname) return
     if (!roomId) return
+
+    const game = GameManager.getInstance()
 
     // 게임씬 실행
     game.scene.start('game', {
@@ -75,6 +75,8 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
           입장하기
         </Button>
       </Container>
+
+      <div id="game"></div>
     </div>
   )
 }
