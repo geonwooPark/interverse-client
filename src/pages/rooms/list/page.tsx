@@ -1,15 +1,13 @@
-import { useRoomsQuery } from '@hooks/queries/roomsQueries'
-import React from 'react'
-import Log from './Log'
+import React, { Suspense } from 'react'
 import Button from '@components/Button'
 import { IconPlus } from '@assets/svgs'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
+import LogList from './LogList'
+import LogListSkeleton from './LogListSkeleton'
 
 export default function RoomListPage() {
   const navigate = useNavigate()
-
-  const { data: logs } = useRoomsQuery()
 
   const onClick = () => {
     navigate(`${paths.rooms.create}`)
@@ -31,9 +29,9 @@ export default function RoomListPage() {
         </Button>
       </div>
 
-      <div className="grid w-full grid-cols-2 gap-4 desktop:grid-cols-4">
-        {logs?.map((log) => <Log key={log._id} log={log} />)}
-      </div>
+      <Suspense fallback={<LogListSkeleton />}>
+        <LogList />
+      </Suspense>
     </div>
   )
 }
