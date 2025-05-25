@@ -2,13 +2,16 @@ import Container from '@components/Container'
 import Logo from '@components/Logo'
 import React, { PropsWithChildren } from 'react'
 import gifImage from '/gif/interverse.gif'
+import { Link } from 'react-router-dom'
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <main className="relative grid h-[100vh] grid-cols-1 tablet:grid-cols-2">
+    <main className="relative grid h-screen grid-cols-1 tablet:grid-cols-2">
       {/* 로고 */}
       <div className="fixed left-6 top-6 rounded-full px-6 py-4">
-        <Logo width={200} />
+        <Link to={'/'}>
+          <Logo width={160} className="pointer-events-none" />
+        </Link>
       </div>
 
       {/* 이미지 영역 */}

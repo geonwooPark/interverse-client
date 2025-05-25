@@ -1,76 +1,46 @@
 import { API_ENDPOINTS } from '@constants/api'
+import { RequestBody, ResponseBody } from '@interfaces/api'
 import { api } from '@utils/api'
 
 class AuthService {
-  async login({
-    email,
-    password,
-  }: {
-    email: string
-    password: string
-  }): Promise<any> {
-    return await api.post(API_ENDPOINTS.USER.LOGIN(), {
-      email,
-      password,
-    })
+  async login(
+    params: RequestBody<'/auth/login', 'post'>,
+  ): Promise<ResponseBody<'/auth/login', 'post'>> {
+    return await api.post('/auth/login', params)
   }
 
-  async signup({
-    email,
-    nickname,
-    password,
-  }: {
-    email: string
-    nickname: string
-    password: string
-  }): Promise<any> {
-    return await api.post(API_ENDPOINTS.USER.SIGN_UP(), {
-      nickname,
-      email,
-      password,
-    })
+  async signup(
+    params: RequestBody<'/auth/signup', 'post'>,
+  ): Promise<ResponseBody<'/auth/signup', 'post'>> {
+    return await api.post(API_ENDPOINTS.USER.SIGN_UP(), params)
   }
 
-  async me(): Promise<any> {
+  async me(): Promise<ResponseBody<'/auth/me', 'get'>> {
     return await api.get(API_ENDPOINTS.USER.ME())
   }
 
-  async sendVerificationEmail(email: string): Promise<any> {
-    return await api.post(API_ENDPOINTS.USER.SEND_EMAIL(), {
-      email,
-    })
+  async sendVerificationEmail(
+    params: RequestBody<'/auth/send-verification-email', 'post'>,
+  ): Promise<ResponseBody<'/auth/send-verification-email', 'post'>> {
+    return await api.post(API_ENDPOINTS.USER.SEND_EMAIL(), params)
   }
 
-  async checkVerificationCode({
-    email,
-    code,
-  }: {
-    email: string
-    code: number
-  }): Promise<any> {
-    return await api.post(API_ENDPOINTS.USER.CHECK_CODE(), {
-      email,
-      code,
-    })
+  async checkVerificationCode(
+    params: RequestBody<'/auth/check-verification-code', 'post'>,
+  ): Promise<ResponseBody<'/auth/check-verification-code', 'post'>> {
+    return await api.post(API_ENDPOINTS.USER.CHECK_CODE(), params)
   }
 
-  async changePassword({
-    email,
-    newPassword,
-  }: {
-    email: string
-    newPassword: string
-  }): Promise<any> {
-    return await api.patch(API_ENDPOINTS.USER.CHANGE_PASSWORD(), {
-      email,
-      newPassword,
-    })
+  async changePassword(
+    params: RequestBody<'/auth/change-password', 'patch'>,
+  ): Promise<ResponseBody<'/auth/change-password', 'patch'>> {
+    return await api.patch(API_ENDPOINTS.USER.CHANGE_PASSWORD(), params)
   }
 
-  async checkId(email: string): Promise<any> {
-    return await api.post(API_ENDPOINTS.USER.CHECK_ID(), {
-      email,
-    })
+  async checkId(
+    params: RequestBody<'/auth/check-id', 'post'>,
+  ): Promise<ResponseBody<'/auth/check-id', 'post'>> {
+    return await api.post(API_ENDPOINTS.USER.CHECK_ID(), params)
   }
 }
 

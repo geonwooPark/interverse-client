@@ -23,11 +23,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (res) => {
-    const {
-      data: { data },
-    } = res
-
-    return data
+    return res.data
   },
   (err) => {
     if (axios.isAxiosError(err) && err.response) {

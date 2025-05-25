@@ -21,7 +21,7 @@ function Step1({ activeStep, onNext }: Step1Props) {
     if (!roomId) return
 
     try {
-      const res = await roomsService.checkPassword({ roomId, password })
+      const res = await roomsService.checkPassword(roomId, { password })
 
       if (res) {
         onNext && onNext()

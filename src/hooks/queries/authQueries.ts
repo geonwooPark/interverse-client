@@ -18,4 +18,5 @@ export const useMeQuery = () =>
     queryFn: () => authService.me(),
     staleTime: 1000 * 60 * 20,
     gcTime: 1000 * 60 * 15,
+    select: (result) => result.data,
   })

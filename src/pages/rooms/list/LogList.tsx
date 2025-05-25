@@ -7,7 +7,7 @@ export default function LogList() {
 
   return (
     <div className="grid w-full grid-cols-2 gap-4 desktop:grid-cols-4">
-      {logs?.map((log) => <Log key={log._id} log={log} />)}
+      {logs?.map((log) => <Log key={log.joinedAt} log={log} />)}
     </div>
   )
 }

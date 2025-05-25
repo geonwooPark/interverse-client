@@ -1,4 +1,5 @@
 import { authKeys } from '@hooks/queries/authQueries'
+import { RequestBody, ResponseBody } from '@interfaces/api'
 import { authService } from '@services/authService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { setLocalStorageItem } from '@utils/localStorage'
@@ -8,23 +9,25 @@ export const useLoginMutation = () => {
   const queryClient = useQueryClient()
 
   return useMutation<
-    { token: string; user: any },
+    ResponseBody<'/auth/login', 'post'>,
     AxiosError,
-    { email: string; password: string }
+    RequestBody<'/auth/login', 'post'>
   >({
     mutationFn: (params) => authService.login(params),
-    onSuccess: ({ token, user }) => {
-      setLocalStorageItem('interverse_token', token)
-      queryClient.setQueryData(authKeys.me(), user)
+    onSuccess: (result) => {
+      const { message, data } = result
+
+      setLocalStorageItem('interverse_token', data?.token)
+      queryClient.setQueryData(authKeys.me(), data?.user)
     },
   })
 }
 
 export const useSignUpMutation = () => {
   return useMutation<
-    boolean,
+    ResponseBody<'/auth/signup', 'post'>,
     AxiosError,
-    { email: string; nickname: string; password: string }
+    RequestBody<'/auth/signup', 'post'>
   >({
     mutationFn: (params) => authService.signup(params),
   })
@@ -32,37 +35,39 @@ export const useSignUpMutation = () => {
 
 export const useChangePasswordMutation = () => {
   return useMutation<
-    boolean,
+    ResponseBody<'/auth/change-password', 'patch'>,
     AxiosError,
-    {
-      email: string
-      newPassword: string
-    }
+    RequestBody<'/auth/change-password', 'patch'>
   >({
     mutationFn: (params) => authService.changePassword(params),
   })
 }
 
 export const useCheckIdMutation = () => {
-  return useMutation<boolean, AxiosError, string>({
+  return useMutation<
+    ResponseBody<'/auth/check-id', 'post'>,
+    AxiosError,
+    RequestBody<'/auth/check-id', 'post'>
+  >({
     mutationFn: (params) => authService.checkId(params),
   })
 }
 
 export const useSendVerificationEmailMutation = () => {
-  return useMutation<boolean, AxiosError, string>({
+  return useMutation<
+    ResponseBody<'/auth/send-verification-email', 'post'>,
+    AxiosError,
+    RequestBody<'/auth/send-verification-email', 'post'>
+  >({
     mutationFn: (params) => authService.sendVerificationEmail(params),
   })
 }
 
 export const useCheckVerificationCode = () => {
   return useMutation<
-    boolean,
+    ResponseBody<'/auth/check-verification-code', 'post'>,
     AxiosError,
-    {
-      email: string
-      code: number
-    }
+    RequestBody<'/auth/check-verification-code', 'post'>
   >({
     mutationFn: (params) => authService.checkVerificationCode(params),
   })

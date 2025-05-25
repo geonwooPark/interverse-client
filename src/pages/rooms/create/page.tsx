@@ -33,6 +33,8 @@ function CreateRoomPage() {
   const { handleSubmit, setValue, reset } = methods
 
   const onSubmit = handleSubmit(async (data) => {
+    if (!data.mapId) return
+
     createRoomMutate(data, {
       onSuccess: () => {
         reset()

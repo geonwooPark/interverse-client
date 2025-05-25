@@ -12,5 +12,6 @@ export const useMapsQuery = () => {
   return useSuspenseQuery({
     queryKey: mapsKeys.base,
     queryFn: () => mapsService.getMaps(),
+    select: (result) => result.data,
   })
 }

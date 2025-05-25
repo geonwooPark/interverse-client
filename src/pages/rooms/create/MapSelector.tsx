@@ -17,6 +17,8 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
   }
 
   useEffect(() => {
+    if (!maps) return
+
     onChange(maps[0]._id)
   }, [isSuccess])
 
@@ -40,7 +42,7 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
             />
             <div className="absolute bottom-0 w-full bg-black py-1">
               <p className="text-center text-body2 text-white">
-                {slide.name.toUpperCase()}
+                {slide.name?.toUpperCase()}
               </p>
             </div>
           </Slider.Item>

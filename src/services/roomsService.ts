@@ -1,52 +1,41 @@
 import { API_ENDPOINTS } from '@constants/api'
+import { RequestBody, ResponseBody } from '@interfaces/api'
 import { api } from '@utils/api'
 
 class RoomsService {
-  async getRooms() {
+  async getRooms(): Promise<ResponseBody<'/rooms', 'get'>> {
     return await api.get(API_ENDPOINTS.ROOMS.LIST())
   }
 
-  async getSingleRoom(roomId: string): Promise<any> {
-    return await api.get(API_ENDPOINTS.ROOMS.SINGLE_ROOM(roomId))
+  async getSingleRoom(
+    params: RequestBody<'/rooms/{roomId}', 'get'>,
+  ): Promise<ResponseBody<'/rooms/{roomId}', 'get'>> {
+    return await api.get(API_ENDPOINTS.ROOMS.SINGLE_ROOM(params))
   }
 
-  async joinRoom(roomId: string) {
-    return await api.post(API_ENDPOINTS.ROOMS.JOIN(roomId))
+  async joinRoom(
+    params: RequestBody<'/rooms/{roomId}/join', 'post'>,
+  ): Promise<ResponseBody<'/rooms/{roomId}/join', 'post'>> {
+    return await api.post(API_ENDPOINTS.ROOMS.JOIN(params))
   }
 
-  async createRoom({
-    title,
-    password,
-    headCount,
-    mapId,
-  }: {
-    title: string
-    password: string
-    headCount: number
-    mapId?: string
-  }) {
-    return await api.post(API_ENDPOINTS.ROOMS.CREATE(), {
-      title,
-      password,
-      headCount,
-      mapId,
-    })
+  async createRoom(
+    params: RequestBody<'/rooms', 'post'>,
+  ): Promise<ResponseBody<'/rooms', 'post'>> {
+    return await api.post(API_ENDPOINTS.ROOMS.CREATE(), params)
   }
 
-  async deleteRoom(roomId: string) {
-    return await api.post(`${API_ENDPOINTS.ROOMS.DELETE(roomId)}`)
+  async deleteRoom(
+    params: RequestBody<'/rooms/{roomId}', 'delete'>,
+  ): Promise<ResponseBody<'/rooms/{roomId}', 'delete'>> {
+    return await api.post(`${API_ENDPOINTS.ROOMS.DELETE(params)}`)
   }
 
-  async checkPassword({
-    roomId,
-    password,
-  }: {
-    roomId: string
-    password: string
-  }) {
-    return await api.post(API_ENDPOINTS.ROOMS.CHECK_PASSWORD(roomId), {
-      password,
-    })
+  async checkPassword(
+    roomId: string,
+    params: RequestBody<'/rooms/{roomId}/password', 'post'>,
+  ): Promise<ResponseBody<'/rooms/{roomId}/password', 'post'>> {
+    return await api.post(API_ENDPOINTS.ROOMS.CHECK_PASSWORD(roomId), params)
   }
 }
 
