@@ -906,9 +906,11 @@ export interface paths {
                             message?: string;
                             data?: {
                                 _id?: string;
-                                name?: string;
+                                title?: string;
                                 host?: string;
+                                headCount?: number;
                                 isHost?: boolean;
+                                mapId?: string;
                             };
                         };
                     };

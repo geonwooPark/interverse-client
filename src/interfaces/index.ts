@@ -82,9 +82,7 @@ export interface ServerToClientEvents {
   serverChairId: (chairId: string) => void
   serverRoomMember: (users: IRoomUserDto[]) => void
   serverDM: (dm: IDirectMessage) => void
-  serverRtpCapabilities: (
-    rtpCapabilities: mediasoup.types.RtpCapabilities,
-  ) => void
+  serverRtpCapabilities: (rtpCapabilities: any) => void
   serverSendTransportCreated: (transport: any) => void
   serverProduced: ({ id }: { id: string }) => void
   serverRecvTransportCreated: ({
@@ -94,9 +92,9 @@ export interface ServerToClientEvents {
     dtlsParameters,
   }: {
     id: string
-    iceParameters: mediasoupClient.types.IceParameters
-    iceCandidates: mediasoupClient.types.IceCandidate[]
-    dtlsParameters: mediasoupClient.types.DtlsParameters
+    iceParameters: any
+    iceCandidates: any
+    dtlsParameters: any
   }) => void
   serverExistingProducers: (producers: any) => void
   serverNewProducer: ({
@@ -108,7 +106,7 @@ export interface ServerToClientEvents {
     producerId: string
     consumerId: string
     kind: 'audio' | 'video'
-    rtpParameters: mediasoupClient.types.RtpParameters
+    rtpParameters: any
   }) => void
   serverExceedHeadCount: ({ message }: { message: string }) => void
 }
@@ -127,7 +125,7 @@ export interface ClientToServerEvents {
     dtlsParameters,
   }: {
     roomNum: string
-    dtlsParameters: mediasoupClient.types.DtlsParameters
+    dtlsParameters: any
   }) => Promise<void>
   clientProduce: ({
     roomNum,
@@ -138,14 +136,14 @@ export interface ClientToServerEvents {
     roomNum: string
     kind: 'audio' | 'video'
     rtpCapabilities: any
-    rtpParameters: mediasoupClient.types.RtpParameters
+    rtpParameters: any
   }) => Promise<void>
   clientConnectRecvTransport: ({
     roomNum,
     dtlsParameters,
   }: {
     roomNum: string
-    dtlsParameters: mediasoupClient.types.DtlsParameters
+    dtlsParameters: any
   }) => void
   clientCreateRecvTransport: (roomNum: string) => void
   clientRequestProducers: ({
@@ -153,7 +151,7 @@ export interface ClientToServerEvents {
     rtpCapabilities,
   }: {
     roomNum: string
-    rtpCapabilities: mediasoup.types.RtpCapabilities
+    rtpCapabilities: any
   }) => void
   clientResumeConsumer: ({
     roomNum,

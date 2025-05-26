@@ -45,7 +45,7 @@ export default function UserProfile() {
         <div className="pointer-events-none size-8 overflow-hidden rounded-full border">
           <img src={placeholder} alt="placeholder" />
         </div>
-        <p className="pointer-events-none text-body2">{me.user?.nickname}</p>
+        <p className="pointer-events-none text-body2">{me?.user?.nickname}</p>
       </button>
 
       <AnimatePresence>

@@ -8,9 +8,10 @@ class RoomsService {
   }
 
   async getSingleRoom(
-    params: RequestBody<'/rooms/{roomId}', 'get'>,
+    roomId: string,
+    params?: RequestBody<'/rooms/{roomId}', 'get'>,
   ): Promise<ResponseBody<'/rooms/{roomId}', 'get'>> {
-    return await api.get(API_ENDPOINTS.ROOMS.SINGLE_ROOM(params))
+    return await api.get(API_ENDPOINTS.ROOMS.SINGLE_ROOM(roomId))
   }
 
   async joinRoom(
