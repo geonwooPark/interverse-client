@@ -184,12 +184,14 @@ export default function ParallaxSlider({
       onPointerCancel={handleMouseUp}
       onPointerLeave={handleMouseUp}
     >
+      {/* 현재 이미지 */}
       <div className="relative size-full">
         {cloneElement(slides[current] as React.ReactElement<any>, {
           draggable: false,
         })}
       </div>
 
+      {/* 오버레이 이미지 */}
       {overlayImage && (
         <div className="pointer-events-none absolute inset-0 z-20">
           <div
@@ -212,6 +214,16 @@ export default function ParallaxSlider({
           </div>
         </div>
       )}
+
+      {/* 페이지네이션 */}
+      <div className="absolute bottom-6 left-1/2 z-popover flex -translate-x-1/2 gap-2">
+        {slides.map((dot, idx) => (
+          <div
+            key={idx}
+            className={`${idx === current ? 'bg-cyan-400' : 'bg-white opacity-30'} size-2 rounded-full `}
+          />
+        ))}
+      </div>
     </div>
   )
 }
