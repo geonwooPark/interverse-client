@@ -1,5 +1,4 @@
 import React, { ComponentType, ReactNode } from 'react'
-import withSuspense from './withSuspense'
 
 export default function withLayout<T extends JSX.IntrinsicAttributes>(
   Layout: ComponentType<{ children: ReactNode }>,
@@ -15,8 +14,3 @@ export default function withLayout<T extends JSX.IntrinsicAttributes>(
 
   return WrappedComponent
 }
-
-export const withSuspenseLayout = <T extends JSX.IntrinsicAttributes>(
-  Layout: ComponentType<{ children: ReactNode }>,
-  Component: ComponentType<T>,
-) => withSuspense(withLayout(Layout, Component))

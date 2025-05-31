@@ -217,9 +217,10 @@ export default function ParallaxSlider({
 
       {/* 페이지네이션 */}
       <div className="absolute bottom-6 left-1/2 z-popover flex -translate-x-1/2 gap-2">
-        {slides.map((dot, idx) => (
-          <div
+        {slides.map((_, idx) => (
+          <button
             key={idx}
+            onClick={() => setCurrent(idx)}
             className={`${idx === current ? 'bg-cyan-400' : 'bg-white opacity-30'} size-2 rounded-full `}
           />
         ))}

@@ -75,8 +75,6 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
           입장하기
         </Button>
       </Container>
-
-      <div id="game"></div>
     </div>
   )
 }

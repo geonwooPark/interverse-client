@@ -14,7 +14,7 @@ export default function RoomListPage() {
   }
 
   return (
-    <div>
+    <div className="pb-[60px]">
       <div className="flex items-center justify-between pb-8 pt-4">
         <h2 className="text-h2 font-semibold">내 방 목록</h2>
 

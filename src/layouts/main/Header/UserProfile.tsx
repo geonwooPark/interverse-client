@@ -44,7 +44,7 @@ export default function UserProfile() {
         {isMenuOpen && (
           <m.ul
             {...slide({ distance: -20, isFade: true }).inY}
-            className="absolute -bottom-12 w-full overflow-hidden rounded-md bg-white shadow-level2"
+            className="absolute -bottom-12 right-0 z-overlay w-[120px] overflow-hidden rounded-md bg-white shadow-level2"
           >
             <li>
               <button

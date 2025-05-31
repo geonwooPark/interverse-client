@@ -1,19 +1,16 @@
 import { lazy } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import GuestGuard from '@components/Guard/GuestGuard'
-import { withSuspenseLayout } from '@hocs/withLayout'
 import AuthLayout from '@layouts/auth/layout'
+import withSuspense from '@hocs/withSuspense'
 
-const LoginPage = withSuspenseLayout(
-  AuthLayout,
+const LoginPage = withSuspense(
   lazy(() => import('../../pages/auth/login/page')),
 )
-const SignUpPage = withSuspenseLayout(
-  AuthLayout,
+const SignUpPage = withSuspense(
   lazy(() => import('../../pages/auth/sign-up/page')),
 )
-const RecoveryPage = withSuspenseLayout(
-  AuthLayout,
+const RecoveryPage = withSuspense(
   lazy(() => import('../../pages/auth/recovery/page')),
 )
 
@@ -23,7 +20,9 @@ export const authRoutes = [
   {
     element: (
       <GuestGuard>
-        <Outlet />
+        <AuthLayout>
+          <Outlet />
+        </AuthLayout>
       </GuestGuard>
     ),
     children: [

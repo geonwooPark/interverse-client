@@ -4,14 +4,22 @@ import Header from './Header'
 
 export default function RoomLayout({ children }: PropsWithChildren) {
   return (
-    <>
+    <div className="flex h-screen flex-col overflow-hidden">
+      {/* 헤더 */}
       <Header />
 
-      <main className="h-full pb-[80px] pt-[64px]">
-        <Container className="mx-auto max-w-[1440px] px-10 desktop:px-20">
+      {/* 게임 */}
+      <div
+        id="game-container"
+        style={{ position: 'fixed', zIndex: -1, inset: 0 }}
+      />
+
+      {/* UI */}
+      <main className="flex-1 overflow-y-auto">
+        <Container className="mx-auto h-full max-w-[1440px] px-10 desktop:px-20">
           {children}
         </Container>
       </main>
-    </>
+    </div>
   )
 }
