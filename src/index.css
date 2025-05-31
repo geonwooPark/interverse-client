@@ -13,8 +13,9 @@
 @tailwind utilities;
 
 @layer base {
+  html,
   body {
-    @apply font-pretendard text-light;
+    @apply font-pretendard h-full text-light;
   }
 
   *,
