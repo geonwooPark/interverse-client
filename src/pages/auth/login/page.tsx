@@ -12,12 +12,9 @@ import IconButton from '@components/IconButton'
 import { useLoginMutation } from '@hooks/mutations/authMutations'
 import { useStore } from 'ventileco-store'
 import { isLoggedInStore } from '@store/index'
-import useToast from '@hooks/useToast'
 
 function LoginPage() {
   const navigate = useNavigate()
-
-  const toast = useToast()
 
   const { mutate } = useLoginMutation()
 
@@ -42,7 +39,6 @@ function LoginPage() {
         setIsLoggedIn(true)
         navigate('/rooms')
         reset()
-        toast.success('환영해요! 기다리고 있었어요 😊')
       },
     })
   })

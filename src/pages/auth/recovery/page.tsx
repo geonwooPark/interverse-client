@@ -9,12 +9,9 @@ import Step1 from './Step1'
 import { schema } from './schema'
 import Step2 from './Step2'
 import { useChangePasswordMutation } from '@hooks/mutations/authMutations'
-import useToast from '@hooks/useToast'
 
 function RecoveryPage() {
   const navigate = useNavigate()
-
-  const toast = useToast()
 
   const { mutate: changePasswordMutate } = useChangePasswordMutation()
 
@@ -41,7 +38,6 @@ function RecoveryPage() {
       {
         onSuccess: () => {
           navigate(paths.login)
-          toast.success('비밀번호가 성공적으로 변경되었어요!')
         },
       },
     )

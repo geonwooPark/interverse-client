@@ -10,12 +10,9 @@ import { schema } from './schema'
 import RhfTextField from '@components/Rhf/RhfTextField'
 import FormProvider from '@components/Rhf/FormProvider'
 import RhfCounter from '@components/Rhf/RhfCounter'
-import useToast from '@hooks/useToast'
 
 function CreateRoomPage() {
   const navigate = useNavigate()
-
-  const toast = useToast()
 
   const { mutate: createRoomMutate } = useCreateRoomMutation()
 
@@ -39,7 +36,6 @@ function CreateRoomPage() {
       onSuccess: () => {
         reset()
         navigate(paths.rooms.root)
-        toast.success('함께할 준비 되셨나요? 새로운 방이 시작됐어요!')
       },
     })
   })

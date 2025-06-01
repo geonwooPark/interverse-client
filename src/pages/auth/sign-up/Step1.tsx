@@ -59,13 +59,19 @@ export default function Step1({ onNext }: StepProps) {
     if (isEmailValid) {
       const email = getValues('email')
 
-      checkIdMutate(email, {
-        onSuccess: () => {
-          sendVerificationEmailMutate(email, {
-            onSuccess: () => activeTimer(),
-          })
+      checkIdMutate(
+        { email },
+        {
+          onSuccess: () => {
+            sendVerificationEmailMutate(
+              { email },
+              {
+                onSuccess: () => activeTimer(),
+              },
+            )
+          },
         },
-      })
+      )
     }
   }
 
@@ -96,7 +102,7 @@ export default function Step1({ onNext }: StepProps) {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               placeholder="인증번호"
-              endIcon={timer}
+              endIcon={<div className="mr-3">{timer}</div>}
               className="mb-2 w-full"
             />
             <div className="flex gap-1 px-3 py-2 text-caption">
