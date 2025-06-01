@@ -29,7 +29,7 @@ interface LogProps {
 }
 
 export default function Log({ log, onDelete }: LogProps) {
-  const { data: me } = useMeQuery()
+  // const { data: me } = useMeQuery()
 
   return (
     <div className="group relative">
@@ -50,14 +50,14 @@ export default function Log({ log, onDelete }: LogProps) {
         </div>
       </Link>
 
-      {me?.user?.id === log.room?.host && (
-        <button
-          onClick={(e) => onDelete(e, log.room?._id || '')}
-          className="absolute right-2 top-2 hidden size-10 items-center justify-center rounded-md bg-white/50 duration-200 hover:bg-white/30 group-hover:flex"
-        >
-          <IconDelete className="size-5 text-error" />
-        </button>
-      )}
+      {/* {me?.user?.id === log.room?.host && ( */}
+      <button
+        onClick={(e) => onDelete(e, log.room?._id || '')}
+        className="absolute right-2 top-2 hidden size-10 items-center justify-center rounded-md bg-white/50 duration-200 hover:bg-white/30 group-hover:flex"
+      >
+        <IconDelete className="size-5 text-error" />
+      </button>
+      {/* )} */}
     </div>
   )
 }
