@@ -17,26 +17,6 @@
   body {
     @apply font-pretendard h-full text-light;
   }
-
-  *,
-  *:before,
-  *:after {
-    @apply cursor-default;
-  }
-}
-
-@layer components {
-  #phaser canvas {
-    width: 100%;
-  }
-
-  button,
-  a,
-  a > span,
-  svg,
-  svg > path {
-    @apply cursor-pointer;
-  }
 }
 
 @layer utilities {

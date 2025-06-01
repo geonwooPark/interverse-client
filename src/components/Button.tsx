@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority'
 import { cn } from '../utils/cn'
 import React, { InputHTMLAttributes, PropsWithChildren } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface ButtonProps
   extends Omit<InputHTMLAttributes<HTMLButtonElement>, 'size'> {
@@ -18,15 +19,14 @@ const ButtonVariants = cva(
   {
     variants: {
       size: {
-        sm: 'h-[36px] px-4 text-caption font-medium',
-        md: 'h-[40px] px-6 text-body2 font-medium',
-        lg: 'h-[48px] px-8 text-base font-bold',
+        sm: `h-[36px] px-4`,
+        md: `h-[40px] px-6`,
+        lg: `h-[48px] px-8`,
       },
       variant: {
-        contained:
-          'bg-cyan-500 text-white shadow-lg shadow-cyan-500/50 hover:bg-cyan-400',
-        outlined: 'border-2 border-cyan-500 text-cyan-500',
-        ghost: 'border-2',
+        contained: `${twMerge('text-white', '!text-body2')} bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-400`,
+        outlined: `border-2 border-cyan-500 text-body2 text-cyan-500`,
+        ghost: 'border-2 text-body2',
       },
       fullWidth: {
         true: 'w-full',
@@ -57,7 +57,7 @@ function Button({
       className={cn(ButtonVariants({ size, variant, fullWidth }), className)}
     >
       {leftIcon}
-      <span className="pointer-events-none">{children}</span>
+      {children}
       {rightIcon}
     </button>
   )
