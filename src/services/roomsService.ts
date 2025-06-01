@@ -27,14 +27,15 @@ class RoomsService {
   }
 
   async deleteRoom(
-    params: RequestBody<'/rooms/{roomId}', 'delete'>,
+    roomId: string,
+    params?: RequestBody<'/rooms/{roomId}', 'delete'>,
   ): Promise<ResponseBody<'/rooms/{roomId}', 'delete'>> {
-    return await api.post(`${API_ENDPOINTS.ROOMS.DELETE(params)}`)
+    return await api.delete(`${API_ENDPOINTS.ROOMS.DELETE(roomId)}`, params)
   }
 
   async checkPassword(
     roomId: string,
-    params: RequestBody<'/rooms/{roomId}/password', 'post'>,
+    params?: RequestBody<'/rooms/{roomId}/password', 'post'>,
   ): Promise<ResponseBody<'/rooms/{roomId}/password', 'post'>> {
     return await api.post(API_ENDPOINTS.ROOMS.CHECK_PASSWORD(roomId), params)
   }

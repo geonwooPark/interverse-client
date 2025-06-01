@@ -18,3 +18,18 @@ export const useCreateRoomMutation = () => {
     },
   })
 }
+
+export const useDeleteRoomMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<
+    ResponseBody<'/rooms/{roomId}', 'delete'>,
+    AxiosError,
+    string
+  >({
+    mutationFn: (roomId: string) => roomsService.deleteRoom(roomId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: roomsKeys.base })
+    },
+  })
+}

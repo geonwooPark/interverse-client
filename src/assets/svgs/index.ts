@@ -17,6 +17,7 @@ import IconEvelope from './IconEvelope.svg?react'
 import IconSuccess from './IconSuccess.svg?react'
 import IconError from './IconError.svg?react'
 import IconInfo from './IconInfo.svg?react'
+import IconDelete from './IconDelete.svg?react'
 
 export {
   IconCam,
@@ -38,4 +39,5 @@ export {
   IconSuccess,
   IconError,
   IconInfo,
+  IconDelete,
 }
