@@ -51,9 +51,7 @@ export default function UserProfile() {
                 className="w-full bg-white px-3 py-2 duration-200 hover:bg-gray-50"
                 onClick={logout}
               >
-                <p className="pointer-events-none text-start text-body2 text-red-600">
-                  로그아웃
-                </p>
+                <p className="text-start text-body2 text-red-600">로그아웃</p>
               </button>
             </li>
           </m.ul>

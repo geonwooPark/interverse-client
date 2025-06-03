@@ -2,14 +2,18 @@ import { authKeys } from '@hooks/queries/authQueries'
 import useToast from '@hooks/useToast'
 import { RequestBody, ResponseBody } from '@interfaces/api'
 import { authService } from '@services/authService'
+import { isLoggedInStore } from '@store/index'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { setLocalStorageItem } from '@utils/localStorage'
 import { AxiosError } from 'axios'
+import { useStore } from 'ventileco-store'
 
 export const useLoginMutation = () => {
   const queryClient = useQueryClient()
 
   const toast = useToast()
+
+  const [, setIsLoggedIn] = useStore(isLoggedInStore, (state) => state)
 
   return useMutation<
     ResponseBody<'/auth/login', 'post'>,
@@ -20,8 +24,12 @@ export const useLoginMutation = () => {
     onSuccess: (result) => {
       const { message, data } = result
 
+      queryClient.setQueryData(authKeys.me(), {
+        message: '',
+        data,
+      })
       setLocalStorageItem('interverse_token', data?.token)
-      queryClient.setQueryData(authKeys.me(), data?.user)
+      setIsLoggedIn(true)
       if (message) {
         toast.success(message)
       }
