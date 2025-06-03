@@ -15,7 +15,7 @@ export default function UserProfile() {
 
   const queryClient = useQueryClient()
 
-  const { data } = useMeQuery()
+  const { data: me } = useMeQuery()
 
   const [, setIsLoggedIn] = useStore(isLoggedInStore, (state) => state)
 
@@ -34,10 +34,10 @@ export default function UserProfile() {
         onClick={() => setIsMenuOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-md px-3 py-2 duration-200 hover:bg-gray-100"
       >
-        <div className="pointer-events-none size-8 overflow-hidden rounded-full border">
+        <div className="size-8 overflow-hidden rounded-full border">
           <img src={placeholder} alt="placeholder" />
         </div>
-        <p className="pointer-events-none text-body2">{data?.user?.nickname}</p>
+        <p className="text-body2">{me?.user?.nickname}</p>
       </button>
 
       <AnimatePresence>
