@@ -1,13 +1,19 @@
 export default class Preload extends Phaser.Scene {
+  private map!: string
+
   constructor() {
     // Scene Key
     super('preload')
   }
 
+  init(data: { map: string }) {
+    this.map = data.map
+  }
+
   // Scene이 로드되기 전에 호출, 사용할 에셋을 로드
   preload() {
     // Tiled로 생성된 JSON 형식의 타입맵을 로드
-    this.load.tilemapTiledJSON('tilemap', `/assets/map/interverse.json`)
+    this.load.tilemapTiledJSON('tilemap', this.map)
     // 스프라이트 시트 이미지 파일을 로드
     this.load.spritesheet('floorAndWall', `/assets/builder/floorAndWall.png`, {
       frameWidth: 32,

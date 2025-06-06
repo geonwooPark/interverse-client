@@ -23,12 +23,15 @@ function RoomPage() {
 
   // 필요한 에셋 프리로드
   useEffect(() => {
+    if (!room?.mapId) return
+
     const game = GameManager.getInstance()
 
-    if (!game.scene.isActive('Preload')) {
-      game.scene.start('Preload')
+    if (game.scene.isActive('preload')) {
+      game.scene.stop('preload')
     }
-  }, [])
+    game.scene.start('preload', { map: room?.mapId })
+  }, [room?.mapId])
 
   return (
     <StepFlow activeStep={step} onNext={onNext}>

@@ -13,13 +13,13 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
   const handleChange = (page: number) => {
     if (!maps) return
 
-    onChange(maps[page - 1]._id)
+    onChange(maps[page - 1].source)
   }
 
   useEffect(() => {
     if (!maps) return
 
-    onChange(maps[0]._id)
+    onChange(maps[0].source)
   }, [isSuccess])
 
   return (

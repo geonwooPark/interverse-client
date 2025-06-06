@@ -816,7 +816,7 @@ export interface paths {
                         password: string;
                         /** @example 6 */
                         headCount: number;
-                        /** @example 66501d3e9922f689c347bca7 */
+                        /** @example office */
                         mapId: string;
                     };
                 };
@@ -906,11 +906,12 @@ export interface paths {
                             message?: string;
                             data?: {
                                 _id?: string;
-                                title?: string;
+                                name?: string;
                                 host?: string;
-                                headCount?: number;
                                 isHost?: boolean;
+                                title?: string;
                                 mapId?: string;
+                                headCount?: number;
                             };
                         };
                     };
