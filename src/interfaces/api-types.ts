@@ -631,7 +631,7 @@ export interface paths {
                                 /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
                                 thumbnail: string;
                                 /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                source: string;
+                                mapSrc: string;
                             }[];
                         };
                     };
@@ -667,7 +667,7 @@ export interface paths {
                         /** @example https://example.com/image.jpg */
                         thumbnail: string;
                         /** @example https://example.com/map-source */
-                        source: string;
+                        mapSrc: string;
                     };
                 };
             };
@@ -689,7 +689,7 @@ export interface paths {
                                 /** @example https://example.com/image.jpg */
                                 thumbnail?: string;
                                 /** @example https://example.com/map-source */
-                                source?: string;
+                                mapSrc?: string;
                             };
                         };
                     };
@@ -760,8 +760,8 @@ export interface paths {
                                     host?: string;
                                     /** @example 4 */
                                     headCount?: number;
-                                    /** @example 68160673c9a7b70fb5cabb8b */
-                                    mapId?: string;
+                                    /** @example https://example.com/map-source */
+                                    mapSrc?: string;
                                 };
                                 map?: {
                                     /** @example 645f3d8f2345abcd12345680 */
@@ -817,7 +817,7 @@ export interface paths {
                         /** @example 6 */
                         headCount: number;
                         /** @example office */
-                        mapId: string;
+                        mapSrc: string;
                     };
                 };
             };
@@ -836,7 +836,7 @@ export interface paths {
                                 title?: string;
                                 headCount?: number;
                                 host?: string;
-                                mapId?: string;
+                                mapSrc?: string;
                             };
                         };
                     };
@@ -910,7 +910,7 @@ export interface paths {
                                 host?: string;
                                 isHost?: boolean;
                                 title?: string;
-                                mapId?: string;
+                                mapSrc?: string;
                                 headCount?: number;
                             };
                         };
@@ -1045,7 +1045,7 @@ export interface paths {
                                 title?: string;
                                 headCount?: number;
                                 host?: string;
-                                mapId?: string;
+                                mapSrc?: string;
                             };
                         };
                     };

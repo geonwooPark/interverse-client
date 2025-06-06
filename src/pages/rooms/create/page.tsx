@@ -23,14 +23,14 @@ function CreateRoomPage() {
       title: '',
       password: '',
       headCount: 4,
-      mapId: undefined,
+      mapSrc: undefined,
     },
   })
 
   const { handleSubmit, setValue, reset } = methods
 
   const onSubmit = handleSubmit(async (data) => {
-    if (!data.mapId) return
+    if (!data.mapSrc) return
 
     createRoomMutate(data, {
       onSuccess: () => {
@@ -46,7 +46,7 @@ function CreateRoomPage() {
       <div className="relative z-10 mt-10 h-full w-[400px] rounded-3xl">
         <h4 className="mb-4 text-center text-h4">새로운 방 만들기</h4>
 
-        <MapSelector onChange={(map) => setValue('mapId', map)} />
+        <MapSelector onChange={(map) => setValue('mapSrc', map)} />
 
         <FormProvider methods={methods}>
           <div className="mb-6 space-y-3 text-center">
