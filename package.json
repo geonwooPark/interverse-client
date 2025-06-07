@@ -17,11 +17,9 @@
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "mediasoup-client": "^3.9.5",
     "motion": "^12.7.4",
-    "nanoid": "^5.0.6",
     "phaser": "^3.80.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -34,7 +32,6 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.2.2",
     "@types/react": "^18.2.56",
     "@types/react-dom": "^18.2.19",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
