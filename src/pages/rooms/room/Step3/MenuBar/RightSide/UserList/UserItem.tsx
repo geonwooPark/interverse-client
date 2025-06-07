@@ -1,5 +1,4 @@
 import IconButton from '@components/IconButton'
-import { TEXTURE_MAP } from '@constants/index'
 import OtherPlayer from '@games/avatars/OtherPlayer'
 
 interface UserItemProps {
@@ -12,7 +11,10 @@ function UserItem({ user, handleMessageModal }: UserItemProps) {
     <li key={user.socketId} className="flex items-center justify-between p-2">
       <div className="flex items-center">
         <div
-          className={`mr-2 size-8 rounded-full border bg-[63px] ${TEXTURE_MAP[user.texture.key]}`}
+          style={{
+            backgroundImage: `url(${import.meta.env.VITE_ASSET}/characters/source/${user.texture.key}.png)`,
+          }}
+          className={`mr-2 size-8 rounded-full border bg-[63px]`}
         />
         <p className="line-clamp-1 whitespace-pre-wrap break-words text-body2">
           {user.nickname.text}

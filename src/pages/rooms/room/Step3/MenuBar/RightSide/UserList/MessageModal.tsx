@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
-import { useScene } from '@providers/SceneProvider'
 import { useMeQuery } from '@hooks/queries/authQueries'
-import { useParams } from 'react-router-dom'
 import Button from '@components/Button'
 import fade from '@components/Animation/motions/fade'
 import { motion as m } from 'motion/react'
+import GameScene from '@games/scenes/Game'
+import GameManager from '@managers/GameManager'
 
 interface MessageModalProps {
-  onClose: () => void
   id: string
+  roomId: string
+  onClose: () => void
 }
 
 export default function MessageModal({
-  onClose,
   id: receiverId,
+  roomId,
+  onClose,
 }: MessageModalProps) {
   const { data: me } = useMeQuery()
 
-  const { id: roomId } = useParams()
+  const game = GameManager.getInstance()
 
-  const gameScene = useScene()
+  const gameScene = game.scene.getScene('game') as GameScene
 
   const player = gameScene.player
 
@@ -45,13 +47,13 @@ export default function MessageModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[500] h-screen w-screen">
+    <div className="fixed inset-0 z-dialog h-screen w-screen">
       {/* Dim */}
       <div onClick={onClose} className="size-full bg-black/70" />
       {/* Modal */}
       <m.div
         {...fade().fadeIn}
-        className={`absolute left-[50%] top-[50%] size-full h-fit w-[480px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white`}
+        className={`absolute left-1/2 top-1/2 size-full h-fit w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white`}
       >
         {/* 헤더 */}
         <div className="body1 px-4 py-3">메시지</div>

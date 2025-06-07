@@ -1,23 +1,24 @@
 import Button from '@components/Button'
-import { useScene } from '@providers/SceneProvider'
 import { useState } from 'react'
 import { useMeQuery } from '@hooks/queries/authQueries'
-import { useParams } from 'react-router-dom'
 import { IDirectMessage } from '@interfaces/index'
 import { motion as m } from 'motion/react'
 import fade from '@components/Animation/motions/fade'
+import GameScene from '@games/scenes/Game'
+import GameManager from '@managers/GameManager'
 
 interface DMProps {
   dm: IDirectMessage
+  roomId: string
   onClose: () => void
 }
 
-function MessageModal({ dm, onClose }: DMProps) {
+function MessageModal({ dm, roomId, onClose }: DMProps) {
   const { data: me } = useMeQuery()
 
-  const { id: roomId } = useParams()
+  const game = GameManager.getInstance()
 
-  const gameScene = useScene()
+  const gameScene = game.scene.getScene('game') as GameScene
 
   const player = gameScene.player
 

@@ -6,8 +6,11 @@ import Trigger from './Trigger'
 import { useModal } from '@providers/ModalProvider'
 import MessageModal from './MessageModal'
 import slide from '@components/Animation/motions/slide'
+import { useParams } from 'react-router-dom'
 
 export default function MessageList() {
+  const { id: roomId } = useParams()
+
   const { addModal, removeModal } = useModal()
 
   const gameScene = useScene()
@@ -29,7 +32,9 @@ export default function MessageList() {
 
   const readDM = (dm: any) => {
     DMManager.readDM(dm.id)
-    addModal(<MessageModal dm={dm} onClose={removeModal} />)
+    addModal(
+      <MessageModal dm={dm} roomId={roomId || ''} onClose={removeModal} />,
+    )
   }
 
   const readAllDM = () => {

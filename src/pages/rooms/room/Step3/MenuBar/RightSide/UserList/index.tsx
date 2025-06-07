@@ -2,13 +2,15 @@ import { useState, useSyncExternalStore } from 'react'
 import UserItem from './UserItem'
 import { AnimatePresence, motion as m } from 'motion/react'
 import { useScene } from '@providers/SceneProvider'
-import { TEXTURE_MAP } from '@constants/index'
 import { useModal } from '@providers/ModalProvider'
 import Trigger from './Trigger'
 import MessageModal from './MessageModal'
 import slide from '@components/Animation/motions/slide'
+import { useParams } from 'react-router-dom'
 
 function UserList() {
+  const { id: roomId } = useParams()
+
   const { addModal, removeModal } = useModal()
 
   const gameScene = useScene()
@@ -27,7 +29,9 @@ function UserList() {
   }
 
   const handleMessageModal = (id: string) => {
-    addModal(<MessageModal id={id} onClose={removeModal} />)
+    addModal(
+      <MessageModal id={id} roomId={roomId || ''} onClose={removeModal} />,
+    )
   }
 
   return (
@@ -48,7 +52,10 @@ function UserList() {
             <li className="flex items-center justify-between p-2">
               <div className="flex items-center">
                 <div
-                  className={`mr-2 size-8 rounded-full border bg-[63px] ${TEXTURE_MAP[gameScene.player.texture.key]}`}
+                  style={{
+                    backgroundImage: `url(${import.meta.env.VITE_ASSET}/characters/source/${gameScene.player.texture.key}.png)`,
+                  }}
+                  className={`mr-2 size-8 rounded-full border bg-[63px]`}
                 />
                 {gameScene.player.nickname.text}
               </div>
