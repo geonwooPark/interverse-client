@@ -6,6 +6,7 @@ import Step3 from './Step3'
 import { useSingleRoomQuery } from '@hooks/queries/roomsQueries'
 import { useParams } from 'react-router-dom'
 import GameManager from '@managers/GameManager'
+import { useCharactersQuery } from '@hooks/queries/assetsQueries'
 
 /**
  * 룸 화면
@@ -14,6 +15,8 @@ function RoomPage() {
   const { id: roomId } = useParams()
 
   const { data: room, isPending } = useSingleRoomQuery(roomId as string)
+
+  const { data: characters } = useCharactersQuery()
 
   const [step, setStep] = useState(0)
 
@@ -30,8 +33,11 @@ function RoomPage() {
     if (!game.scene.isActive('preload')) {
       game.scene.stop('preload')
     }
-    game.scene.start('preload', { mapSrc: room?.mapSrc })
-  }, [room?._id, room?.mapSrc])
+    game.scene.start('preload', {
+      mapSrc: room?.mapSrc,
+      charactersSrc: characters,
+    })
+  }, [room?._id, room?.mapSrc, characters])
 
   return (
     <StepFlow activeStep={step} onNext={onNext}>

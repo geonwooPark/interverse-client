@@ -1,13 +1,30 @@
 export default class Preload extends Phaser.Scene {
   private mapSrc!: string
+  private charactersSrc!: {
+    _id: string
+    name: string
+    source: string
+    width: number
+    height: number
+  }[]
 
   constructor() {
     // Scene Key
     super('preload')
   }
 
-  init(data: { mapSrc: string }) {
+  init(data: {
+    mapSrc: string
+    charactersSrc: {
+      _id: string
+      name: string
+      source: string
+      width: number
+      height: number
+    }[]
+  }) {
     this.mapSrc = data.mapSrc
+    this.charactersSrc = data.charactersSrc
   }
 
   // Scene이 로드되기 전에 호출, 사용할 에셋을 로드
@@ -87,25 +104,12 @@ export default class Preload extends Phaser.Scene {
         frameHeight: 20,
       },
     )
-    this.load.spritesheet('conference', `/assets/character/conference.png`, {
-      frameWidth: 32,
-      frameHeight: 48,
-    })
-    this.load.spritesheet('bob', `/assets/character/bob.png`, {
-      frameWidth: 32,
-      frameHeight: 48,
-    })
-    this.load.spritesheet('emma', `/assets/character/emma.png`, {
-      frameWidth: 32,
-      frameHeight: 48,
-    })
-    this.load.spritesheet('james', `/assets/character/james.png`, {
-      frameWidth: 32,
-      frameHeight: 48,
-    })
-    this.load.spritesheet('sofia', `/assets/character/sofia.png`, {
-      frameWidth: 32,
-      frameHeight: 52,
-    })
+
+    this.charactersSrc.forEach((character) =>
+      this.load.spritesheet(character.name, character.source, {
+        frameWidth: character.width,
+        frameHeight: character.height,
+      }),
+    )
   }
 }

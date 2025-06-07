@@ -1,5 +1,5 @@
 import Icon from '@components/Icon'
-import { useMapsQuery } from '@hooks/queries/mapsQueries'
+import { useMapsQuery } from '@hooks/queries/assetsQueries'
 import React, { useEffect } from 'react'
 import { Slider } from 'ventileco-ui'
 
