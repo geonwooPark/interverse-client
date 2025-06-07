@@ -51,3 +51,23 @@ export const useDeleteRoomMutation = () => {
     },
   })
 }
+
+export const useJoinRoomMutation = () => {
+  const queryClient = useQueryClient()
+
+  const toast = useToast()
+
+  return useMutation<
+    ResponseBody<'/rooms/{roomId}/join', 'post'>,
+    AxiosError,
+    string
+  >({
+    mutationFn: (roomId: string) => roomsService.joinRoom(roomId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: roomsKeys.base })
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}

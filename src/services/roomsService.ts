@@ -15,9 +15,10 @@ class RoomsService {
   }
 
   async joinRoom(
-    params: RequestBody<'/rooms/{roomId}/join', 'post'>,
+    roomId: string,
+    params?: RequestBody<'/rooms/{roomId}/join', 'post'>,
   ): Promise<ResponseBody<'/rooms/{roomId}/join', 'post'>> {
-    return await api.post(API_ENDPOINTS.ROOMS.JOIN(params))
+    return await api.post(API_ENDPOINTS.ROOMS.JOIN(roomId))
   }
 
   async createRoom(

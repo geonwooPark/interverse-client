@@ -4,6 +4,231 @@
  */
 
 export interface paths {
+    "/assets/maps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 모든 맵 리스트 조회 */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description 맵 리스트 반환 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 성공적으로 맵 리스트를 가져왔습니다. */
+                            message?: string;
+                            data?: {
+                                /** @example 645f3d8f2345abcd12345680 */
+                                _id: string;
+                                /** @example office */
+                                name: string;
+                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                thumbnail: string;
+                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                mapSrc: string;
+                            }[];
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** 새 맵 생성 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @example Sample Map */
+                        name: string;
+                        /** @example https://example.com/image.jpg */
+                        thumbnail: string;
+                        /** @example https://example.com/map-source */
+                        mapSrc: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description 맵 생성 성공 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 성공적으로 맵을 생성했습니다. */
+                            message?: string;
+                            data?: {
+                                /** @example 645f3d8f2345abcd12345678 */
+                                _id?: string;
+                                /** @example Sample Map */
+                                name?: string;
+                                /** @example https://example.com/image.jpg */
+                                thumbnail?: string;
+                                /** @example https://example.com/map-source */
+                                mapSrc?: string;
+                            };
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/assets/characters": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 모든 캐릭터 리스트 조회 */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description 캐릭터 리스트 반환 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 성공적으로 캐릭터 리스트를 가져왔습니다. */
+                            message?: string;
+                            data?: {
+                                _id: string;
+                                name: string;
+                                source: string;
+                                width: number;
+                                height: number;
+                            }[];
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** 새 캐릭터 생성 */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        name: string;
+                        source: string;
+                        width: number;
+                        height: number;
+                    };
+                };
+            };
+            responses: {
+                /** @description 캐릭터 생성 성공 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            message?: string;
+                            data?: {
+                                _id?: string;
+                                name?: string;
+                                source?: string;
+                                width?: number;
+                                height?: number;
+                            };
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/login": {
         parameters: {
             query?: never;
@@ -595,123 +820,6 @@ export interface paths {
                 };
             };
         };
-        trace?: never;
-    };
-    "/maps": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 모든 맵 리스트 조회 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 맵 리스트 반환 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 성공적으로 맵 리스트를 가져왔습니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345680 */
-                                _id: string;
-                                /** @example office */
-                                name: string;
-                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                thumbnail: string;
-                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                mapSrc: string;
-                            }[];
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        /** 새 맵 생성 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @example Sample Map */
-                        name: string;
-                        /** @example https://example.com/image.jpg */
-                        thumbnail: string;
-                        /** @example https://example.com/map-source */
-                        mapSrc: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 맵 생성 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 성공적으로 맵을 생성했습니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345678 */
-                                _id?: string;
-                                /** @example Sample Map */
-                                name?: string;
-                                /** @example https://example.com/image.jpg */
-                                thumbnail?: string;
-                                /** @example https://example.com/map-source */
-                                mapSrc?: string;
-                            };
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
         trace?: never;
     };
     "/rooms": {
