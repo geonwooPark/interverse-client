@@ -14,8 +14,8 @@ export default function RoomListPage() {
   }
 
   return (
-    <div className="pb-[60px]">
-      <div className="flex items-center justify-between pb-8 pt-4">
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between pb-6 pt-4">
         <h2 className="text-h2 font-semibold">현재 이용 중인 공간</h2>
 
         <Button

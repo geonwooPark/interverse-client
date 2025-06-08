@@ -4,6 +4,7 @@ import Log from './Log'
 import { useModal } from '@providers/ModalProvider'
 import ConfirmModal from '@components/ConfirmModal'
 import { useDeleteRoomMutation } from '@hooks/mutations/roomsMutation'
+import Empty from '@components/Empty'
 
 export default function LogList() {
   const { addModal, removeModal } = useModal()
@@ -36,8 +37,12 @@ export default function LogList() {
     )
   }
 
+  if (logs?.length === 0) {
+    return <Empty label="현재 참여 중인 방이 없습니다." />
+  }
+
   return (
-    <div className="grid w-full grid-cols-2 gap-4 desktop:grid-cols-4">
+    <div className="grid size-full grid-cols-2 gap-4 pb-[60px] desktop:grid-cols-4">
       {logs?.map((log) => (
         <Log key={log.joinedAt} log={log} onDelete={handleDeleteModal} />
       ))}
