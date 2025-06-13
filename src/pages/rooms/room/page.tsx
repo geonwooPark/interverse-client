@@ -30,9 +30,6 @@ function RoomPage() {
 
     const game = GameManager.getInstance()
 
-    if (!game.scene.isActive('preload')) {
-      game.scene.stop('preload')
-    }
     game.scene.start('preload', {
       mapSrc: room?.mapSrc,
       charactersSrc: characters,

@@ -10,7 +10,11 @@ import { isLoggedInStore } from '@store/index'
 import slide from '@components/Animation/motions/slide'
 import useToast from '@hooks/useToast'
 
-export default function UserProfile() {
+interface UserProfileProps {
+  onGameReset: () => void
+}
+
+export default function UserProfile({ onGameReset }: UserProfileProps) {
   const toast = useToast()
 
   const queryClient = useQueryClient()
@@ -25,6 +29,7 @@ export default function UserProfile() {
     toast.success('로그아웃 완료! 편안한 하루 보내세요 😊')
     removeLocalStorageItem(TOKEN)
     setIsLoggedIn(false)
+    onGameReset()
     queryClient.clear()
   }
 
