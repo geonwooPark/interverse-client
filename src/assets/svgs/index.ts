@@ -2,6 +2,7 @@ import IconCam from './IconCam.svg?react'
 import IconMic from './IconMic.svg?react'
 import IconChat from './IconChat.svg?react'
 import IconGithub from './IconGithub.svg?react'
+import IconGoogle from './IconGoogle.svg?react'
 import IconLink from './IconLink.svg?react'
 import IconMessage from './IconMessage.svg?react'
 import IconOff from './IconOff.svg?react'
@@ -24,6 +25,7 @@ export {
   IconMic,
   IconChat,
   IconGithub,
+  IconGoogle,
   IconLink,
   IconMessage,
   IconOff,

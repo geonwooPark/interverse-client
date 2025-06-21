@@ -9,12 +9,18 @@ import RhfTextField from '@components/Rhf/RhfTextField'
 import FormProvider from '@components/Rhf/FormProvider'
 import { useReducer } from 'react'
 import IconButton from '@components/IconButton'
-import { useLoginMutation } from '@hooks/mutations/authMutations'
+import {
+  useGoogleLoginMutation,
+  useLoginMutation,
+} from '@hooks/mutations/authMutations'
+import { IconGoogle } from '@assets/svgs'
 
 function LoginPage() {
   const navigate = useNavigate()
 
-  const { mutate } = useLoginMutation()
+  const { mutate: loginMutate } = useLoginMutation()
+
+  const { mutate: googleLoginMutate } = useGoogleLoginMutation()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -29,8 +35,8 @@ function LoginPage() {
 
   const [showPassword, setShowPassword] = useReducer((prev) => !prev, false)
 
-  const onSubmit = handleSubmit(async (loginData) => {
-    mutate(loginData, {
+  const login = handleSubmit(async (loginData) => {
+    loginMutate(loginData, {
       onSuccess: () => {
         reset()
       },
@@ -39,7 +45,7 @@ function LoginPage() {
 
   return (
     <FadeIn>
-      <FormProvider methods={methods} onSubmit={onSubmit}>
+      <FormProvider methods={methods} onSubmit={login}>
         <div className="flex flex-col gap-8">
           <div>
             <h4 className="mb-4 text-center text-h4">로그인</h4>
@@ -79,6 +85,17 @@ function LoginPage() {
             </Button>
 
             <div className="h-[2px] w-full bg-gray-200" />
+
+            <Button
+              type="button"
+              size="md"
+              variant="ghost"
+              fullWidth
+              leftIcon={<IconGoogle className="size-5" />}
+              className="gap-1"
+            >
+              Google로 로그인
+            </Button>
 
             <div className="mt-4 text-center text-caption">
               처음 방문하셨나요?{' '}
