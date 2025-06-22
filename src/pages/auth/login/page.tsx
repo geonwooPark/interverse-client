@@ -9,18 +9,13 @@ import RhfTextField from '@components/Rhf/RhfTextField'
 import FormProvider from '@components/Rhf/FormProvider'
 import { useReducer } from 'react'
 import IconButton from '@components/IconButton'
-import {
-  useGoogleLoginMutation,
-  useLoginMutation,
-} from '@hooks/mutations/authMutations'
+import { useLoginMutation } from '@hooks/mutations/authMutations'
 import { IconGoogle } from '@assets/svgs'
 
 function LoginPage() {
   const navigate = useNavigate()
 
   const { mutate: loginMutate } = useLoginMutation()
-
-  const { mutate: googleLoginMutate } = useGoogleLoginMutation()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -93,6 +88,9 @@ function LoginPage() {
               fullWidth
               leftIcon={<IconGoogle className="size-5" />}
               className="gap-1"
+              onClick={() =>
+                (window.location.href = `${import.meta.env.VITE_API_V1_SERVER}/auth/google`)
+              }
             >
               Google로 로그인
             </Button>
