@@ -5,9 +5,10 @@
   "scripts": {
     "start:dev": "vite --mode development",
     "start:alpha": "vite --mode alpha",
-    "build": "tsc --project tsconfig.json && vite build",
+    "start:prod": "vite --mode production",
+    "build:alpha": "tsc --project tsconfig.json && vite build --mode alpha",
+    "build:prod": "tsc --project tsconfig.json && vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
     "prepare": "husky install",
     "gen-api": "node ./generate-api.cjs"
   },
