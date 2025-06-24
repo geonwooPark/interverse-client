@@ -29,6 +29,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Create .env file from Secrets
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "${{ secrets.ENV_PROD }}" > .env.production
+          else
+            echo "${{ secrets.ENV_ALPHA }}" > .env.alpha
+          fi
+
       - name: Build based on branch
         run: |
           if [ "${{ github.ref_name }}" = "main" ]; then

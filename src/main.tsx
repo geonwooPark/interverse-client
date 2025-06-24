@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ToastProvider from '@providers/ToastProvider/index.tsx'
 import ModalProvider from '@providers/ModalProvider.tsx'
+import React from 'react'
 
 const queryClient = new QueryClient()
 

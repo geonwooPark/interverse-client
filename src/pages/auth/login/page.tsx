@@ -41,6 +41,7 @@ function LoginPage() {
   return (
     <FadeIn>
       <FormProvider methods={methods} onSubmit={login}>
+        CICD 테스트
         <div className="flex flex-col gap-8">
           <div>
             <h4 className="mb-4 text-center text-h4">로그인</h4>
@@ -89,7 +90,9 @@ function LoginPage() {
               leftIcon={<IconGoogle className="size-5" />}
               className="gap-1"
               onClick={() =>
-                (window.location.href = `${import.meta.env.VITE_API_V1_SERVER}/auth/google`)
+                (window.location.href = `${
+                  import.meta.env.VITE_API_V1_SERVER
+                }/auth/google`)
               }
             >
               Google로 로그인
