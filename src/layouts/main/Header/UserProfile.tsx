@@ -40,7 +40,7 @@ export default function UserProfile({ onGameReset }: UserProfileProps) {
         className="flex items-center gap-2 rounded-md px-3 py-2 duration-200 hover:bg-gray-100"
       >
         <div className="size-8 overflow-hidden rounded-full border">
-          <img src={placeholder} alt="placeholder" />
+          <img src={me?.user?.profile || placeholder} alt="placeholder" />
         </div>
         <p className="text-body2">{me?.user?.nickname}</p>
       </button>

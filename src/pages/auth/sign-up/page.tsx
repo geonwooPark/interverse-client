@@ -9,6 +9,7 @@ import Step2 from './Step2'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
 import { useSignUpMutation } from '@hooks/mutations/authMutations'
+import { CustomFile } from 'ventileco-ui'
 
 function SignUpPage() {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ function SignUpPage() {
     resolver: yupResolver(schema),
     mode: 'onBlur',
     defaultValues: {
+      profile: [],
       email: '',
       password: '',
       confirmPassword: '',
@@ -31,9 +33,19 @@ function SignUpPage() {
   const { handleSubmit } = methods
 
   const onSubmit = handleSubmit(async (data) => {
-    const { confirmPassword, ...rest } = data
+    const { confirmPassword, profile, ...rest } = data
 
-    mutate(rest, {
+    const formData = new FormData()
+
+    Object.entries(rest).forEach(([key, value]) => {
+      formData.append(key, value as string)
+    })
+
+    if (profile?.[0]) {
+      formData.append('profile', profile?.[0] as CustomFile)
+    }
+
+    mutate(formData, {
       onSuccess: () => {
         navigate(paths.login)
       },
@@ -43,6 +55,7 @@ function SignUpPage() {
   const onNext = () => {
     setActiveStep((prev) => prev + 1)
   }
+
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <h4 className="mb-4 text-center text-h4">회원가입</h4>

@@ -1,6 +1,7 @@
 import * as yup from 'yup'
 
 export const schema = yup.object().shape({
+  profile: yup.array().of(yup.mixed()),
   email: yup
     .string()
     .required('이메일을 필수로 입력해주세요')

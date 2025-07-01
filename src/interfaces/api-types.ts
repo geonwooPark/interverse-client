@@ -280,8 +280,11 @@ export interface paths {
                                     id?: string;
                                     /** @example user@example.com */
                                     email?: string;
-                                    /** @example user */
-                                    role?: string;
+                                    /**
+                                     * @example user
+                                     * @enum {string}
+                                     */
+                                    role?: "user" | "admin";
                                 };
                             };
                         };
@@ -331,55 +334,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/auth/google": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * 구글 OAuth 로그인 시작
-         * @description 사용자를 구글 로그인 페이지로 리디렉션합니다.
-         */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 구글 로그인 페이지로 리디렉션 */
-                302: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example Google OAuth redirection failed */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/auth/signup": {
         parameters: {
             query?: never;
@@ -399,15 +353,15 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": {
+                    "multipart/form-data": {
                         /**
-                         * Format: email
-                         * @example user@example.com
+                         * Format: binary
+                         * @description 업로드할 프로필 이미지
                          */
+                        profile?: string;
+                        /** Format: email */
                         email: string;
-                        /** @example mypassword123 */
                         password: string;
-                        /** @example cooluser */
                         nickname: string;
                     };
                 };
@@ -420,16 +374,26 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** @example 회원가입 성공! */
+                            /** @example 가입이 완료됐어요! 지금부터 함께해요 🙌 */
                             message?: string;
                             data?: {
                                 user?: {
-                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
+                                    /** @example 60d0fe4f5311236168a109ca */
                                     _id?: string;
-                                    /** @example user@example.com */
+                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
+                                    profile?: string;
+                                    /**
+                                     * Format: email
+                                     * @example user@example.com
+                                     */
                                     email?: string;
-                                    /** @example cooluser */
+                                    /** @example geonwoo */
                                     nickname?: string;
+                                    /**
+                                     * @example user
+                                     * @enum {string}
+                                     */
+                                    role?: "user" | "admin";
                                 };
                             };
                         };
@@ -510,12 +474,17 @@ export interface paths {
                                 user?: {
                                     /** @example 608c1f9b4f1a4629a4e9c8a1 */
                                     id?: string;
+                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
+                                    profile?: string;
                                     /** @example user@example.com */
                                     email?: string;
                                     /** @example cooluser */
                                     nickname?: string;
-                                    /** @example user */
-                                    role?: string;
+                                    /**
+                                     * @example user
+                                     * @enum {string}
+                                     */
+                                    role?: "user" | "admin";
                                 };
                             };
                         };
@@ -869,6 +838,55 @@ export interface paths {
                 };
             };
         };
+        trace?: never;
+    };
+    "/auth/google": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 구글 OAuth 로그인 시작
+         * @description 사용자를 구글 로그인 페이지로 리디렉션합니다.
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description 구글 로그인 페이지로 리디렉션 */
+                302: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Google OAuth redirection failed */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/rooms": {

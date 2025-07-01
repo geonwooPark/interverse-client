@@ -39,7 +39,7 @@ export const useSignUpMutation = () => {
   return useMutation<
     ResponseBody<'/auth/signup', 'post'>,
     AxiosError,
-    RequestBody<'/auth/signup', 'post'>
+    FormData
   >({
     mutationFn: (params) => authService.signup(params),
     onSuccess: (result) => {

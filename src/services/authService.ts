@@ -9,7 +9,7 @@ class AuthService {
   }
 
   async signup(
-    params: RequestBody<'/auth/signup', 'post'>,
+    params: FormData,
   ): Promise<ResponseBody<'/auth/signup', 'post'>> {
     return await api.post('/auth/signup', params)
   }
