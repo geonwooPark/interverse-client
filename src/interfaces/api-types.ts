@@ -334,6 +334,75 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/auth/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 액세스 토큰 재발급 (리프레시 토큰 사용)
+         * @description 클라이언트가 쿠키에 저장된 리프레시 토큰을 보내면, 서버가 토큰을 검증하여 새 액세스 토큰을 발급합니다.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description 새 액세스 토큰 발급 성공 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /**
+                             * @description 새로 발급된 JWT 액세스 토큰
+                             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                             */
+                            token?: string;
+                        };
+                    };
+                };
+                /** @description 리프레시 토큰 없음 또는 유효하지 않음 */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 리프레시 토큰 없음 */
+                            message?: string;
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/signup": {
         parameters: {
             query?: never;

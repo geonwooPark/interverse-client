@@ -5,7 +5,13 @@ class AuthService {
   async login(
     params: RequestBody<'/auth/login', 'post'>,
   ): Promise<ResponseBody<'/auth/login', 'post'>> {
-    return await api.post('/auth/login', params)
+    return await api.post('/auth/login', params, { withCredentials: true })
+  }
+
+  async refresh(): Promise<ResponseBody<'/auth/refresh', 'post'>> {
+    return await api.post('/auth/refresh', null, {
+      withCredentials: true,
+    })
   }
 
   async signup(
