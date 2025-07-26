@@ -34,7 +34,7 @@ export default function UserProfile({ onGameReset }: UserProfileProps) {
   }
 
   return (
-    <div className="relative">
+    <div className="relative flex items-center gap-2">
       <button
         onClick={() => setIsMenuOpen((prev) => !prev)}
         className="flex items-center gap-2 rounded-md px-3 py-2 duration-200 hover:bg-gray-100"
