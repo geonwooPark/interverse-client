@@ -1,6 +1,6 @@
 import GameScene from '@games/scenes/Game'
+import { Observable } from '@utils/observables/Observable'
 import * as mediasoupClient from 'mediasoup-client'
-import { Observable } from './Observable'
 
 export class VideoManager extends Observable<MediaStreamTrack[]> {
   private game: GameScene

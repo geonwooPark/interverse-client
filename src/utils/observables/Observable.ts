@@ -12,4 +12,8 @@ export class Observable<T> {
       this.callbacks = this.callbacks.filter((cb) => cb !== callback)
     }
   }
+
+  clear() {
+    this.callbacks = []
+  }
 }
