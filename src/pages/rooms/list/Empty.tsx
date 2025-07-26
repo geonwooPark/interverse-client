@@ -15,11 +15,10 @@ export default function Empty({ className, label }: EmptyProps) {
         className,
       )}
     >
-      <div className="h-[240px] w-[360px]">
-        <img src={EMPTY} alt="빈 이미지" className="size-full object-cover" />
+      <div className="mb-10">
+        <img src={EMPTY} alt="empty" className="w-[360px]" />
+        <h6 className="text-center text-h6 text-gray-400">{label}</h6>
       </div>
-
-      <h6 className="mt-6 text-center text-h6 text-gray-400">{label}</h6>
     </div>
   )
 }
