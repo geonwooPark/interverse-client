@@ -4,15 +4,22 @@ import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
 import { useSingleRoomQuery } from '@hooks/queries/roomsQueries'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import GameManager from '@managers/GameManager'
 import { useCharactersQuery } from '@hooks/queries/assetsQueries'
+import { useBlockGoBack } from '@hooks/useBlockGoBack'
+import { useModal } from '@providers/ModalProvider'
+import ConfirmModal from '@components/ConfirmModal'
 
 /**
  * 룸 화면
  */
 function RoomPage() {
   const { id: roomId } = useParams()
+
+  const navigate = useNavigate()
+
+  const { addModal, removeModal } = useModal()
 
   const { data: room, isPending } = useSingleRoomQuery(roomId as string)
 
@@ -35,6 +42,22 @@ function RoomPage() {
       charactersSrc: characters,
     })
   }, [room?._id, room?.mapSrc, characters])
+
+  useBlockGoBack(() => {
+    addModal(
+      <ConfirmModal
+        title="게임을 종료하시겠습니까?"
+        description={`뒤로 가기를 누르면 게임이 종료되며, 이후 방 목록 페이지로 이동합니다. 계속 진행하시겠습니까?`}
+        onClose={removeModal}
+        onSubmit={() => {
+          GameManager.destroy()
+          removeModal()
+          navigate('/rooms')
+        }}
+        rightLabel="종료"
+      />,
+    )
+  })
 
   return (
     <StepFlow activeStep={step} onNext={onNext}>
