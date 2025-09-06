@@ -1326,7 +1326,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/rooms/{roomId}/password": {
+    "/rooms/{roomId}/check-password": {
         parameters: {
             query?: never;
             header?: never;
