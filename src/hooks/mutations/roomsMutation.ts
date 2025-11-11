@@ -1,14 +1,12 @@
 import { roomsKeys } from '@hooks/queries/roomsQueries'
-import useToast from '@hooks/useToast'
 import { RequestBody, ResponseBody } from '@interfaces/api'
 import { roomsService } from '@services/roomsService'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+import { toast } from 'ventileco-ui'
 
 export const useCreateRoomMutation = () => {
   const queryClient = useQueryClient()
-
-  const toast = useToast()
 
   return useMutation<
     ResponseBody<'/rooms', 'post'>,
@@ -29,8 +27,6 @@ export const useCreateRoomMutation = () => {
 
 export const useDeleteRoomMutation = () => {
   const queryClient = useQueryClient()
-
-  const toast = useToast()
 
   return useMutation<
     ResponseBody<'/rooms/{roomId}', 'delete'>,
@@ -54,8 +50,6 @@ export const useDeleteRoomMutation = () => {
 
 export const useJoinRoomMutation = () => {
   const queryClient = useQueryClient()
-
-  const toast = useToast()
 
   return useMutation<
     ResponseBody<'/rooms/{roomId}/join', 'post'>,

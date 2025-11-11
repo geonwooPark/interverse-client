@@ -8,15 +8,13 @@ import { TOKEN } from '@constants/index'
 import { useStore } from 'ventileco-store'
 import { isLoggedInStore } from '@store/index'
 import slide from '@components/Animation/motions/slide'
-import useToast from '@hooks/useToast'
+import { toast } from 'ventileco-ui'
 
 interface UserProfileProps {
   onGameReset: () => void
 }
 
 export default function UserProfile({ onGameReset }: UserProfileProps) {
-  const toast = useToast()
-
   const queryClient = useQueryClient()
 
   const { data: me } = useMeQuery()

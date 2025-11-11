@@ -7,6 +7,7 @@ import LogList from './LogList'
 import Boundary from '@components/Boundary'
 import Loading from './Loading'
 import Error from './Error'
+import { toast } from 'ventileco-ui'
 
 export default function RoomListPage() {
   const navigate = useNavigate()
@@ -25,7 +26,20 @@ export default function RoomListPage() {
           variant="contained"
           leftIcon={<IconPlus className="mr-2 size-6" />}
           className="ml-auto"
-          onClick={onClick}
+          onClick={() => toast.success('방 생성 완료')}
+        >
+          방 만들기
+        </Button>
+        <Button
+          size="sm"
+          variant="contained"
+          leftIcon={<IconPlus className="mr-2 size-6" />}
+          className="ml-auto"
+          onClick={() =>
+            toast.success(
+              '방 생성 완료방 생성 완료방 생성 완료방 생성 완료방 생성 완료방 생성 완료방 생성 완료',
+            )
+          }
         >
           방 만들기
         </Button>

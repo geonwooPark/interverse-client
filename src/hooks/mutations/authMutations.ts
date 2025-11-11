@@ -1,4 +1,3 @@
-import useToast from '@hooks/useToast'
 import { RequestBody, ResponseBody } from '@interfaces/api'
 import { authService } from '@services/authService'
 import { isLoggedInStore } from '@store/index'
@@ -6,10 +5,9 @@ import { useMutation } from '@tanstack/react-query'
 import { setLocalStorageItem } from '@utils/localStorage'
 import { AxiosError } from 'axios'
 import { useStore } from 'ventileco-store'
+import { toast } from 'ventileco-ui'
 
 export const useLoginMutation = () => {
-  const toast = useToast()
-
   const [, setIsLoggedIn] = useStore(isLoggedInStore, (state) => state)
 
   return useMutation<
@@ -34,8 +32,6 @@ export const useLoginMutation = () => {
 }
 
 export const useSignUpMutation = () => {
-  const toast = useToast()
-
   return useMutation<
     ResponseBody<'/auth/signup', 'post'>,
     AxiosError,
@@ -56,8 +52,6 @@ export const useSignUpMutation = () => {
 }
 
 export const useChangePasswordMutation = () => {
-  const toast = useToast()
-
   return useMutation<
     ResponseBody<'/auth/change-password', 'patch'>,
     AxiosError,
@@ -78,8 +72,6 @@ export const useChangePasswordMutation = () => {
 }
 
 export const useCheckIdMutation = () => {
-  const toast = useToast()
-
   return useMutation<
     ResponseBody<'/auth/check-id', 'post'>,
     AxiosError,
