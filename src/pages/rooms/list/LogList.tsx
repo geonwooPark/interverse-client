@@ -4,7 +4,7 @@ import Log from './Log'
 import { useModal } from '@providers/ModalProvider'
 import ConfirmModal from '@components/ConfirmModal'
 import { useDeleteRoomMutation } from '@hooks/mutations/roomsMutation'
-import Empty from '@components/Empty'
+import Empty from './Empty'
 
 export default function LogList() {
   const { addModal, removeModal } = useModal()

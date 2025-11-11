@@ -35,9 +35,9 @@ class RoomsService {
 
   async checkPassword(
     roomId: string,
-    params?: RequestBody<'/rooms/{roomId}/password', 'post'>,
-  ): Promise<ResponseBody<'/rooms/{roomId}/password', 'post'>> {
-    return await api.post(`/rooms/${roomId}/password`, params)
+    params?: RequestBody<'/rooms/{roomId}/check-password', 'post'>,
+  ): Promise<ResponseBody<'/rooms/{roomId}/check-password', 'post'>> {
+    return await api.post(`/rooms/${roomId}/check-password`, params)
   }
 }
 

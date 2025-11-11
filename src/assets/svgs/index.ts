@@ -19,6 +19,9 @@ import IconSuccess from './IconSuccess.svg?react'
 import IconError from './IconError.svg?react'
 import IconInfo from './IconInfo.svg?react'
 import IconDelete from './IconDelete.svg?react'
+import IconClose from './IconClose.svg?react'
+import IconUser from './IconUser.svg?react'
+import IconRefresh from './IconRefresh.svg?react'
 
 export {
   IconCam,
@@ -42,4 +45,7 @@ export {
   IconError,
   IconInfo,
   IconDelete,
+  IconClose,
+  IconUser,
+  IconRefresh,
 }

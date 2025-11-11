@@ -1,5 +1,5 @@
 import React, { ComponentType, Suspense, ReactNode } from 'react'
-import Loading from '@components/StepFlow/Loading'
+import Loading from '@components/Loading'
 
 export default function withSuspense<T extends object>(
   Component: ComponentType<T>,

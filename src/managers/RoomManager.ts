@@ -1,7 +1,7 @@
 import { IJoinRoom, IRoomUserDto } from '@interfaces/index'
 import OtherPlayer from '@games/avatars/OtherPlayer'
 import GameScene from '@games/scenes/Game'
-import { Observable } from './Observable'
+import { Observable } from '@utils/observables/Observable'
 
 export class RoomManager extends Observable<Map<string, OtherPlayer>> {
   private game: GameScene

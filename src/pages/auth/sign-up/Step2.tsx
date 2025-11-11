@@ -4,6 +4,7 @@ import IconButton from '@components/IconButton'
 import RhfTextField from '@components/Rhf/RhfTextField'
 import { StepProps } from '@components/StepFlow/types'
 import React, { useReducer } from 'react'
+import RhfProfileUploader from '@components/Rhf/RhfProfileUploader'
 
 export default function Step2({ onNext }: StepProps) {
   const [showPassword, setShowPassword] = useReducer((prev) => !prev, false)
@@ -16,6 +17,7 @@ export default function Step2({ onNext }: StepProps) {
   return (
     <FadeIn>
       <div className="mb-3 flex w-full flex-1 flex-col gap-3">
+        <RhfProfileUploader name="profile" />
         <RhfTextField name="nickname" placeholder="닉네임" />
         <RhfTextField
           type={showPassword ? 'text' : 'password'}

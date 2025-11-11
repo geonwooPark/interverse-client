@@ -1,7 +1,7 @@
 import Game from '@games/scenes/Game'
 import { IChat } from '@interfaces/index'
-import { Observable } from './Observable'
 import GameScene from '@games/scenes/Game'
+import { Observable } from '@utils/observables/Observable'
 
 export class ChatManager extends Observable<IChat[]> {
   private game: GameScene

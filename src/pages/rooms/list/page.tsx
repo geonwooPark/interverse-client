@@ -1,10 +1,12 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import Button from '@components/Button'
 import { IconPlus } from '@assets/svgs'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
 import LogList from './LogList'
-import LogListSkeleton from './LogListSkeleton'
+import Boundary from '@components/Boundary'
+import Loading from './Loading'
+import Error from './Error'
 
 export default function RoomListPage() {
   const navigate = useNavigate()
@@ -29,9 +31,9 @@ export default function RoomListPage() {
         </Button>
       </div>
 
-      <Suspense fallback={<LogListSkeleton />}>
+      <Boundary LoadingFallback={<Loading />} ErrorFallback={Error}>
         <LogList />
-      </Suspense>
+      </Boundary>
     </div>
   )
 }
