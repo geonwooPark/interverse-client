@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getLocalStorageItem, setLocalStorageItem } from './localStorage'
 import { TOKEN } from '@constants/index'
 import { authService } from '@services/authService'
-import { refreshTokenManager } from '@managers/RefreshTokenManager'
+import { refreshTokenService } from '@services/refreshTokenService'
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_V1_SERVER,
@@ -28,7 +28,7 @@ api.interceptors.response.use(
     if (err.response?.status === 419 && !originalRequest._retry) {
       originalRequest._retry = true
 
-      const { token } = await refreshTokenManager.refresh(() =>
+      const { token } = await refreshTokenService.refresh(() =>
         authService.refresh(),
       )
 

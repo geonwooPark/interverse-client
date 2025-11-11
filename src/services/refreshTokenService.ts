@@ -1,6 +1,6 @@
 import { OneTimeObservable } from '@utils/observables/OneTimeObservable'
 
-class RefreshTokenManager extends OneTimeObservable<{ token?: string }> {
+class RefreshTokenService extends OneTimeObservable<{ token?: string }> {
   private isRefreshing = false
 
   async refresh(getTokenFn: () => Promise<{ token?: string }>) {
@@ -22,4 +22,4 @@ class RefreshTokenManager extends OneTimeObservable<{ token?: string }> {
   }
 }
 
-export const refreshTokenManager = new RefreshTokenManager()
+export const refreshTokenService = new RefreshTokenService()
