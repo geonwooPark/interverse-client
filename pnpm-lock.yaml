@@ -34,7 +34,7 @@ importers:
         version: 3.11.0
       motion:
         specifier: ^12.7.4
-        version: 12.11.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 12.11.3(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       phaser:
         specifier: ^3.80.0
         version: 3.88.2
@@ -53,6 +53,9 @@ importers:
       socket.io-client:
         specifier: ^4.7.4
         version: 4.8.1
+      swiper:
+        specifier: ^12.0.3
+        version: 12.0.3
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.3.0
@@ -60,8 +63,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(react@18.3.1)
       ventileco-ui:
-        specifier: ^0.6.7
-        version: 0.6.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.7.2
+        version: 0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       yup:
         specifier: ^1.6.1
         version: 1.6.1
@@ -202,6 +205,12 @@ packages:
   '@babel/types@7.27.1':
     resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
     engines: {node: '>=6.9.0'}
+
+  '@emotion/is-prop-valid@1.2.2':
+    resolution: {integrity: sha512-uNsoYd37AFmaCdXlg6EYD1KaPOaRWRByMCYzbKUX4+hhMfrxdVSelShywL4JVaAeM/eHUOSprYBQls+/neX3pw==}
+
+  '@emotion/memoize@0.8.1':
+    resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -2240,6 +2249,10 @@ packages:
   svg-parser@2.0.4:
     resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
 
+  swiper@12.0.3:
+    resolution: {integrity: sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==}
+    engines: {node: '>= 4.7.0'}
+
   synckit@0.11.5:
     resolution: {integrity: sha512-frqvfWyDA5VPVdrWfH24uM6SI/O8NLpVbIIJxb8t/a3YGsp4AW9CYgSKC0OaSEfexnp7Y1pVh2Y6IHO8ggGDmA==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -2362,8 +2375,8 @@ packages:
     peerDependencies:
       react: '>=18.0.0'
 
-  ventileco-ui@0.6.7:
-    resolution: {integrity: sha512-vxt4mt5jfW0yA0RJ+HYG/zeMc54ObV7fFtd7cEMfVlznMVPoaHOFu4Cbb0yPQeZDTO75stQw6kxAzgaz0l2aqA==}
+  ventileco-ui@0.7.2:
+    resolution: {integrity: sha512-A+YYPDkEOdwnrC/c+lreD2PzupfOzxtk/CxCrw9YjKq8UNd9exAwIvPLlcQivddyp0gb1I7xiMNU9VOjSAOURw==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -2590,6 +2603,14 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
+
+  '@emotion/is-prop-valid@1.2.2':
+    dependencies:
+      '@emotion/memoize': 0.8.1
+    optional: true
+
+  '@emotion/memoize@0.8.1':
+    optional: true
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -3766,12 +3787,13 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.11.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  framer-motion@12.11.3(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       motion-dom: 12.11.2
       motion-utils: 12.9.4
       tslib: 2.8.1
     optionalDependencies:
+      '@emotion/is-prop-valid': 1.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -4190,11 +4212,12 @@ snapshots:
 
   motion-utils@12.9.4: {}
 
-  motion@12.11.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  motion@12.11.3(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      framer-motion: 12.11.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      framer-motion: 12.11.3(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib: 2.8.1
     optionalDependencies:
+      '@emotion/is-prop-valid': 1.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -4736,6 +4759,8 @@ snapshots:
 
   svg-parser@2.0.4: {}
 
+  swiper@12.0.3: {}
+
   synckit@0.11.5:
     dependencies:
       '@pkgr/core': 0.2.4
@@ -4884,7 +4909,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  ventileco-ui@0.6.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  ventileco-ui@0.7.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
