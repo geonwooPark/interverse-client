@@ -14,7 +14,7 @@ export default function ProfileUploader({
 }: ProfileUploaderProps) {
   return (
     <div className="relative mx-auto size-40">
-      <div className="size-full overflow-hidden rounded-full shadow-level1">
+      <div className="size-full overflow-hidden rounded-full border border-gray-200">
         <VFileUploader
           value={value}
           onChange={onChange}
@@ -35,7 +35,7 @@ export default function ProfileUploader({
                   className="size-full object-cover"
                 />
               ) : (
-                <IconUser className="size-10 text-grey" />
+                <IconUser className="size-8 text-grey" />
               )}
             </div>
           )}
