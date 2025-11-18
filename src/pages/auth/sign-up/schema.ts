@@ -24,4 +24,8 @@ export const schema = yup.object().shape({
       '비밀번호가 서로 일치하지 않습니다. 다시 입력해주세요.',
     ),
   nickname: yup.string().required('닉네임을 입력해주세요.'),
+  termsOfService: yup.boolean().oneOf([true], '이용약관에 동의해주세요.'),
+  privacyPolicy: yup
+    .boolean()
+    .oneOf([true], '개인정보처리방침에 동의해주세요.'),
 })

@@ -1,121 +1,95 @@
-import React, { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import Button from '@components/Button'
 import FadeIn from '@components/Animation/FadeIn'
-import useTimer from '@hooks/useTimer'
-import TextField from '@components/TextField'
-import { Link } from 'react-router-dom'
-import RhfTextField from '@components/Rhf/RhfTextField'
-import Icon from '@components/Icon'
+import Button from '@components/Button'
+import RhfCheckbox from '@components/Rhf/RhfCheckbox'
 import { StepProps } from '@components/StepFlow/types'
-import {
-  useCheckIdMutation,
-  useCheckVerificationCode,
-  useSendVerificationEmailMutation,
-} from '@hooks/mutations/authMutations'
+import React from 'react'
+import { useFormContext } from 'react-hook-form'
+import { useModal } from '@providers/ModalProvider'
+import TermsModal from './modals/TermsModal'
+import PrivacyModal from './modals/PrivacyModal'
+import { Link } from 'react-router-dom'
+import Icon from '@components/Icon'
+import CheckBox from '@components/CheckBox'
 
 export default function Step1({ onNext }: StepProps) {
-  const {
-    trigger,
-    getValues,
-    formState: { errors },
-  } = useFormContext()
+  const { watch, setValue, trigger } = useFormContext()
 
-  const { mutate: checkIdMutate } = useCheckIdMutation()
+  const { addModal, removeModal } = useModal()
 
-  const { mutate: sendVerificationEmailMutate } =
-    useSendVerificationEmailMutation()
+  const termsOfService = watch('termsOfService')
 
-  const { mutate: checkVerificationCodeMutate } = useCheckVerificationCode()
+  const privacyPolicy = watch('privacyPolicy')
 
-  const { timer, isTimerActive, canResend, activeTimer } = useTimer()
+  const handleSelectAll = () => {
+    const allChecked = termsOfService && privacyPolicy
+    setValue('termsOfService', !allChecked)
+    setValue('privacyPolicy', !allChecked)
+  }
 
-  const [code, setCode] = useState('')
+  const handleTermsLink = () => {
+    addModal(<TermsModal hasDim onClose={removeModal} />)
+  }
+
+  const handlePrivacyLink = () => {
+    addModal(<PrivacyModal hasDim onClose={removeModal} />)
+  }
 
   const goNext = async () => {
     if (!onNext) return
 
-    const isEmailValid = await trigger('email')
-    if (isEmailValid) {
-      const email = getValues('email')
+    const isTermsValid = await trigger('termsOfService')
+    const isPrivacyValid = await trigger('privacyPolicy')
 
-      checkVerificationCodeMutate(
-        {
-          email,
-          code: Number(code),
-        },
-        {
-          onSuccess() {
-            onNext()
-          },
-        },
-      )
+    if (isTermsValid && isPrivacyValid) {
+      onNext()
     }
-  }
-
-  const onVerifyClick = async () => {
-    const isEmailValid = await trigger('email')
-
-    if (isEmailValid) {
-      const email = getValues('email')
-
-      checkIdMutate(
-        { email },
-        {
-          onSuccess: () => {
-            sendVerificationEmailMutate(
-              { email },
-              {
-                onSuccess: () => activeTimer(),
-              },
-            )
-          },
-        },
-      )
-    }
-  }
-
-  const onResendClick = () => {
-    activeTimer()
-    onVerifyClick()
   }
 
   return (
     <FadeIn>
       <div className="mb-6">
-        <div className="mb-3 flex items-start gap-2">
-          <RhfTextField name="email" placeholder="이메일" />
-          <Button
-            type="button"
-            size="lg"
-            variant="outlined"
-            disabled={!canResend}
-            onClick={onVerifyClick}
-            className="w-[96px] px-2"
-          >
-            인증하기
-          </Button>
-        </div>
-        {isTimerActive && (
-          <div>
-            <TextField
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              placeholder="인증번호"
-              endIcon={<div className="mr-3">{timer}</div>}
-              className="mb-2 w-full"
-            />
-            <div className="flex gap-1 px-3 py-2 text-caption">
-              <p>인증번호가 전송되지 않으셨나요? </p>
-              <button
-                className="cursor-pointer font-semibold text-primary-dark"
-                onClick={onResendClick}
-              >
-                다시 전송하기
-              </button>
-            </div>
+        <div className="rounded-md border border-gray-200 p-4">
+          <div className="pb-3">
+            <CheckBox
+              checked={termsOfService && privacyPolicy}
+              onClick={handleSelectAll}
+              className="py-2"
+            >
+              <span className="text-body2 font-semibold text-gray-900">
+                전체 동의
+              </span>
+            </CheckBox>
           </div>
-        )}
+
+          <div className="flex flex-col border-t border-gray-200 pt-3 text-body2">
+            <RhfCheckbox name="termsOfService" className="py-2">
+              <span>
+                <button
+                  type="button"
+                  onClick={handleTermsLink}
+                  className="font-semibold underline"
+                >
+                  이용약관
+                </button>
+                에 동의합니다.
+                <span className="text-red-500"> (필수)</span>
+              </span>
+            </RhfCheckbox>
+            <RhfCheckbox name="privacyPolicy" className="py-2">
+              <span>
+                <button
+                  type="button"
+                  onClick={handlePrivacyLink}
+                  className="font-semibold underline"
+                >
+                  개인정보처리방침
+                </button>
+                에 동의합니다.
+                <span className="text-red-500"> (필수)</span>
+              </span>
+            </RhfCheckbox>
+          </div>
+        </div>
       </div>
 
       <Button

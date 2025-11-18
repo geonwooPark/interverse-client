@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import StepFlow from '@components/StepFlow'
 import Step1 from './Step1'
 import Step2 from './Step2'
+import Step3 from './Step3'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
 import { useSignUpMutation } from '@hooks/mutations/authMutations'
@@ -25,6 +26,8 @@ function SignUpPage() {
       password: '',
       confirmPassword: '',
       nickname: '',
+      termsOfService: false,
+      privacyPolicy: false,
     },
   })
 
@@ -33,7 +36,9 @@ function SignUpPage() {
   const { handleSubmit } = methods
 
   const onSubmit = handleSubmit(async (data) => {
-    const { confirmPassword, profile, ...rest } = data
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { confirmPassword, profile, termsOfService, privacyPolicy, ...rest } =
+      data
 
     const formData = new FormData()
 
@@ -56,13 +61,18 @@ function SignUpPage() {
     setActiveStep((prev) => prev + 1)
   }
 
+  const onPrev = () => {
+    setActiveStep((prev) => prev - 1)
+  }
+
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
       <h4 className="mb-4 text-center text-h4">회원가입</h4>
 
-      <StepFlow activeStep={activeStep} onNext={onNext}>
+      <StepFlow activeStep={activeStep} onNext={onNext} onPrev={onPrev}>
         <Step1 />
         <Step2 />
+        <Step3 />
       </StepFlow>
     </FormProvider>
   )
