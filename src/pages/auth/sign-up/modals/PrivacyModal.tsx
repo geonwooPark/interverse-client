@@ -15,7 +15,7 @@ export default function PrivacyModal({
       {hasDim && <div onClick={onClose} className="size-full bg-black/70" />}
 
       {/* Modal */}
-      <div className="absolute left-1/2 top-1/2 h-fit max-h-[80vh] w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-md bg-white">
+      <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-h6">개인정보처리방침</h2>
           <button
@@ -38,7 +38,7 @@ export default function PrivacyModal({
           </button>
         </div>
 
-        <div className="max-h-[60vh] overflow-y-auto p-6">
+        <div className="h-full overflow-y-auto p-6 tablet:max-h-[60vh]">
           <div className="whitespace-pre-line text-body2 leading-relaxed text-gray-700">
             {`제1조 (개인정보의 처리목적)
 INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
@@ -82,7 +82,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
           </div>
         </div>
 
-        <div className="flex justify-end border-t border-gray-200 p-4">
+        <div className="flex items-center justify-end border-t border-gray-200 p-4">
           <Button size="md" variant="contained" onClick={onClose}>
             확인
           </Button>

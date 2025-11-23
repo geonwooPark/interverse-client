@@ -15,7 +15,7 @@ export default function TermsModal({
       {hasDim && <div onClick={onClose} className="size-full bg-black/70" />}
 
       {/* Modal */}
-      <div className="absolute left-1/2 top-1/2 h-fit max-h-[80vh] w-[600px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-md bg-white">
+      <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
         <div className="flex items-center justify-between border-b border-gray-200 p-4">
           <h2 className="text-h6">이용약관</h2>
           <button
@@ -38,7 +38,7 @@ export default function TermsModal({
           </button>
         </div>
 
-        <div className="max-h-[60vh] overflow-y-auto p-6">
+        <div className="h-full overflow-y-auto p-6 tablet:max-h-[60vh]">
           <div className="whitespace-pre-line text-body2 leading-relaxed text-gray-700">
             {`제1조 (목적)
 이 약관은 INTERVERSE(이하 "회사"라 함)가 제공하는 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -78,7 +78,7 @@ export default function TermsModal({
           </div>
         </div>
 
-        <div className="flex justify-end border-t border-gray-200 p-4">
+        <div className="flex items-center justify-end border-t border-gray-200 p-4">
           <Button size="md" variant="contained" onClick={onClose}>
             확인
           </Button>
