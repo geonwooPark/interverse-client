@@ -1,6 +1,7 @@
 import React from 'react'
 import EMPTY from '@assets/images/empty.png'
 import { cn } from '@utils/cn'
+import Image from '@components/Image'
 
 interface EmptyProps {
   className?: string
@@ -16,7 +17,7 @@ export default function Empty({ className, label }: EmptyProps) {
       )}
     >
       <div className="mb-10">
-        <img src={EMPTY} alt="empty" className="w-[360px]" />
+        <Image src={EMPTY} alt="empty" width={360} />
         <h6 className="text-center text-h6 text-gray-400">{label}</h6>
       </div>
     </div>

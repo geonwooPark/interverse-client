@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from './Image'
 
 interface LogoProps {
   width: number
@@ -8,7 +9,7 @@ interface LogoProps {
 export default function Logo({ width, className }: LogoProps) {
   return (
     <div className={className}>
-      <img src="/images/logo.png" alt="logo" width={width} />
+      <Image src="/images/logo.png" alt="logo" width={width} />
     </div>
   )
 }

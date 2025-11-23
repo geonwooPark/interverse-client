@@ -1,3 +1,4 @@
+import Image from '@components/Image'
 import Swiper from '@components/Swiper'
 import { useMapsQuery } from '@hooks/queries/assetsQueries'
 import React, { useEffect } from 'react'
@@ -28,7 +29,7 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
           key={idx}
           className="flex h-[300px] w-full items-center justify-center bg-gray-100"
         >
-          <img
+          <Image
             src={slide.thumbnail}
             alt={slide.name}
             className="pointer-events-none select-none"

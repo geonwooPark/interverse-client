@@ -2,12 +2,13 @@ import { IconRefresh } from '@assets/svgs'
 import Button from '@components/Button'
 import React from 'react'
 import ErrorImage from '@assets/images/error.png'
+import Image from '@components/Image'
 
 export default function Error({ error, onReset }: any) {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="mb-10">
-        <img src={ErrorImage} alt="error" className="block w-[360px]" />
+        <Image src={ErrorImage} alt="error" className="block w-[360px]" />
         <Button
           size="sm"
           variant="outlined"

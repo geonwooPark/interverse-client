@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@components/Button'
+import Image from '@components/Image'
 
 interface CreatorModalProps {
   hasDim?: boolean
@@ -22,7 +23,7 @@ function CreatorModal({ hasDim }: CreatorModalProps) {
       {/* Modal */}
       <div className="absolute left-[50%] top-[50%] flex w-[320px] translate-x-[-50%] translate-y-[-50%] flex-col items-center justify-between gap-4 rounded-md bg-white p-6">
         <div className="flex aspect-square w-[190px] items-center justify-center rounded-full bg-gray-100">
-          <img src={`/images/avatar_1.png`} alt="creator" width={90} />
+          <Image src={`/images/avatar_1.png`} alt="creator" width={90} />
         </div>
 
         <div className="flex flex-col self-start px-2">

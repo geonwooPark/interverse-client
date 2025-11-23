@@ -1,4 +1,5 @@
 import { IconDelete } from '@assets/svgs'
+import Image from '@components/Image'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import dayjs from 'dayjs'
 import React from 'react'
@@ -34,13 +35,15 @@ export default function Log({ log, onDelete }: LogProps) {
   return (
     <div className="group relative">
       <Link to={`/rooms/${log.room?._id}`}>
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
-          <img
+        <div className="overflow-hidden rounded-lg">
+          <Image
             src={log.map?.thumbnail}
             alt={`map-${log.map?.name}`}
             className="absolute inset-0 size-full object-cover"
+            ratio={4 / 3}
           />
         </div>
+
         <div className="mt-2">
           <p className="truncate text-h6">{log.room?.title}</p>
 
