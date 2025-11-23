@@ -16,7 +16,7 @@ export default function RoomLayout({ children }: PropsWithChildren) {
 
       {/* UI */}
       <main className="flex-1 overflow-y-auto">
-        <Container className="mx-auto h-full max-w-[1440px] px-10 desktop:px-20">
+        <Container className="mx-auto h-full max-w-[1440px] px-4 desktop:px-20">
           {children}
         </Container>
       </main>
