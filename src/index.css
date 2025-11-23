@@ -6,6 +6,7 @@
 @font-face {
   font-family: 'neodgm';
   src: url('./assets/fonts/neodgm.woff2');
+  font-display: block;
 }
 
 @tailwind base;
