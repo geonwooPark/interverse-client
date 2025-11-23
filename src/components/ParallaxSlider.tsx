@@ -12,11 +12,13 @@ import React, {
 
 interface ParallaxSliderProps {
   className?: string
+  showPagination?: boolean
 }
 
 export default function ParallaxSlider({
   children,
   className,
+  showPagination = true,
 }: PropsWithChildren<ParallaxSliderProps>) {
   const containerRef = useRef<HTMLDivElement | null>(null)
 
@@ -48,8 +50,8 @@ export default function ParallaxSlider({
     direction === 'next'
       ? slides[nextIndex]
       : direction === 'prev'
-        ? slides[prevIndex]
-        : null
+      ? slides[prevIndex]
+      : null
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (isAnimating) return
@@ -216,15 +218,19 @@ export default function ParallaxSlider({
       )}
 
       {/* 페이지네이션 */}
-      <div className="absolute bottom-6 left-1/2 z-popover flex -translate-x-1/2 gap-2">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrent(idx)}
-            className={`${idx === current ? 'bg-cyan-400' : 'bg-white opacity-30'} size-2 rounded-full `}
-          />
-        ))}
-      </div>
+      {showPagination && (
+        <div className="absolute bottom-6 left-1/2 z-popover flex -translate-x-1/2 gap-2">
+          {slides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrent(idx)}
+              className={`${
+                idx === current ? 'bg-cyan-400' : 'bg-white opacity-30'
+              } size-2 rounded-full `}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

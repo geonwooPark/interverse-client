@@ -10,7 +10,7 @@ import BG_AUTH_04 from '/images/bg_auth_04.png'
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <main className="relative grid h-screen grid-cols-1 tablet:grid-cols-2">
+    <main className="relative flex h-screen flex-col items-center justify-center">
       {/* 로고 */}
       <div className="fixed left-6 top-6 z-popover rounded-full px-6 py-4">
         <Link to={'/'}>
@@ -19,39 +19,39 @@ export default function AuthLayout({ children }: PropsWithChildren) {
       </div>
 
       {/* 이미지 영역 */}
-      <div className="hidden size-full min-h-0 tablet:block">
-        <ParallaxSlider>
-          <img
-            src={BG_AUTH_01}
-            alt="bg_01"
-            className="size-full object-cover"
-            draggable={false}
-          />
-          <img
-            src={BG_AUTH_02}
-            alt="bg_02"
-            className="size-full object-cover"
-            draggable={false}
-          />
-          <img
-            src={BG_AUTH_03}
-            alt="bg_03"
-            className="size-full object-cover"
-            draggable={false}
-          />
-          <img
-            src={BG_AUTH_04}
-            alt="bg_03"
-            className="size-full object-cover"
-            draggable={false}
-          />
-        </ParallaxSlider>
-      </div>
+      <Container className="max-w-[420px] px-6">
+        <div className="mb-10 hidden aspect-[4/3] overflow-hidden rounded-md border-2 border-cyan-500 tablet:block">
+          <ParallaxSlider showPagination={false}>
+            <img
+              src={BG_AUTH_01}
+              alt="bg_01"
+              className="size-full object-cover"
+              draggable={false}
+            />
+            <img
+              src={BG_AUTH_02}
+              alt="bg_02"
+              className="size-full object-cover"
+              draggable={false}
+            />
+            <img
+              src={BG_AUTH_03}
+              alt="bg_03"
+              className="size-full object-cover"
+              draggable={false}
+            />
+            <img
+              src={BG_AUTH_04}
+              alt="bg_03"
+              className="size-full object-cover"
+              draggable={false}
+            />
+          </ParallaxSlider>
+        </div>
 
-      {/* 컨텐츠 영역 */}
-      <div className="flex size-full min-h-0 items-center justify-center tablet:bg-inherit">
-        <Container className="max-w-[420px] px-6">{children}</Container>
-      </div>
+        {/* 컨텐츠 영역 */}
+        {children}
+      </Container>
     </main>
   )
 }

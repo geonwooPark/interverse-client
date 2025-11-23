@@ -78,7 +78,7 @@ export default function Step1({ onNext }: StepProps) {
           <Button
             type="button"
             size="lg"
-            variant="outlined"
+            variant="ghost"
             disabled={!canResend}
             onClick={onVerifyClick}
             className="w-[96px] px-2"
