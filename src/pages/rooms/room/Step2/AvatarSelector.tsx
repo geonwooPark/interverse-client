@@ -39,13 +39,23 @@ function AvatarSelector({ texture, onChange }: AvatarSelectorProps) {
           charactersLength > 0 &&
           characters[texture] && (
             <div className="flex">
-              <div
+              <img
+                src={characters[texture].source}
+                alt={characters[texture].name}
+                crossOrigin="anonymous"
                 style={{
-                  backgroundImage: `url(${characters?.[texture].source})`,
-                  backgroundSize: 'auto',
-                  backgroundRepeat: 'no-repeat',
+                  width: '32px',
+                  height: '52px',
+                  transform: 'scale(1.5)',
+                  objectFit: 'none',
+                  objectPosition: '-608px 0',
                 }}
-                className={`h-[52px] w-[32px] scale-150 bg-[-608px]`}
+                onError={() => {
+                  console.error(
+                    'Failed to load image:',
+                    characters[texture].source,
+                  )
+                }}
               />
             </div>
           )}

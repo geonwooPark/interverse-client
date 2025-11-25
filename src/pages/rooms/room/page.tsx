@@ -43,7 +43,6 @@ function RoomPage() {
     })
   }, [room?._id, room?.mapSrc, characters])
 
-  // 컴포넌트 unmount 시 게임 정리
   useEffect(() => {
     return () => {
       GameManager.destroy()
