@@ -35,4 +35,14 @@ export class ChairManager {
       chairId,
     })
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverOccupiedChairs')
+    this.game.ws.socket.off('serverChairId')
+
+    // 의자 리스트 정리
+    this.list.clear()
+  }
 }

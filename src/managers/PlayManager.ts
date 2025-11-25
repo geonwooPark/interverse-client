@@ -38,4 +38,10 @@ export class PlayManager {
       isLast,
     })
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverAvatarPosition')
+  }
 }

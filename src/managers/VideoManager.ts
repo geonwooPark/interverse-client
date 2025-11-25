@@ -195,4 +195,37 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
   leaveVideoRoom() {
     this.game.ws.socket.emit('clientLeaveVideoRoom', this.game.roomNum)
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverRtpCapabilities')
+    this.game.ws.socket.off('serverSendTransportCreated')
+    this.game.ws.socket.off('serverRecvTransportCreated')
+    this.game.ws.socket.off('serverExistingProducers')
+    this.game.ws.socket.off('serverNewProducer')
+    this.game.ws.socket.off('serverProduced')
+
+    // MediaStream 트랙 정지 및 해제
+    this.tracks.forEach((track) => {
+      track.stop()
+    })
+    this.tracks = []
+
+    // Transport 정리
+    if (this.sendTransport) {
+      this.sendTransport.close()
+      this.sendTransport = null
+    }
+
+    if (this.recvTransport) {
+      this.recvTransport.close()
+      this.recvTransport = null
+    }
+
+    // Device 정리
+    if (this.device) {
+      this.device = new mediasoupClient.Device()
+    }
+  }
 }

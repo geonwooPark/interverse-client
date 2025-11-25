@@ -53,4 +53,13 @@ export class ChatManager extends Observable<IChat[]> {
       this.game.player.updateChat(chat.message)
     }
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverChat')
+
+    // 채팅 리스트 정리
+    this.list = []
+  }
 }

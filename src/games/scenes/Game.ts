@@ -269,4 +269,31 @@ export default class Game extends Phaser.Scene {
       this.player.setOffset(0, 20)
     }
   }
+
+  // Scene이 종료될 때 호출되는 메서드 - 리소스 정리
+  shutdown() {
+    // 각 Manager들의 cleanup 메서드 호출 (다음 단계에서 추가 예정)
+    const managers = [
+      this.video,
+      this.room,
+      this.chat,
+      this.chair,
+      this.play,
+      this.dm,
+    ]
+
+    managers.forEach((manager) => {
+      if (manager && typeof manager.cleanup === 'function') {
+        manager.cleanup()
+      }
+    })
+
+    // 키보드 이벤트 리스너 제거
+    if (this.input.keyboard) {
+      this.input.keyboard.removeAllListeners()
+    }
+
+    // Scene 이벤트 리스너 제거
+    this.events.removeAllListeners()
+  }
 }

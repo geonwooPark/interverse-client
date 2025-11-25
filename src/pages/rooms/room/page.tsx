@@ -43,6 +43,13 @@ function RoomPage() {
     })
   }, [room?._id, room?.mapSrc, characters])
 
+  // 컴포넌트 unmount 시 게임 정리
+  useEffect(() => {
+    return () => {
+      GameManager.destroy()
+    }
+  }, [])
+
   useBlockGoBack(() => {
     addModal(
       <ConfirmModal
@@ -50,7 +57,6 @@ function RoomPage() {
         description={`뒤로 가기를 누르면 게임이 종료되며, 이후 방 목록 페이지로 이동합니다. 계속 진행하시겠습니까?`}
         onClose={removeModal}
         onSubmit={() => {
-          GameManager.destroy()
           removeModal()
           navigate('/rooms')
         }}

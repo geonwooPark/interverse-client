@@ -86,4 +86,15 @@ export class RoomManager extends Observable<Map<string, OtherPlayer>> {
       this.otherPlayerMap = newMap
     }
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverPlayerInfo')
+    this.game.ws.socket.off('serverRoomMember')
+    this.game.ws.socket.off('serverLeaveRoom')
+
+    // 다른 플레이어 맵 정리
+    this.otherPlayerMap.clear()
+  }
 }

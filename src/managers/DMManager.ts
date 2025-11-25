@@ -61,4 +61,13 @@ export class DMManager extends Observable<IDirectMessage[]> {
 
     this.notify(this.list)
   }
+
+  // 리소스 정리
+  cleanup() {
+    // Socket 이벤트 리스너 제거
+    this.game.ws.socket.off('serverDM')
+
+    // DM 리스트 정리
+    this.list = []
+  }
 }
