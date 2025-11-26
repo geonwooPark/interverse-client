@@ -24,7 +24,6 @@ export interface IRoomUserDto {
 }
 
 export interface IChat {
-  id: string
   sender: string
   message: string
   roomNum: string

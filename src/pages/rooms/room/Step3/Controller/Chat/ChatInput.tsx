@@ -38,10 +38,7 @@ function ChatInput({ inputRef }: ChatInputProps) {
     if (!inputValue) {
       inputRef.current?.blur()
     } else {
-      const id = Math.random().toString()
-
       ChatManager.sendChat({
-        id,
         message: inputValue,
         roomNum: roomId,
         sender: player.nickname.text,
