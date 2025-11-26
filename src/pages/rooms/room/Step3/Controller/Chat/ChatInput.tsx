@@ -27,13 +27,16 @@ function ChatInput({ inputRef }: ChatInputProps) {
     setInputValue(value)
   }
 
+  const handleBlur = () => {
+    gameScene.enableKeys()
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (!me?.user) return
     if (!roomId) return
     if (!inputValue) {
       inputRef.current?.blur()
-      gameScene.enableKeys()
     } else {
       const id = Math.random().toString()
 
@@ -45,7 +48,6 @@ function ChatInput({ inputRef }: ChatInputProps) {
       })
 
       inputRef.current?.blur()
-      gameScene.enableKeys()
       setInputValue('')
     }
   }
@@ -60,6 +62,7 @@ function ChatInput({ inputRef }: ChatInputProps) {
         ref={inputRef}
         value={inputValue}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
     </form>
   )
