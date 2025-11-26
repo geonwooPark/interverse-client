@@ -1,4 +1,6 @@
 import Button from '@components/Button'
+import ModalDim from '@components/Modal/ModalDim'
+import ModalTitle from '@components/Modal/ModalTitle'
 
 interface PrivacyModalProps {
   hasDim?: boolean
@@ -12,31 +14,11 @@ export default function PrivacyModal({
   return (
     <div className="fixed inset-0 z-overlay h-screen w-screen">
       {/* Dim */}
-      {hasDim && <div onClick={onClose} className="size-full bg-black/70" />}
+      {hasDim && <ModalDim onClose={onClose} />}
 
       {/* Modal */}
       <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
-        <div className="flex items-center justify-between border-b border-gray-200 p-4">
-          <h2 className="text-h6">개인정보처리방침</h2>
-          <button
-            onClick={onClose}
-            className="rounded-md p-1 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
-          >
-            <svg
-              className="size-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
+        <ModalTitle title="개인정보처리방침" onClose={onClose} />
 
         <div className="h-full overflow-y-auto p-6 tablet:max-h-[60vh]">
           <div className="whitespace-pre-line text-body2 leading-relaxed text-gray-700">

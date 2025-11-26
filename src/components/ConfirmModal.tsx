@@ -1,5 +1,7 @@
 import { cn } from '@utils/cn'
 import Button from './Button'
+import ModalDim from './Modal/ModalDim'
+import ModalTitle from './Modal/ModalTitle'
 
 interface ConfirmModalProps {
   title: string
@@ -27,15 +29,13 @@ function ConfirmModal({
   return (
     <div className="fixed inset-0 h-screen w-screen">
       {/* Dim */}
-      {hasDim && <div onClick={onClose} className="size-full bg-black/70" />}
+      {hasDim && <ModalDim onClose={onClose} />}
 
       {/* Modal */}
       <div
-        className={`absolute left-[50%] top-[50%] size-full h-fit w-[360px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white`}
+        className={`absolute left-1/2 top-1/2 size-full h-fit w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white`}
       >
-        <div className="p-4">
-          <p className="text-h6">{title}</p>
-        </div>
+        <ModalTitle title={title} />
 
         <div className="mb-4 px-4">
           <p className="whitespace-pre-line text-body2 leading-normal">
