@@ -2,6 +2,7 @@ import Button from '@components/Button'
 import ModalBody from '@components/Modal/ModalBody'
 import ModalDim from '@components/Modal/ModalDim'
 import ModalTitle from '@components/Modal/ModalTitle'
+import ModalContainer from '@components/Modal/ModalContainer'
 
 interface PrivacyModalProps {
   hasDim?: boolean
@@ -13,12 +14,12 @@ export default function PrivacyModal({
   onClose,
 }: PrivacyModalProps) {
   return (
-    <div className="fixed inset-0 z-overlay h-screen w-screen">
+    <div className="fixed inset-0 z-overlay flex h-screen w-screen items-center justify-center">
       {/* Dim */}
       {hasDim && <ModalDim onClose={onClose} />}
 
       {/* Modal */}
-      <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
+      <ModalContainer className="flex h-screen w-full flex-col overflow-hidden rounded-none tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
         <ModalTitle title="개인정보처리방침" onClose={onClose} />
 
         <ModalBody>
@@ -68,7 +69,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
             확인
           </Button>
         </div>
-      </div>
+      </ModalContainer>
     </div>
   )
 }

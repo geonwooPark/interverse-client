@@ -3,6 +3,7 @@ import Button from './Button'
 import ModalDim from './Modal/ModalDim'
 import ModalTitle from './Modal/ModalTitle'
 import ModalBody from './Modal/ModalBody'
+import ModalContainer from './Modal/ModalContainer'
 
 interface ConfirmModalProps {
   title: string
@@ -28,14 +29,12 @@ function ConfirmModal({
   hideLeftButton = false,
 }: ConfirmModalProps) {
   return (
-    <div className="fixed inset-0 h-screen w-screen">
+    <div className="fixed inset-0 flex h-screen w-screen items-center justify-center">
       {/* Dim */}
       {hasDim && <ModalDim onClose={onClose} />}
 
       {/* Modal */}
-      <div
-        className={`absolute left-1/2 top-1/2 size-full h-fit w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white`}
-      >
+      <ModalContainer className="h-fit w-[360px]">
         <ModalTitle title={title} />
 
         <ModalBody>{description}</ModalBody>
@@ -55,7 +54,7 @@ function ConfirmModal({
             {rightLabel || '확인'}
           </Button>
         </div>
-      </div>
+      </ModalContainer>
     </div>
   )
 }
