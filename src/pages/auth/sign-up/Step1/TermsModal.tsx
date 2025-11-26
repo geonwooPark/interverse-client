@@ -1,4 +1,5 @@
 import Button from '@components/Button'
+import ModalBody from '@components/Modal/ModalBody'
 import ModalDim from '@components/Modal/ModalDim'
 import ModalTitle from '@components/Modal/ModalTitle'
 
@@ -20,9 +21,8 @@ export default function TermsModal({
       <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
         <ModalTitle title="이용약관" onClose={onClose} />
 
-        <div className="h-full overflow-y-auto p-6 tablet:max-h-[60vh]">
-          <div className="whitespace-pre-line text-body2 leading-relaxed text-gray-700">
-            {`제1조 (목적)
+        <ModalBody>
+          {`제1조 (목적)
 이 약관은 INTERVERSE(이하 "회사"라 함)가 제공하는 서비스의 이용과 관련하여 회사와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
 
 제2조 (정의)
@@ -57,8 +57,7 @@ export default function TermsModal({
 
 제8조 (개인정보보호)
 1. 회사는 이용자의 개인정보 보호를 위하여 노력합니다. 회사가 이용자의 개인정보를 보호하기 위하여 기울이는 노력이나 기타 상세한 사항은 개인정보처리방침에서 확인하실 수 있습니다.`}
-          </div>
-        </div>
+        </ModalBody>
 
         <div className="flex items-center justify-end border-t border-gray-200 p-4">
           <Button size="md" variant="contained" onClick={onClose}>

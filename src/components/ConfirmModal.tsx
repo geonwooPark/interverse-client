@@ -2,6 +2,7 @@ import { cn } from '@utils/cn'
 import Button from './Button'
 import ModalDim from './Modal/ModalDim'
 import ModalTitle from './Modal/ModalTitle'
+import ModalBody from './Modal/ModalBody'
 
 interface ConfirmModalProps {
   title: string
@@ -37,11 +38,7 @@ function ConfirmModal({
       >
         <ModalTitle title={title} />
 
-        <div className="mb-4 px-4">
-          <p className="whitespace-pre-line text-body2 leading-normal">
-            {description}
-          </p>
-        </div>
+        <ModalBody>{description}</ModalBody>
 
         <div className="flex justify-end gap-2 p-4">
           {hideLeftButton || (

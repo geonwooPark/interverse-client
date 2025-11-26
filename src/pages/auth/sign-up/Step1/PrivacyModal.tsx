@@ -1,4 +1,5 @@
 import Button from '@components/Button'
+import ModalBody from '@components/Modal/ModalBody'
 import ModalDim from '@components/Modal/ModalDim'
 import ModalTitle from '@components/Modal/ModalTitle'
 
@@ -20,9 +21,8 @@ export default function PrivacyModal({
       <div className="absolute left-1/2 top-1/2 flex h-screen w-full -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white tablet:h-fit tablet:max-h-[80vh] tablet:w-[600px] tablet:max-w-[600px] tablet:rounded-md">
         <ModalTitle title="개인정보처리방침" onClose={onClose} />
 
-        <div className="h-full overflow-y-auto p-6 tablet:max-h-[60vh]">
-          <div className="whitespace-pre-line text-body2 leading-relaxed text-gray-700">
-            {`제1조 (개인정보의 처리목적)
+        <ModalBody>
+          {`제1조 (개인정보의 처리목적)
 INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다.
 
 1. 회원 가입 및 관리
@@ -61,8 +61,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
 
 제8조 (개인정보 보호책임자)
 회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.`}
-          </div>
-        </div>
+        </ModalBody>
 
         <div className="flex items-center justify-end border-t border-gray-200 p-4">
           <Button size="md" variant="contained" onClick={onClose}>

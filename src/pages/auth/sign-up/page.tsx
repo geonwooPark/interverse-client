@@ -4,13 +4,13 @@ import FormProvider from '@components/Rhf/FormProvider'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import StepFlow from '@components/StepFlow'
-import Step1 from './Step1'
-import Step2 from './Step2'
-import Step3 from './Step3'
 import { useNavigate } from 'react-router-dom'
 import { paths } from '@routes/paths'
 import { useSignUpMutation } from '@hooks/mutations/authMutations'
 import { CustomFile } from 'ventileco-ui'
+import Step1 from './Step1'
+import Step2 from './Step2'
+import Step3 from './Step3'
 
 function SignUpPage() {
   const navigate = useNavigate()
