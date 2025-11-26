@@ -28,4 +28,28 @@
   .hide-scroll::-webkit-scrollbar {
     display: none;
   }
+
+  .global-loading-track {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .global-loading-bar {
+    position: absolute;
+    inset: 0;
+    transform-origin: 0 50%;
+    animation: global-loading-bar 1s ease-in-out infinite;
+  }
+}
+
+@keyframes global-loading-bar {
+  0% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(0.6);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }

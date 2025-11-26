@@ -1,9 +1,9 @@
 import React, { ComponentType, Suspense, ReactNode } from 'react'
-import Loading from '@components/Loading'
+import GlobalLoading from '@components/GlobalLoading'
 
 export default function withSuspense<T extends object>(
   Component: ComponentType<T>,
-  fallback: ReactNode = <Loading />,
+  fallback: ReactNode = <GlobalLoading />,
 ): ComponentType<T> {
   return function EnhancedComponent(props: T) {
     return (
