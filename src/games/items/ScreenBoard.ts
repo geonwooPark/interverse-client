@@ -1,5 +1,6 @@
 import ObjectItem from './ObjectItem'
 import Player from '@games/avatars/Player'
+import i18n from '@locales/index'
 
 export default class ScreenBoard extends ObjectItem {
   constructor(
@@ -18,7 +19,7 @@ export default class ScreenBoard extends ObjectItem {
     this.scene.events.emit('openVideoModal')
     this.scene.events.emit(
       'changeContent',
-      'ESC 키를 눌러 게임으로 돌아갈 수 있습니다.',
+      i18n.t('game.items.esc_to_game'),
     )
 
     player.anims.play(`${player.avatarTexture}_stand_down`, true)
@@ -30,6 +31,6 @@ export default class ScreenBoard extends ObjectItem {
   }
 
   onInteractionBox() {
-    this.setInteractionBox('스페이스키를 눌러 화면공유를 시작하세요!')
+    this.setInteractionBox(i18n.t('game.items.screen_share_interaction'))
   }
 }

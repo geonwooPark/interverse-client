@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { IDirectMessage } from '@interfaces/index'
 
 interface MessageItemProps {
@@ -7,6 +8,8 @@ interface MessageItemProps {
 }
 
 export default function MessageItem({ message, onClick }: MessageItemProps) {
+  const { t } = useTranslation()
+
   return (
     <li className="border-b">
       <button
@@ -16,7 +19,9 @@ export default function MessageItem({ message, onClick }: MessageItemProps) {
         <div className="pointer-events-none flex items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
             <p className="text-body2 text-gray-400">
-              {message.sender}님이 보낸 메시지
+              {t('rooms.room.message_item.subtitle', {
+                sender: message.sender,
+              })}
             </p>
             <p className="line-clamp-1 whitespace-pre-wrap break-words text-body2">
               {message.message}

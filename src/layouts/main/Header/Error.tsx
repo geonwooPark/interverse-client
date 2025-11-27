@@ -1,8 +1,11 @@
 import { IconRefresh } from '@assets/svgs'
 import Button from '@components/Button'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function Error({ error, onReset }: any) {
+  const { t } = useTranslation()
+
   return (
     <Button
       size="sm"
@@ -11,7 +14,7 @@ export default function Error({ error, onReset }: any) {
       rightIcon={<IconRefresh className="ml-2 size-4" />}
       className="h-[48px] w-[120px]"
     >
-      재시도
+      {t('common.retry')}
     </Button>
   )
 }

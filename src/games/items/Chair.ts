@@ -1,6 +1,7 @@
 import Player from '@games/avatars/Player'
 import ObjectItem from './ObjectItem'
 import GameScene from '@games/scenes/Game'
+import i18n from '@locales/index'
 
 export default class Chair extends ObjectItem {
   id!: number
@@ -44,16 +45,10 @@ export default class Chair extends ObjectItem {
 
     if (this.interaction === 'menual') {
       this.scene.events.emit('openCreatorModal')
-      this.scene.events.emit(
-        'changeContent',
-        'ESC 키를 눌러 게임으로 돌아갈 수 있습니다.',
-      )
+      this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
     } else if (this.interaction === 'interview') {
       this.scene.events.emit('openVideoModal')
-      this.scene.events.emit(
-        'changeContent',
-        'ESC 키를 눌러 게임으로 돌아갈 수 있습니다.',
-      )
+      this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
 
       game.video.joinVideoRoom()
     } else {
@@ -90,11 +85,11 @@ export default class Chair extends ObjectItem {
 
   onInteractionBox() {
     if (this.interaction === 'menual') {
-      this.setInteractionBox('스페이스키를 눌러 제작자를 확인하세요!')
+      this.setInteractionBox(i18n.t('game.items.chair_menual_interaction'))
     } else if (this.interaction === 'interview') {
-      this.setInteractionBox('스페이스키를 눌러 화상통화를 시작하세요!')
+      this.setInteractionBox(i18n.t('game.items.chair_interview_interaction'))
     } else {
-      this.setInteractionBox('스페이스키를 눌러 의자에 앉아보세요!')
+      this.setInteractionBox(i18n.t('game.items.chair_default_interaction'))
     }
   }
 }

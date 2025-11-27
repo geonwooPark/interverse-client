@@ -7,6 +7,7 @@ import Container from '@components/Container'
 import { roomsService } from '@services/roomsService'
 import { useParams } from 'react-router-dom'
 import { AxiosError } from 'axios'
+import { useTranslation } from 'react-i18next'
 
 interface Step1Props extends Partial<StepFlowProps> {}
 
@@ -16,6 +17,8 @@ function Step1({ activeStep, onNext }: Step1Props) {
   const [password, setPassword] = useState('')
 
   const [error, setError] = useState('')
+
+  const { t } = useTranslation()
 
   const checkPassword = async () => {
     if (!roomId) return
@@ -36,12 +39,14 @@ function Step1({ activeStep, onNext }: Step1Props) {
   return (
     <div className="flex size-full items-center justify-center">
       <Container className="max-w-[360px]">
-        <div className="mb-4 text-subtitle1">비밀번호를 입력해주세요</div>
+        <div className="mb-4 text-subtitle1">
+          {t('rooms.room.step1.title')}
+        </div>
         <div className="mb-6">
           <TextFieldWithCaption
             type="password"
             value={password}
-            placeholder="비밀번호"
+            placeholder={t('rooms.room.step1.password_placeholder')}
             onChange={(e) => setPassword(e.target.value)}
             caption={
               error && (
@@ -61,7 +66,7 @@ function Step1({ activeStep, onNext }: Step1Props) {
           disabled={password.length === 0}
           onClick={checkPassword}
         >
-          다음
+          {t('rooms.room.step1.next')}
         </Button>
       </Container>
     </div>

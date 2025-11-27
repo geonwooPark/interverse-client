@@ -5,8 +5,11 @@ import RhfTextField from '@components/Rhf/RhfTextField'
 import React, { useReducer } from 'react'
 import RhfProfileUploader from '@components/Rhf/RhfProfileUploader'
 import { StepProps } from '@components/StepFlow/types'
+import { useTranslation } from 'react-i18next'
 
 export default function Step3({ onPrev }: StepProps) {
+  const { t } = useTranslation()
+
   const [showPassword, setShowPassword] = useReducer((prev) => !prev, false)
 
   const [showConfirmPassword, setShowConfirmPassword] = useReducer(
@@ -18,11 +21,14 @@ export default function Step3({ onPrev }: StepProps) {
     <FadeIn>
       <div className="mb-3 flex w-full flex-1 flex-col gap-3">
         <RhfProfileUploader name="profile" />
-        <RhfTextField name="nickname" placeholder="닉네임" />
+        <RhfTextField
+          name="nickname"
+          placeholder={t('auth.sign_up.step3.nickname_placeholder')}
+        />
         <RhfTextField
           type={showPassword ? 'text' : 'password'}
           name="password"
-          placeholder="비밀번호"
+          placeholder={t('auth.sign_up.step3.password_placeholder')}
           endIcon={
             <IconButton
               iconName={showPassword ? 'IconEyeSlash' : 'IconEye'}
@@ -34,7 +40,7 @@ export default function Step3({ onPrev }: StepProps) {
         <RhfTextField
           type={showConfirmPassword ? 'text' : 'password'}
           name="confirmPassword"
-          placeholder="비밀번호 확인"
+          placeholder={t('auth.sign_up.step3.confirm_password_placeholder')}
           endIcon={
             <IconButton
               iconName={showConfirmPassword ? 'IconEyeSlash' : 'IconEye'}
@@ -53,11 +59,11 @@ export default function Step3({ onPrev }: StepProps) {
           fullWidth
           onClick={onPrev}
         >
-          이전
+          {t('auth.sign_up.step3.prev')}
         </Button>
 
         <Button type="submit" variant="contained" size="lg" fullWidth>
-          가입하기
+          {t('auth.sign_up.step3.submit')}
         </Button>
       </div>
     </FadeIn>

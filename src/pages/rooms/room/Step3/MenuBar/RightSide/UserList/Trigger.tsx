@@ -1,6 +1,7 @@
 import Icon from '@components/Icon'
 import React from 'react'
 import { ToolTip } from 'ventileco-ui'
+import { useTranslation } from 'react-i18next'
 
 interface TriggerProps {
   headCount: number
@@ -8,6 +9,8 @@ interface TriggerProps {
 }
 
 export default function Trigger({ headCount, onClick }: TriggerProps) {
+  const { t } = useTranslation()
+
   return (
     <ToolTip direction="bottom" enterDelay={1000}>
       <ToolTip.Trigger>
@@ -24,7 +27,9 @@ export default function Trigger({ headCount, onClick }: TriggerProps) {
         </button>
       </ToolTip.Trigger>
       <ToolTip.Content>
-        <div className="rounded bg-white px-2 py-1 text-caption">참여인원</div>
+        <div className="rounded bg-white px-2 py-1 text-caption">
+          {t('rooms.room.controller.headcount')}
+        </div>
         <ToolTip.Triangle className="size-2.5 bg-white" />
       </ToolTip.Content>
     </ToolTip>

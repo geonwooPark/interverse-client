@@ -5,6 +5,7 @@ import { useModal } from '@providers/ModalProvider'
 import ConfirmModal from '@components/ConfirmModal'
 import { useDeleteRoomMutation } from '@hooks/mutations/roomsMutation'
 import Empty from './Empty'
+import { useTranslation } from 'react-i18next'
 
 export default function LogList() {
   const { addModal, removeModal } = useModal()
@@ -12,6 +13,8 @@ export default function LogList() {
   const { data: logs } = useRoomsQuery()
 
   const { mutate: deleteMutate } = useDeleteRoomMutation()
+
+  const { t } = useTranslation()
 
   const handleDeleteModal = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -23,10 +26,9 @@ export default function LogList() {
 
     addModal(
       <ConfirmModal
-        title="방 삭제"
-        description={`삭제된 방은 되돌릴 수 없습니다.
-          정말 방을 삭제하시겠습니까?`}
-        rightLabel="삭제"
+        title={t('rooms.log_list.delete_title')}
+        description={t('rooms.log_list.delete_description')}
+        rightLabel={t('common.delete')}
         rightButtonClassName="bg-error hover:bg-error/90"
         onClose={removeModal}
         onSubmit={() => {
@@ -38,7 +40,7 @@ export default function LogList() {
   }
 
   if (logs?.length === 0) {
-    return <Empty label="현재 참여 중인 방이 없습니다." />
+    return <Empty label={t('rooms.log_list.empty_label')} />
   }
 
   return (

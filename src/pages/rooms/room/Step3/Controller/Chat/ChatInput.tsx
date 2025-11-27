@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useScene } from '@providers/SceneProvider'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 interface ChatInputProps {
   inputRef: React.RefObject<HTMLInputElement>
@@ -19,6 +20,8 @@ function ChatInput({ inputRef }: ChatInputProps) {
   const ChatManager = gameScene.chat
 
   const [inputValue, setInputValue] = useState('')
+
+  const { t } = useTranslation()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -53,7 +56,7 @@ function ChatInput({ inputRef }: ChatInputProps) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="채팅을 입력해주세요"
+        placeholder={t('game.chat.input_placeholder')}
         autoComplete="off"
         className="w-full bg-transparent px-4 py-2 outline-none placeholder:text-black"
         ref={inputRef}

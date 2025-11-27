@@ -1,4 +1,5 @@
 import ObjectItem from './ObjectItem'
+import i18n from '@locales/index'
 
 export default class Printer extends ObjectItem {
   constructor(
@@ -15,10 +16,7 @@ export default class Printer extends ObjectItem {
 
   do() {
     this.scene.events.emit('openSurveyModal')
-    this.scene.events.emit(
-      'changeContent',
-      'ESC 키를 눌러 게임으로 돌아갈 수 있습니다.',
-    )
+    this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
   }
 
   undo() {
@@ -27,6 +25,6 @@ export default class Printer extends ObjectItem {
   }
 
   onInteractionBox() {
-    this.setInteractionBox('스페이스키를 눌러 INTERVERSE를 평가해주세요!')
+    this.setInteractionBox(i18n.t('game.items.printer_interaction'))
   }
 }

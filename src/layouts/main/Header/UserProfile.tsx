@@ -10,6 +10,7 @@ import { isLoggedInStore } from '@store/index'
 import slide from '@components/Animation/motions/slide'
 import { toast } from 'ventileco-ui'
 import Image from '@components/Image'
+import { useTranslation } from 'react-i18next'
 
 export default function UserProfile() {
   const queryClient = useQueryClient()
@@ -20,8 +21,10 @@ export default function UserProfile() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const { t } = useTranslation()
+
   const logout = () => {
-    toast.success('로그아웃 완료! 편안한 하루 보내세요 😊')
+    toast.success(t('common.logout_success'))
     removeLocalStorageItem(TOKEN)
     setIsLoggedIn(false)
     queryClient.clear()
@@ -50,7 +53,9 @@ export default function UserProfile() {
                 className="w-full bg-white px-3 py-2 duration-200 hover:bg-gray-50"
                 onClick={logout}
               >
-                <p className="text-start text-body2 text-red-600">로그아웃</p>
+                <p className="text-start text-body2 text-red-600">
+                  {t('common.logout')}
+                </p>
               </button>
             </li>
           </m.ul>

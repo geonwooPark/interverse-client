@@ -3,6 +3,7 @@ import { motion as m } from 'motion/react'
 import { ToolTip } from 'ventileco-ui'
 import Icon from '@components/Icon'
 import Badge from './Badge'
+import { useTranslation } from 'react-i18next'
 
 interface TriggerProps {
   onClick: () => void
@@ -10,6 +11,8 @@ interface TriggerProps {
 }
 
 export default function Trigger({ onClick, hasNewAlarm }: TriggerProps) {
+  const { t } = useTranslation()
+
   const [isShaking, setIsShaking] = useState(false)
 
   const handleClick = () => {
@@ -49,7 +52,7 @@ export default function Trigger({ onClick, hasNewAlarm }: TriggerProps) {
       </ToolTip.Trigger>
       <ToolTip.Content>
         <div className="rounded bg-white px-2 py-1 text-caption">
-          다이렉트 메시지
+          {t('rooms.room.controller.dm')}
         </div>
         <ToolTip.Triangle className="size-2.5 bg-white" />
       </ToolTip.Content>

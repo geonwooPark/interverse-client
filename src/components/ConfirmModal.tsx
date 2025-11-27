@@ -4,6 +4,7 @@ import ModalDim from './Modal/ModalDim'
 import ModalTitle from './Modal/ModalTitle'
 import ModalBody from './Modal/ModalBody'
 import ModalContainer from './Modal/ModalContainer'
+import { useTranslation } from 'react-i18next'
 
 interface ConfirmModalProps {
   title: string
@@ -28,6 +29,8 @@ function ConfirmModal({
   onSubmit,
   hideLeftButton = false,
 }: ConfirmModalProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="fixed inset-0 flex h-screen w-screen items-center justify-center">
       {/* Dim */}
@@ -42,7 +45,7 @@ function ConfirmModal({
         <div className="flex justify-end gap-2 p-4">
           {hideLeftButton || (
             <Button size="md" variant="ghost" onClick={onClose}>
-              {leftLabel || '닫기'}
+              {leftLabel || t('common.close')}
             </Button>
           )}
           <Button
@@ -51,7 +54,7 @@ function ConfirmModal({
             onClick={onSubmit}
             className={cn('shadow-none', rightButtonClassName)}
           >
-            {rightLabel || '확인'}
+            {rightLabel || t('common.confirm')}
           </Button>
         </div>
       </ModalContainer>

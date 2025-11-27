@@ -9,9 +9,12 @@ import Step1 from './Step1'
 import { schema } from './schema'
 import Step2 from './Step2'
 import { useChangePasswordMutation } from '@hooks/mutations/authMutations'
+import { useTranslation } from 'react-i18next'
 
 function RecoveryPage() {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const { mutate: changePasswordMutate } = useChangePasswordMutation()
 
@@ -48,7 +51,7 @@ function RecoveryPage() {
   }
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
-      <h4 className="mb-4 text-center text-h4">비밀번호 재설정</h4>
+      <h4 className="mb-4 text-center text-h4">{t('auth.recovery.title')}</h4>
 
       <StepFlow activeStep={activeStep} onNext={onNext}>
         <Step1 />

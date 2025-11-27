@@ -8,9 +8,12 @@ import { AnimatePresence, motion as m } from 'motion/react'
 import ChatList from './Chat/ChatList'
 import ChatInput from './Chat/ChatInput'
 import slide from '@components/Animation/motions/slide'
+import { useTranslation } from 'react-i18next'
 
 function Controller() {
   const { id: roomId } = useParams()
+
+  const { t } = useTranslation()
 
   const gameScene = useScene()
 
@@ -59,7 +62,11 @@ function Controller() {
       <div className="flex w-full items-center justify-between px-4 py-2">
         <div className="select-none">
           <p className="text-subtitle1">{player.nickname.text}</p>
-          <p className="text-body2">{room?.isHost ? '방장' : '게스트'}</p>
+          <p className="text-body2">
+            {room?.isHost
+              ? t('rooms.room.controller.host')
+              : t('rooms.room.controller.guest')}
+          </p>
         </div>
 
         <div className="flex gap-2">
@@ -67,14 +74,16 @@ function Controller() {
             <ToolTip.Trigger>
               <button
                 onClick={() => setShowChat((prev) => !prev)}
-                className={`flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 ${showChat ? 'text-white' : 'text-white/40'}`}
+                className={`flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 ${
+                  showChat ? 'text-white' : 'text-white/40'
+                }`}
               >
                 <IconChat className="size-4" />
               </button>
             </ToolTip.Trigger>
             <ToolTip.Content>
               <div className="rounded bg-white px-2 py-1 text-caption">
-                채팅
+                {t('rooms.room.controller.chat')}
               </div>
               <ToolTip.Triangle className="size-2.5 bg-white" />
             </ToolTip.Content>
@@ -84,14 +93,16 @@ function Controller() {
             <ToolTip.Trigger>
               <button
                 onClick={() => player.toggleVideo()}
-                className={`${isEnabled.video ? 'text-green-500' : 'text-red-500'} flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60`}
+                className={`${
+                  isEnabled.video ? 'text-green-500' : 'text-red-500'
+                } flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60`}
               >
                 <IconCam className="size-4" />
               </button>
             </ToolTip.Trigger>
             <ToolTip.Content>
               <div className="rounded bg-white px-2 py-1 text-caption">
-                카메라
+                {t('rooms.room.controller.camera')}
               </div>
               <ToolTip.Triangle className="size-2.5 bg-white" />
             </ToolTip.Content>
@@ -101,14 +112,16 @@ function Controller() {
             <ToolTip.Trigger>
               <button
                 onClick={() => player.toggleAudio()}
-                className={`${isEnabled.audio ? 'text-green-500' : 'text-red-500'} flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60`}
+                className={`${
+                  isEnabled.audio ? 'text-green-500' : 'text-red-500'
+                } flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60`}
               >
                 <IconMic className="size-4" />
               </button>
             </ToolTip.Trigger>
             <ToolTip.Content>
               <div className="rounded bg-white px-2 py-1 text-caption">
-                마이크
+                {t('rooms.room.controller.mic')}
               </div>
               <ToolTip.Triangle className="size-2.5 bg-white" />
             </ToolTip.Content>

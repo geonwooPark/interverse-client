@@ -9,6 +9,7 @@ import Container from '@components/Container'
 import { useParams } from 'react-router-dom'
 import { useJoinRoomMutation } from '@hooks/mutations/roomsMutation'
 import { useCharactersQuery } from '@hooks/queries/assetsQueries'
+import { useTranslation } from 'react-i18next'
 
 interface Step2Props extends Partial<StepFlowProps> {}
 
@@ -23,6 +24,8 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
   const [texture, setTexture] = useState(0)
 
   const [nickname, setNickname] = useState('')
+
+  const { t } = useTranslation()
 
   const onNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > MAX_NICKNAME_LENGTH) {
@@ -63,11 +66,13 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
           <TextFieldWithCaption
             value={nickname}
             onChange={onNicknameChange}
-            placeholder="닉네임"
+            placeholder={t('rooms.room.step2.nickname_placeholder')}
             maxLength={MAX_NICKNAME_LENGTH}
             caption={
               <p className="ml-2 mt-1 text-caption text-gray-700">
-                닉네임은 최대 {MAX_NICKNAME_LENGTH}글자까지 가능합니다.
+                {t('rooms.room.step2.nickname_caption', {
+                  length: MAX_NICKNAME_LENGTH,
+                })}
               </p>
             }
           />
@@ -80,7 +85,7 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
           disabled={nickname.length === 0}
           onClick={onEnter}
         >
-          입장하기
+          {t('rooms.room.step2.enter')}
         </Button>
       </Container>
     </div>

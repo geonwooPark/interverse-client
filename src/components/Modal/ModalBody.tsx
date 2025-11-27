@@ -10,7 +10,7 @@ export default function ModalBody({
   className,
 }: PropsWithChildren<ModalBodyProps>) {
   return (
-    <div className={cn('h-full overflow-y-auto px-4', className)}>
+    <div className={cn('h-full px-4', className)}>
       <div className="whitespace-pre-line text-body2">{children}</div>
     </div>
   )

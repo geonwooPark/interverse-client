@@ -11,8 +11,11 @@ import {
   useCheckVerificationCode,
   useSendVerificationEmailMutation,
 } from '@hooks/mutations/authMutations'
+import { useTranslation } from 'react-i18next'
 
 export default function Step2({ onNext, onPrev }: StepProps) {
+  const { t } = useTranslation()
+
   const { trigger, getValues } = useFormContext()
 
   const { mutate: checkIdMutate } = useCheckIdMutation()
@@ -78,7 +81,10 @@ export default function Step2({ onNext, onPrev }: StepProps) {
     <FadeIn>
       <div className="mb-6">
         <div className="mb-3 flex items-start gap-2">
-          <RhfTextField name="email" placeholder="이메일" />
+          <RhfTextField
+            name="email"
+            placeholder={t('auth.sign_up.step2.email_placeholder')}
+          />
           <Button
             type="button"
             size="lg"
@@ -87,7 +93,7 @@ export default function Step2({ onNext, onPrev }: StepProps) {
             onClick={onVerifyClick}
             className="w-[96px] px-2"
           >
-            인증하기
+            {t('auth.sign_up.step2.verify')}
           </Button>
         </div>
         {isTimerActive && (
@@ -95,17 +101,17 @@ export default function Step2({ onNext, onPrev }: StepProps) {
             <TextField
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="인증번호"
+              placeholder={t('auth.sign_up.step2.code_placeholder')}
               endIcon={<div className="mr-3">{timer}</div>}
               className="mb-2 w-full"
             />
             <div className="flex gap-1 px-3 py-2 text-caption">
-              <p>인증번호가 전송되지 않으셨나요? </p>
+              <p>{t('auth.sign_up.step2.not_received')}</p>
               <button
                 className="cursor-pointer font-semibold text-primary-dark"
                 onClick={onResendClick}
               >
-                다시 전송하기
+                {t('auth.sign_up.step2.resend')}
               </button>
             </div>
           </div>
@@ -120,7 +126,7 @@ export default function Step2({ onNext, onPrev }: StepProps) {
           fullWidth
           onClick={onPrev}
         >
-          이전
+          {t('auth.sign_up.step2.prev')}
         </Button>
 
         <Button
@@ -130,7 +136,7 @@ export default function Step2({ onNext, onPrev }: StepProps) {
           fullWidth
           onClick={goNext}
         >
-          다음
+          {t('auth.sign_up.step2.next')}
         </Button>
       </div>
     </FadeIn>

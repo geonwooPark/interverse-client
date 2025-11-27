@@ -7,9 +7,12 @@ import LogList from './LogList'
 import Boundary from '@components/Boundary'
 import Loading from './Loading'
 import Error from './Error'
+import { useTranslation } from 'react-i18next'
 
 export default function RoomListPage() {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const onClick = () => {
     navigate(`${paths.rooms.create}`)
@@ -19,7 +22,7 @@ export default function RoomListPage() {
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between pb-2 pt-4 tablet:pb-6 tablet:pt-8">
         <h2 className="text-h4 font-semibold tablet:text-h3">
-          현재 이용 중인 공간
+          {t('rooms.list.current_spaces')}
         </h2>
 
         <Button
@@ -29,7 +32,7 @@ export default function RoomListPage() {
           className="ml-auto hidden tablet:flex"
           onClick={onClick}
         >
-          방 만들기
+          {t('rooms.list.create_room')}
         </Button>
       </div>
 
@@ -41,7 +44,7 @@ export default function RoomListPage() {
       <button
         onClick={onClick}
         className="fixed bottom-6 right-6 z-popover flex size-14 items-center justify-center rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50 transition-all duration-200 hover:bg-cyan-400 active:scale-95 tablet:hidden"
-        aria-label="방 만들기"
+        aria-label={t('rooms.list.create_room')}
       >
         <IconPlus className="size-6 text-white" />
       </button>

@@ -10,12 +10,15 @@ import { useCharactersQuery } from '@hooks/queries/assetsQueries'
 import { useBlockGoBack } from '@hooks/useBlockGoBack'
 import { useModal } from '@providers/ModalProvider'
 import ConfirmModal from '@components/ConfirmModal'
+import { useTranslation } from 'react-i18next'
 
 /**
  * 룸 화면
  */
 function RoomPage() {
   const { id: roomId } = useParams()
+
+  const { t } = useTranslation()
 
   const navigate = useNavigate()
 
@@ -52,14 +55,14 @@ function RoomPage() {
   useBlockGoBack(() => {
     addModal(
       <ConfirmModal
-        title="게임을 종료하시겠습니까?"
-        description={`뒤로 가기를 누르면 게임이 종료되며, 이후 방 목록 페이지로 이동합니다. 계속 진행하시겠습니까?`}
+        title={t('rooms.room.exit_title')}
+        description={t('rooms.room.exit_description')}
         onClose={removeModal}
         onSubmit={() => {
           removeModal()
           navigate('/rooms')
         }}
-        rightLabel="종료"
+        rightLabel={t('rooms.room.exit_right_label')}
       />,
     )
   })

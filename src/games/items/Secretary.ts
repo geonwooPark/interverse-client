@@ -1,4 +1,5 @@
 import ObjectItem from './ObjectItem'
+import i18n from '@locales/index'
 
 export default class Secretary extends ObjectItem {
   constructor(
@@ -17,7 +18,7 @@ export default class Secretary extends ObjectItem {
     this.scene.events.emit('openMenualModal')
     this.scene.events.emit(
       'changeContent',
-      'ESC 키를 눌러 게임으로 돌아갈 수 있습니다.',
+      i18n.t('game.items.esc_to_game'),
     )
   }
 
@@ -27,6 +28,6 @@ export default class Secretary extends ObjectItem {
   }
 
   onInteractionBox() {
-    this.setInteractionBox('스페이스키를 눌러 안내서를 확인하세요!')
+    this.setInteractionBox(i18n.t('game.items.secretary_interaction'))
   }
 }

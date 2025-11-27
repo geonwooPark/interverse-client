@@ -4,6 +4,7 @@ import { useMeQuery } from '@hooks/queries/authQueries'
 import dayjs from 'dayjs'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 interface LogProps {
   log: {
@@ -32,6 +33,8 @@ interface LogProps {
 export default function Log({ log, onDelete }: LogProps) {
   const { data: me } = useMeQuery()
 
+  const { t } = useTranslation()
+
   return (
     <div className="group relative">
       <Link to={`/rooms/${log.room?._id}`}>
@@ -48,7 +51,9 @@ export default function Log({ log, onDelete }: LogProps) {
           <p className="truncate text-h6">{log.room?.title}</p>
 
           <p className="text-start text-caption text-gray-400">
-            최근 참여: {dayjs(log.joinedAt).format('YYYY-MM-DD HH:mm:ss')}
+            {t('rooms.log_list.last_joined', {
+              date: dayjs(log.joinedAt).format('YYYY-MM-DD HH:mm:ss'),
+            })}
           </p>
         </div>
       </Link>

@@ -1,8 +1,11 @@
 import * as yup from 'yup'
+import i18n from '@locales/index'
 
 export const schema = yup.object().shape({
-  title: yup.string().required('방제목을 입력해주세요.'),
-  password: yup.string().required('비밀번호를 입력해주세요.'),
+  title: yup.string().required(() => i18n.t('validation.room_title_required')),
+  password: yup
+    .string()
+    .required(() => i18n.t('validation.room_password_required')),
   headCount: yup.number().required(),
   mapSrc: yup.string().required(),
 })

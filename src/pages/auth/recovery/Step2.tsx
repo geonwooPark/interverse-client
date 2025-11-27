@@ -4,8 +4,11 @@ import IconButton from '@components/IconButton'
 import RhfTextField from '@components/Rhf/RhfTextField'
 import { StepProps } from '@components/StepFlow/types'
 import React, { useReducer } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function Step2({ onNext }: StepProps) {
+  const { t } = useTranslation()
+
   const [showPassword, setShowPassword] = useReducer((prev) => !prev, false)
 
   const [showConfirmPassword, setShowConfirmPassword] = useReducer(
@@ -19,7 +22,7 @@ export default function Step2({ onNext }: StepProps) {
         <RhfTextField
           type={showPassword ? 'text' : 'password'}
           name="password"
-          placeholder="비밀번호"
+          placeholder={t('auth.recovery.step2.password_placeholder')}
           endIcon={
             <IconButton
               iconName={showPassword ? 'IconEyeSlash' : 'IconEye'}
@@ -31,7 +34,7 @@ export default function Step2({ onNext }: StepProps) {
         <RhfTextField
           type={showConfirmPassword ? 'text' : 'password'}
           name="confirmPassword"
-          placeholder="비밀번호 확인"
+          placeholder={t('auth.recovery.step2.confirm_password_placeholder')}
           endIcon={
             <IconButton
               iconName={showConfirmPassword ? 'IconEyeSlash' : 'IconEye'}
@@ -43,7 +46,7 @@ export default function Step2({ onNext }: StepProps) {
       </div>
 
       <Button type="submit" variant="contained" size="lg" fullWidth>
-        변경하기
+        {t('auth.recovery.step2.submit')}
       </Button>
     </FadeIn>
   )

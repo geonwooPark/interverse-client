@@ -12,8 +12,11 @@ import {
   useCheckVerificationCode,
   useSendVerificationEmailMutation,
 } from '@hooks/mutations/authMutations'
+import { useTranslation } from 'react-i18next'
 
 export default function Step1({ onNext }: StepProps) {
+  const { t } = useTranslation()
+
   const {
     trigger,
     getValues,
@@ -74,7 +77,10 @@ export default function Step1({ onNext }: StepProps) {
     <FadeIn>
       <div className="mb-6">
         <div className="mb-3 flex items-start gap-2">
-          <RhfTextField name="email" placeholder="이메일" />
+          <RhfTextField
+            name="email"
+            placeholder={t('auth.recovery.step1.email_placeholder')}
+          />
           <Button
             type="button"
             size="lg"
@@ -83,7 +89,7 @@ export default function Step1({ onNext }: StepProps) {
             onClick={onVerifyClick}
             className="w-[96px] px-2"
           >
-            인증하기
+            {t('auth.recovery.step1.verify')}
           </Button>
         </div>
         {isTimerActive && (
@@ -91,17 +97,17 @@ export default function Step1({ onNext }: StepProps) {
             <TextField
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="인증번호"
+              placeholder={t('auth.recovery.step1.code_placeholder')}
               endIcon={<div className="mr-3">{timer}</div>}
               className="mb-2 w-full"
             />
             <div className="flex gap-1 px-3 py-2 text-caption">
-              <p>인증번호가 전송되지 않으셨나요? </p>
+              <p>{t('auth.recovery.step1.not_received')}</p>
               <button
                 className="cursor-pointer font-semibold text-primary-dark"
                 onClick={onResendClick}
               >
-                다시 전송하기
+                {t('auth.recovery.step1.resend')}
               </button>
             </div>
           </div>
@@ -116,13 +122,13 @@ export default function Step1({ onNext }: StepProps) {
         className="mb-4"
         onClick={goNext}
       >
-        다음
+        {t('auth.recovery.step1.next')}
       </Button>
 
       <div className="flex justify-center text-caption">
         <Link to={'/login'} className="flex items-center gap-1">
           <Icon iconName="IconChevronLeft" className="size-3" />
-          로그인 페이지로 돌아가기
+          {t('auth.recovery.step1.go_login')}
         </Link>
       </div>
     </FadeIn>

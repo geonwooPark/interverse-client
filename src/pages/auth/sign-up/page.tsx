@@ -11,9 +11,12 @@ import { CustomFile } from 'ventileco-ui'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
+import { useTranslation } from 'react-i18next'
 
 function SignUpPage() {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   const { mutate } = useSignUpMutation()
 
@@ -67,7 +70,7 @@ function SignUpPage() {
 
   return (
     <FormProvider methods={methods} onSubmit={onSubmit}>
-      <h4 className="mb-4 text-center text-h4">회원가입</h4>
+      <h4 className="mb-4 text-center text-h4">{t('auth.sign_up.title')}</h4>
 
       <StepFlow activeStep={activeStep} onNext={onNext} onPrev={onPrev}>
         <Step1 />

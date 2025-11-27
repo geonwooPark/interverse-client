@@ -1,12 +1,15 @@
 import React from 'react'
 import Button from '@components/Button'
 import Image from '@components/Image'
+import { useTranslation } from 'react-i18next'
 
 interface CreatorModalProps {
   hasDim?: boolean
 }
 
 function CreatorModal({ hasDim }: CreatorModalProps) {
+  const { t } = useTranslation()
+
   const handleClick = () => {
     window.open(
       'https://github.com/geonwooPark',
@@ -30,7 +33,9 @@ function CreatorModal({ hasDim }: CreatorModalProps) {
           <div className="flex items-end gap-1">
             <span className="text-h6">박건우</span>
             <span className="text-body2 opacity-30">|</span>
-            <span className="text-body2 opacity-30">프론트엔드</span>
+            <span className="text-body2 opacity-30">
+              {t('rooms.room.creator.role_frontend')}
+            </span>
           </div>
           <span className="body1">white0581@naver.com</span>
         </div>

@@ -7,6 +7,7 @@ import { useModal } from '@providers/ModalProvider'
 import MessageModal from './MessageModal'
 import slide from '@components/Animation/motions/slide'
 import { useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function MessageList() {
   const { id: roomId } = useParams()
@@ -25,6 +26,8 @@ export default function MessageList() {
   const [isOpen, setIsOpen] = useState(false)
 
   const hasNewAlarm = messagelist?.some((r) => !r.isRead)
+
+  const { t } = useTranslation()
 
   const onClose = () => {
     setIsOpen((prev) => !prev)
@@ -59,9 +62,11 @@ export default function MessageList() {
               <button
                 disabled={!hasNewAlarm}
                 onClick={readAllDM}
-                className={`${hasNewAlarm ? 'text-cyan-500' : 'text-gray-200'} text-subtitle2`}
+                className={`${
+                  hasNewAlarm ? 'text-cyan-500' : 'text-gray-200'
+                } text-subtitle2`}
               >
-                전체 읽음
+                {t('rooms.room.message_list.mark_all_read')}
               </button>
             </div>
 
@@ -78,7 +83,7 @@ export default function MessageList() {
             ) : (
               <div className="flex h-full items-center justify-center pb-12">
                 <p className="text-subtitle2 text-gray-400">
-                  전송된 메시지가 없습니다.
+                  {t('rooms.room.message_list.empty')}
                 </p>
               </div>
             )}

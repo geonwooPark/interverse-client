@@ -10,11 +10,14 @@ import PrivacyModal from './PrivacyModal'
 import { Link } from 'react-router-dom'
 import Icon from '@components/Icon'
 import CheckBox from '@components/CheckBox'
+import { useTranslation } from 'react-i18next'
 
 export default function Step1({ onNext }: StepProps) {
   const { watch, setValue, trigger } = useFormContext()
 
   const { addModal, removeModal } = useModal()
+
+  const { t } = useTranslation()
 
   const termsOfService = watch('termsOfService')
 
@@ -56,7 +59,7 @@ export default function Step1({ onNext }: StepProps) {
               className="py-2"
             >
               <span className="text-body2 font-semibold text-gray-900">
-                전체 동의
+                {t('auth.sign_up.step1.agree_all')}
               </span>
             </CheckBox>
           </div>
@@ -69,10 +72,13 @@ export default function Step1({ onNext }: StepProps) {
                   onClick={handleTermsLink}
                   className="font-semibold underline"
                 >
-                  이용약관
+                  {t('auth.sign_up.step1.terms_label')}
                 </button>
-                에 동의합니다.
-                <span className="text-red-500"> (필수)</span>
+                {t('auth.sign_up.step1.terms_suffix')}
+                <span className="text-red-500">
+                  {' '}
+                  {t('auth.sign_up.step1.terms_required')}
+                </span>
               </span>
             </RhfCheckbox>
             <RhfCheckbox name="privacyPolicy" className="py-2">
@@ -82,10 +88,13 @@ export default function Step1({ onNext }: StepProps) {
                   onClick={handlePrivacyLink}
                   className="font-semibold underline"
                 >
-                  개인정보처리방침
+                  {t('auth.sign_up.step1.privacy_label')}
                 </button>
-                에 동의합니다.
-                <span className="text-red-500"> (필수)</span>
+                {t('auth.sign_up.step1.privacy_suffix')}
+                <span className="text-red-500">
+                  {' '}
+                  {t('auth.sign_up.step1.terms_required')}
+                </span>
               </span>
             </RhfCheckbox>
           </div>
@@ -100,13 +109,13 @@ export default function Step1({ onNext }: StepProps) {
         className="mb-4"
         onClick={goNext}
       >
-        다음
+        {t('common.next')}
       </Button>
 
       <div className="flex justify-center text-caption">
         <Link to={'/login'} className="flex items-center gap-1">
           <Icon iconName="IconChevronLeft" className="size-3" />
-          로그인 페이지로 돌아가기
+          {t('auth.sign_up.step1.go_login')}
         </Link>
       </div>
     </FadeIn>

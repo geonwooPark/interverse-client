@@ -1,33 +1,33 @@
 import { IconError, IconInfo, IconSuccess } from '@assets/svgs'
 import { cn } from '@utils/cn'
+import { useTranslation } from 'react-i18next'
 
 const iconMap = {
   success: {
     progressBarColor: 'bg-green-500',
     icon: <IconSuccess className="size-5 shrink-0 text-green-400" />,
-    title: '성공',
+    titleKey: 'common.toast.success',
   },
   error: {
     progressBarColor: 'bg-red-500',
     icon: <IconError className="size-5 shrink-0 text-red-400" />,
-    title: '오류',
+    titleKey: 'common.toast.error',
   },
   info: {
     progressBarColor: 'bg-blue-500',
     icon: <IconInfo className="size-5 shrink-0 text-blue-400" />,
-    title: '알림',
+    titleKey: 'common.toast.info',
   },
 } as const
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function CustomToast({ toastItem, removeToast }: any) {
+  const { t } = useTranslation()
+
   const { type, message, title, id } = toastItem
 
-  const {
-    progressBarColor,
-    icon,
-    title: defaultTitle,
-  } = iconMap[type as keyof typeof iconMap]
+  const { progressBarColor, icon, titleKey } =
+    iconMap[type as keyof typeof iconMap]
 
   const handleRemove = () => {
     removeToast(id)
@@ -49,7 +49,7 @@ export default function CustomToast({ toastItem, removeToast }: any) {
 
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <strong className="text-sm font-semibold text-gray-900">
-            {title ?? defaultTitle}
+            {title ?? t(titleKey)}
           </strong>
           <p className="line-clamp-2 break-words text-sm text-gray-600">
             {message}
@@ -64,7 +64,7 @@ export default function CustomToast({ toastItem, removeToast }: any) {
             handleRemove()
           }}
         >
-          닫기
+          {t('common.toast.close')}
         </button>
       </div>
     </div>
