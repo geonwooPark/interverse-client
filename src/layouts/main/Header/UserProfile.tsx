@@ -11,6 +11,7 @@ import slide from '@components/Animation/motions/slide'
 import { toast } from 'ventileco-ui'
 import Image from '@components/Image'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserProfile() {
   const queryClient = useQueryClient()
@@ -22,12 +23,18 @@ export default function UserProfile() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   const logout = () => {
     toast.success(t('common.logout_success'))
     removeLocalStorageItem(TOKEN)
     setIsLoggedIn(false)
     queryClient.clear()
+  }
+
+  const goSetting = () => {
+    navigate('/setting')
+    setIsMenuOpen(false)
   }
 
   return (
@@ -46,15 +53,23 @@ export default function UserProfile() {
         {isMenuOpen && (
           <m.ul
             {...slide({ distance: -20, isFade: true }).inY}
-            className="absolute -bottom-12 right-0 z-overlay w-[120px] overflow-hidden rounded-md bg-white shadow-level2"
+            className="absolute right-0 top-11 z-overlay w-[160px] overflow-hidden rounded-md bg-white shadow-level2"
           >
+            <li>
+              <button
+                className="w-full bg-white px-3 py-2 text-start text-body2 duration-200 hover:bg-gray-50"
+                onClick={goSetting}
+              >
+                {t('common.menu.setting')}
+              </button>
+            </li>
             <li>
               <button
                 className="w-full bg-white px-3 py-2 duration-200 hover:bg-gray-50"
                 onClick={logout}
               >
                 <p className="text-start text-body2 text-red-600">
-                  {t('common.logout')}
+                  {t('common.menu.logout')}
                 </p>
               </button>
             </li>

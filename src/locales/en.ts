@@ -18,6 +18,10 @@ export default {
       info: 'Info',
       close: 'Close',
     },
+    menu: {
+      setting: 'Settings',
+      logout: 'Log out',
+    },
   },
   auth: {
     login: {
@@ -157,6 +161,20 @@ The Company destroys personal information without delay when the retention perio
 Article 8 (Personal Information Protection Officer)
 The Company designates a person in charge of personal information protection as follows to take overall responsibility for personal information processing and to handle complaints and damage relief from data subjects related to personal information processing.`,
     },
+  },
+  setting: {
+    title: 'Settings',
+    description: 'Manage your account information and site preferences.',
+    profile_section_title: 'Profile settings',
+    nickname_label: 'Nickname',
+    nickname_placeholder: 'Enter a new nickname',
+    nickname_submit: 'Change nickname',
+    nickname_helper: 'Nickname change feature will be available soon.',
+    nickname_todo: 'Nickname change is coming soon. Please stay tuned!',
+    language_section_title: 'Language settings',
+    language_label: 'Language',
+    language_submit: 'Change language',
+    language_helper: 'You can select the default language used on this site.',
   },
   rooms: {
     list: {

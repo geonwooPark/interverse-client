@@ -18,6 +18,10 @@ export default {
       info: 'お知らせ',
       close: '閉じる',
     },
+    menu: {
+      setting: '設定',
+      logout: 'ログアウト',
+    },
   },
   auth: {
     login: {
@@ -157,6 +161,20 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
 第8条（個人情報保護責任者）
 当社は、個人情報の取扱いに関する業務を総括して責任を負い、個人情報取扱いに関する情報主体の苦情処理および被害救済等のために、次のとおり個人情報保護責任者を指定します。`,
     },
+  },
+  setting: {
+    title: '設定',
+    description: 'アカウント情報とサイト環境を管理できます。',
+    profile_section_title: 'プロフィール設定',
+    nickname_label: 'ニックネーム',
+    nickname_placeholder: '新しいニックネームを入力してください',
+    nickname_submit: 'ニックネームを変更',
+    nickname_helper: 'ニックネーム変更機能はまもなく提供予定です。',
+    nickname_todo: 'ニックネーム変更機能は準備中です。もう少々お待ちください！',
+    language_section_title: '言語設定',
+    language_label: '言語',
+    language_submit: '言語を変更',
+    language_helper: 'サイトで使用するデフォルト言語を選択できます。',
   },
   rooms: {
     list: {

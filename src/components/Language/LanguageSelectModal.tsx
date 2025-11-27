@@ -7,6 +7,7 @@ import { setLanguage } from '@locales/index'
 import { useTranslation } from 'react-i18next'
 import Select from '@components/Select'
 import { useState } from 'react'
+import { LANGUAGE_OPTIONS } from '@constants/index'
 
 interface LanguageSelectModalProps {
   hasDim?: boolean
@@ -50,20 +51,7 @@ export default function LanguageSelectModal({
                   setSelectedLanguage(value)
                 }
               }}
-              options={[
-                {
-                  value: 'ko',
-                  label: '한국어',
-                },
-                {
-                  value: 'en',
-                  label: 'English',
-                },
-                {
-                  value: 'ja',
-                  label: '日本語',
-                },
-              ]}
+              options={LANGUAGE_OPTIONS}
             />
 
             <Button

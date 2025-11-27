@@ -17,7 +17,7 @@ export default function Select({ value, onChange, options }: SelectProps) {
       className="relative text-sm"
     >
       <SelectBox.Input
-        className="flex h-11 items-center rounded-md border border-slate-300 bg-white px-3 focus-within:border-blue-500"
+        className="flex h-10 items-center rounded-md border border-slate-300 bg-white px-3 focus-within:border-blue-500"
         endIcon={<span className="text-xs text-slate-400">▼</span>}
       />
       <SelectBox.List
