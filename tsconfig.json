@@ -36,6 +36,7 @@
       "@services/*": ["src/services/*"],
       "@routes/*": ["src/routes/*"],
       "@hocs/*": ["src/hocs/*"],
+      "@locales/*": ["src/locales/*"],
       "@utils/*": ["src/utils/*"],
       "@store/*": ["src/store/*"],
       "@interfaces/*": ["src/interfaces/*"]

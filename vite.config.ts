@@ -21,6 +21,7 @@ export default defineConfig({
       { find: '@services', replacement: '/src/services' },
       { find: '@routes', replacement: '/src/routes' },
       { find: '@hocs', replacement: '/src/hocs' },
+      { find: '@locales', replacement: '/src/locales' },
       { find: '@utils', replacement: '/src/utils' },
       { find: '@store', replacement: '/src/store' },
       { find: '@interfaces', replacement: '/src/interfaces' },
