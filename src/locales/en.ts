@@ -175,6 +175,23 @@ The Company designates a person in charge of personal information protection as 
     language_label: 'Language',
     language_submit: 'Change language',
     language_helper: 'You can select the default language used on this site.',
+    media_section_title: 'Media settings',
+    camera_label: 'Camera',
+    camera_helper: 'You can manage camera access permissions.',
+    microphone_label: 'Microphone',
+    microphone_helper: 'You can manage microphone access permissions.',
+    media_permission_denied:
+      'Some permissions have been denied. Please change the permissions in your browser settings.',
+    camera_not_found: 'Camera not found.',
+    camera_permission_denied: 'Camera access permission denied.',
+    camera_not_readable:
+      'Cannot access camera. It may be in use by another application.',
+    camera_error: 'An error occurred while accessing the camera.',
+    microphone_not_found: 'Microphone not found.',
+    microphone_permission_denied: 'Microphone access permission denied.',
+    microphone_not_readable:
+      'Cannot access microphone. It may be in use by another application.',
+    microphone_error: 'An error occurred while accessing the microphone.',
   },
   rooms: {
     list: {

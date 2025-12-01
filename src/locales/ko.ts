@@ -175,6 +175,23 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
     language_label: '언어',
     language_submit: '언어 변경',
     language_helper: '사이트에서 사용할 기본 언어를 선택할 수 있어요.',
+    media_section_title: '미디어 설정',
+    camera_label: '카메라',
+    camera_helper: '카메라 접근 권한을 관리할 수 있어요.',
+    microphone_label: '마이크',
+    microphone_helper: '마이크 접근 권한을 관리할 수 있어요.',
+    media_permission_denied:
+      '일부 권한이 거부되었습니다. 브라우저 설정에서 권한을 변경해주세요.',
+    camera_not_found: '카메라를 찾을 수 없습니다.',
+    camera_permission_denied: '카메라 접근 권한이 거부되었습니다.',
+    camera_not_readable:
+      '카메라에 접근할 수 없습니다. 다른 앱에서 사용 중일 수 있습니다.',
+    camera_error: '카메라 접근 중 오류가 발생했습니다.',
+    microphone_not_found: '마이크를 찾을 수 없습니다.',
+    microphone_permission_denied: '마이크 접근 권한이 거부되었습니다.',
+    microphone_not_readable:
+      '마이크에 접근할 수 없습니다. 다른 앱에서 사용 중일 수 있습니다.',
+    microphone_error: '마이크 접근 중 오류가 발생했습니다.',
   },
   rooms: {
     list: {

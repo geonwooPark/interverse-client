@@ -175,6 +175,23 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
     language_label: '言語',
     language_submit: '言語を変更',
     language_helper: 'サイトで使用するデフォルト言語を選択できます。',
+    media_section_title: 'メディア設定',
+    camera_label: 'カメラ',
+    camera_helper: 'カメラへのアクセス権限を管理できます。',
+    microphone_label: 'マイク',
+    microphone_helper: 'マイクへのアクセス権限を管理できます。',
+    media_permission_denied:
+      '一部の権限が拒否されています。ブラウザの設定で権限を変更してください。',
+    camera_not_found: 'カメラが見つかりません。',
+    camera_permission_denied: 'カメラへのアクセス権限が拒否されました。',
+    camera_not_readable:
+      'カメラにアクセスできません。他のアプリケーションで使用中かもしれません。',
+    camera_error: 'カメラへのアクセス中にエラーが発生しました。',
+    microphone_not_found: 'マイクが見つかりません。',
+    microphone_permission_denied: 'マイクへのアクセス権限が拒否されました。',
+    microphone_not_readable:
+      'マイクにアクセスできません。他のアプリケーションで使用中かもしれません。',
+    microphone_error: 'マイクへのアクセス中にエラーが発生しました。',
   },
   rooms: {
     list: {

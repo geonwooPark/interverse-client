@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import ProfileSection from './ProfileSection'
 import LanguageSection from './LanguageSection'
+import MediaSection from './MediaSection'
 
 export default function SettingPage() {
   const navigate = useNavigate()
@@ -32,6 +33,7 @@ export default function SettingPage() {
 
       <ProfileSection />
       <LanguageSection />
+      <MediaSection />
     </main>
   )
 }

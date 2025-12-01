@@ -1,12 +1,12 @@
 import Alert from './Alert'
 import MenuBar from './MenuBar'
 import Modals from './Modals'
-import useMediaPermissions from '@hooks/useMediaPermissions'
 import ConfirmModal from '@components/ConfirmModal'
 import { useModal } from '@providers/ModalProvider'
 import Controller from './Controller'
 import SceneProvider from '@providers/SceneProvider'
 import { useTranslation } from 'react-i18next'
+import useRequestMediaPermissions from '@hooks/useRequestMediaPermissions'
 
 export default function Step3() {
   const { addModal, removeModal } = useModal()
@@ -14,7 +14,7 @@ export default function Step3() {
   const { t } = useTranslation()
 
   // 권한 받기
-  useMediaPermissions({
+  useRequestMediaPermissions({
     fallback: () =>
       addModal(
         <ConfirmModal
