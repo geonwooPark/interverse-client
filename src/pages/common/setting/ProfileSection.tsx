@@ -1,48 +1,105 @@
 import Button from '@components/Button'
-import TextField from '@components/TextField'
+import FormProvider from '@components/Rhf/FormProvider'
+import RhfProfileUploader from '@components/Rhf/RhfProfileUploader'
+import RhfTextField from '@components/Rhf/RhfTextField'
 import { useMeQuery } from '@hooks/queries/authQueries'
-import { FormEvent, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'ventileco-ui'
+import { CustomFile } from 'ventileco-ui'
+
+interface ProfileImageFormData {
+  profile: CustomFile[]
+}
+
+interface NicknameFormData {
+  nickname: string
+}
 
 export default function ProfileSection() {
   const { t } = useTranslation()
+
   const { data: me } = useMeQuery()
 
-  const [nickname, setNickname] = useState(me?.user?.nickname ?? '')
+  const profileMethods = useForm<ProfileImageFormData>({
+    defaultValues: {
+      profile: [
+        {
+          preview: me?.user?.profile ?? '',
+        } as CustomFile,
+      ],
+    },
+  })
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  console.log(profileMethods.watch('profile'))
+
+  const nicknameMethods = useForm<NicknameFormData>({
+    defaultValues: {
+      nickname: me?.user?.nickname ?? '',
+    },
+  })
+
+  const onProfileSubmit = profileMethods.handleSubmit(async (data) => {
+    const { profile } = data
+
+    const formData = new FormData()
+
+    if (profile?.[0]) {
+      formData.append('profile', profile[0] as CustomFile)
+    }
+
     toast.info(t('setting.nickname_todo'))
-  }
+  })
+
+  const onNicknameSubmit = nicknameMethods.handleSubmit(async (data) => {
+    const { nickname } = data
+
+    const formData = new FormData()
+
+    formData.append('nickname', nickname)
+
+    toast.info(t('setting.nickname_todo'))
+  })
 
   return (
     <section className="rounded-lg border bg-white p-6 shadow-sm">
       <h6 className="mb-4 text-h6">{t('setting.profile_section_title')}</h6>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 sm:flex-row sm:items-end"
-      >
-        <div className="flex-1">
-          <label className="mb-2 block text-body2 text-gray-700">
-            {t('setting.nickname_label')}
-          </label>
-          <TextField
-            value={nickname}
-            placeholder={t('setting.nickname_placeholder')}
-            onChange={(e) => setNickname(e.target.value)}
-          />
+      {/* 프로필 이미지 업로드  */}
+      <FormProvider methods={profileMethods} onSubmit={onProfileSubmit}>
+        <div className="mb-6 flex flex-col items-center gap-4">
+          <RhfProfileUploader name="profile" />
+
+          {profileMethods.formState.isDirty && (
+            <Button type="submit" size="md" variant="contained">
+              {t('setting.profile_submit')}
+            </Button>
+          )}
+        </div>
+      </FormProvider>
+
+      {/* 닉네임 변경  */}
+      <FormProvider methods={nicknameMethods} onSubmit={onNicknameSubmit}>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+          <div className="flex-1">
+            <label className="mb-2 block text-body2 text-gray-700">
+              {t('setting.nickname_label')}
+            </label>
+            <RhfTextField
+              name="nickname"
+              placeholder={t('setting.nickname_placeholder')}
+            />
+          </div>
+
+          <Button type="submit" size="md" variant="contained">
+            {t('setting.nickname_submit')}
+          </Button>
         </div>
 
-        <Button type="submit" size="md" variant="contained">
-          {t('setting.nickname_submit')}
-        </Button>
-      </form>
-
-      <p className="mt-2 text-caption text-gray-400">
-        {t('setting.nickname_helper')}
-      </p>
+        <p className="mt-2 text-caption text-gray-400">
+          {t('setting.nickname_helper')}
+        </p>
+      </FormProvider>
     </section>
   )
 }
