@@ -83,8 +83,8 @@ export default function Step1({ onNext }: StepProps) {
           />
           <Button
             type="button"
-            size="lg"
             variant="ghost"
+            size="md"
             disabled={!canResend}
             onClick={onVerifyClick}
             className="w-[96px] px-2"
@@ -116,8 +116,8 @@ export default function Step1({ onNext }: StepProps) {
 
       <Button
         type="button"
+        size="md"
         variant="contained"
-        size="lg"
         fullWidth
         className="mb-4"
         onClick={goNext}

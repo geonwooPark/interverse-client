@@ -24,8 +24,14 @@ const ButtonVariants = cva(
         lg: `h-[48px] px-8`,
       },
       variant: {
-        contained: `${twMerge('text-dark', '!text-body2')} bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-400`,
-        outlined: `${twMerge('text-cyan-500', '!text-body2')} border-2 border-cyan-500`,
+        contained: `${twMerge(
+          'text-dark',
+          '!text-body2',
+        )} bg-cyan-500 shadow-lg shadow-cyan-500/50 hover:bg-cyan-400`,
+        outlined: `${twMerge(
+          'text-cyan-500',
+          '!text-body2',
+        )} border-2 border-cyan-500`,
         ghost: `${twMerge('text-light', '!text-body2')} border-2`,
       },
       fullWidth: {

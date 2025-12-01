@@ -104,7 +104,7 @@ export default function Step1({ onNext }: StepProps) {
       <Button
         type="button"
         variant="contained"
-        size="lg"
+        size="md"
         fullWidth
         className="mb-4"
         onClick={goNext}

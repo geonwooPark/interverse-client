@@ -45,7 +45,7 @@ export default function Step2({ onNext }: StepProps) {
         />
       </div>
 
-      <Button type="submit" variant="contained" size="lg" fullWidth>
+      <Button type="submit" variant="contained" size="md" fullWidth>
         {t('auth.recovery.step2.submit')}
       </Button>
     </FadeIn>

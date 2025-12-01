@@ -55,14 +55,14 @@ export default function Step3({ onPrev }: StepProps) {
         <Button
           type="button"
           variant="ghost"
-          size="lg"
+          size="md"
           fullWidth
           onClick={onPrev}
         >
           {t('auth.sign_up.step3.prev')}
         </Button>
 
-        <Button type="submit" variant="contained" size="lg" fullWidth>
+        <Button type="submit" variant="contained" size="md" fullWidth>
           {t('auth.sign_up.step3.submit')}
         </Button>
       </div>

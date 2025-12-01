@@ -39,9 +39,7 @@ function Step1({ activeStep, onNext }: Step1Props) {
   return (
     <div className="flex size-full items-center justify-center">
       <Container className="max-w-[360px]">
-        <div className="mb-4 text-subtitle1">
-          {t('rooms.room.step1.title')}
-        </div>
+        <div className="mb-4 text-subtitle1">{t('rooms.room.step1.title')}</div>
         <div className="mb-6">
           <TextFieldWithCaption
             type="password"
@@ -60,7 +58,7 @@ function Step1({ activeStep, onNext }: Step1Props) {
         </div>
 
         <Button
-          size="lg"
+          size="md"
           variant="contained"
           fullWidth
           disabled={password.length === 0}

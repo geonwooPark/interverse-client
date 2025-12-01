@@ -47,9 +47,7 @@ function CreateRoomPage() {
     <div className="flex size-full items-center justify-center">
       {/* 생성 폼 */}
       <div className="relative z-10 mt-10 h-full w-[400px] rounded-3xl">
-        <h4 className="mb-4 text-center text-h4">
-          {t('rooms.create.title')}
-        </h4>
+        <h4 className="mb-4 text-center text-h4">{t('rooms.create.title')}</h4>
 
         <MapSelector onChange={(map) => setValue('mapSrc', map)} />
 
@@ -66,15 +64,13 @@ function CreateRoomPage() {
               placeholder={t('rooms.create.password_placeholder')}
             />
             <div className="flex items-center justify-end gap-4">
-              <p className="text-body2">
-                {t('rooms.create.headcount_label')}
-              </p>
+              <p className="text-body2">{t('rooms.create.headcount_label')}</p>
               <RhfCounter name="headCount" />
             </div>
           </div>
         </FormProvider>
 
-        <Button size="lg" variant="contained" fullWidth onClick={onSubmit}>
+        <Button size="md" variant="contained" fullWidth onClick={onSubmit}>
           {t('rooms.create.submit')}
         </Button>
       </div>

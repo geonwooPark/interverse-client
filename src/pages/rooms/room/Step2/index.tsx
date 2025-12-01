@@ -79,7 +79,7 @@ export default function Step2({ activeStep, onNext }: Step2Props) {
         </div>
 
         <Button
-          size="lg"
+          size="md"
           variant="contained"
           fullWidth
           disabled={nickname.length === 0}
