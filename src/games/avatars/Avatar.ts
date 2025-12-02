@@ -1,6 +1,6 @@
 import ObjectItem from '../items/ObjectItem'
-import { DomNickname } from './DomNickname'
-import { DomChatBubble } from './DomChatBubble'
+import { DomNickname } from './dom/DomNickname'
+import { DomChatBubble } from './dom/DomChatBubble'
 
 export default class Avatar extends Phaser.Physics.Arcade.Sprite {
   avatarTexture: string
@@ -59,10 +59,10 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
   setNickname(nickname: string) {
     this.nickname.setText(nickname)
     this.domNickname.show(
-      nickname,
       this.avatarContainer.x,
       this.avatarContainer.y + 5,
       this.scene.cameras.main,
+      nickname,
     )
   }
 
@@ -82,10 +82,10 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
     this.clearChat()
 
     this.domChatBubble.show(
-      content,
       this.avatarContainer.x,
       this.avatarContainer.y - 15,
       this.scene.cameras.main,
+      content,
     )
   }
 
