@@ -193,6 +193,10 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
     microphone_not_readable:
       '마이크에 접근할 수 없습니다. 다른 앱에서 사용 중일 수 있습니다.',
     microphone_error: '마이크 접근 중 오류가 발생했습니다.',
+    camera_disable_info:
+      '카메라 권한을 끄려면 브라우저 설정에서 직접 변경해주세요.',
+    microphone_disable_info:
+      '마이크 권한을 끄려면 브라우저 설정에서 직접 변경해주세요.',
   },
   rooms: {
     list: {

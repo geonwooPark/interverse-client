@@ -22,6 +22,22 @@ export default function MediaSection() {
     },
   })
 
+  const handleCameraToggle = (enabled: boolean) => {
+    if (!enabled) {
+      toast.info(t('setting.camera_disable_info'))
+      return
+    }
+    toggleCamera()
+  }
+
+  const handleMicrophoneToggle = (enabled: boolean) => {
+    if (!enabled) {
+      toast.info(t('setting.microphone_disable_info'))
+      return
+    }
+    toggleMicrophone()
+  }
+
   return (
     <section className="rounded-lg border bg-white p-6 shadow-sm">
       <h6 className="mb-4 text-h6">{t('setting.media_section_title')}</h6>
@@ -38,7 +54,7 @@ export default function MediaSection() {
           </div>
           <Switch
             checked={permissions.camera === 'granted'}
-            onChange={toggleCamera}
+            onChange={handleCameraToggle}
           />
         </div>
 
@@ -53,7 +69,7 @@ export default function MediaSection() {
           </div>
           <Switch
             checked={permissions.microphone === 'granted'}
-            onChange={toggleMicrophone}
+            onChange={handleMicrophoneToggle}
           />
         </div>
       </div>

@@ -24,7 +24,7 @@ export default function Switch({
       className={cn(
         className,
         `relative flex h-6 w-12 items-center rounded-full ${
-          disabled ? 'bg-blue-600' : 'bg-slate-300'
+          checked ? 'bg-cyan-600' : 'bg-slate-300'
         }`,
       )}
     >

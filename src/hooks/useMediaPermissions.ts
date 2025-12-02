@@ -41,42 +41,35 @@ export default function useMediaPermissions({
   }, [])
 
   const handleToggle = useCallback(
-    async (device: DeviceType, enabled: boolean) => {
-      if (enabled) {
-        try {
-          const constraints =
-            device === 'camera' ? { video: true } : { audio: true }
+    async (device: DeviceType) => {
+      try {
+        const constraints =
+          device === 'camera' ? { video: true } : { audio: true }
 
-          const stream = await navigator.mediaDevices.getUserMedia(constraints)
+        const stream = await navigator.mediaDevices.getUserMedia(constraints)
 
-          stream.getTracks().forEach((track) => track.stop())
+        stream.getTracks().forEach((track) => track.stop())
 
-          await updatePermissionState(device)
-        } catch (error) {
-          console.error(`Error requesting ${device} permission:`, error)
-          await updatePermissionState(device)
-
-          if (error instanceof DOMException) {
-            const errorType = (error.name as MediaErrorType) || 'UnknownError'
-            onError?.(errorType, device)
-          } else {
-            onError?.('UnknownError', device)
-          }
-        }
-      } else {
         await updatePermissionState(device)
+      } catch (error) {
+        console.error(`Error requesting ${device} permission:`, error)
+        await updatePermissionState(device)
+
+        if (error instanceof DOMException) {
+          const errorType = (error.name as MediaErrorType) || 'UnknownError'
+          onError?.(errorType, device)
+        } else {
+          onError?.('UnknownError', device)
+        }
       }
     },
     [onError, updatePermissionState],
   )
 
-  const toggleCamera = useCallback(
-    (enabled: boolean) => handleToggle('camera', enabled),
-    [handleToggle],
-  )
+  const toggleCamera = useCallback(() => handleToggle('camera'), [handleToggle])
 
   const toggleMicrophone = useCallback(
-    (enabled: boolean) => handleToggle('microphone', enabled),
+    () => handleToggle('microphone'),
     [handleToggle],
   )
 

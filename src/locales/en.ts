@@ -193,6 +193,10 @@ The Company designates a person in charge of personal information protection as 
     microphone_not_readable:
       'Cannot access microphone. It may be in use by another application.',
     microphone_error: 'An error occurred while accessing the microphone.',
+    camera_disable_info:
+      'To disable camera permission, please change it in your browser settings.',
+    microphone_disable_info:
+      'To disable microphone permission, please change it in your browser settings.',
   },
   rooms: {
     list: {

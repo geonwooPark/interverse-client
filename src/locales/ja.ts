@@ -193,6 +193,10 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
     microphone_not_readable:
       'マイクにアクセスできません。他のアプリケーションで使用中かもしれません。',
     microphone_error: 'マイクへのアクセス中にエラーが発生しました。',
+    camera_disable_info:
+      'カメラの権限をオフにするには、ブラウザの設定で直接変更してください。',
+    microphone_disable_info:
+      'マイクの権限をオフにするには、ブラウザの設定で直接変更してください。',
   },
   rooms: {
     list: {
