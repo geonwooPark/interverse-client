@@ -6,6 +6,7 @@ type ModalContextState = {
   addModal: (modal: JSX.Element) => void
   removeModal: () => void
   clearModal: () => void
+  hasModal: () => boolean
 }
 
 export const [useModal, ModalContextProvider] =
@@ -29,9 +30,13 @@ function ModalProvider({ children }: PropsWithChildren) {
     setModals([])
   }, [])
 
+  const hasModal = useCallback(() => {
+    return modals.length > 0
+  }, [modals.length])
+
   const providerValue = useMemo(
-    () => ({ addModal, removeModal, clearModal }),
-    [],
+    () => ({ addModal, removeModal, clearModal, hasModal }),
+    [addModal, removeModal, clearModal, hasModal],
   )
 
   return (
