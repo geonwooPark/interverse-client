@@ -262,6 +262,15 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
         close: '閉じる',
         reply: '返信',
       },
+      user_list: {
+        empty: '参加しているユーザーがいません。',
+      },
+      user_list_modal: {
+        title: 'メッセージ',
+        input_placeholder: 'メッセージを入力してください。',
+        cancel: 'キャンセル',
+        send: '送信',
+      },
     },
     create: {
       title: '新しいルームを作成',

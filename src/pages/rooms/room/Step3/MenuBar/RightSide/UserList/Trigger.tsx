@@ -17,13 +17,13 @@ export default function Trigger({ headCount, onClick }: TriggerProps) {
         <button
           tabIndex={-1}
           onClick={onClick}
-          className="flex items-center justify-center rounded-md bg-black/70 px-3 py-2 text-white duration-200 hover:bg-black/90"
+          className="group relative flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 px-3.5 py-2.5 text-white shadow-lg transition-all duration-200 hover:from-gray-700 hover:to-gray-800 hover:shadow-xl active:scale-95"
         >
           <Icon
             iconName="IconUsers"
-            className="pointer-events-none mr-1 size-5"
+            className="pointer-events-none size-5 transition-transform group-hover:scale-110"
           />
-          <span className="pointer-events-none">{headCount}</span>
+          <span className="pointer-events-none font-medium">{headCount}</span>
         </button>
       </ToolTip.Trigger>
       <ToolTip.Content>

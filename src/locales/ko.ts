@@ -262,6 +262,15 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
         close: '닫기',
         reply: '답장',
       },
+      user_list: {
+        empty: '참여 중인 사용자가 없습니다.',
+      },
+      user_list_modal: {
+        title: '메시지',
+        input_placeholder: '메세지를 입력하세요.',
+        cancel: '취소',
+        send: '전송',
+      },
     },
     create: {
       title: '새로운 방 만들기',

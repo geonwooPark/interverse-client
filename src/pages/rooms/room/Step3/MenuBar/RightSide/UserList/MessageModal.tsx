@@ -5,6 +5,8 @@ import fade from '@components/Animation/motions/fade'
 import { motion as m } from 'motion/react'
 import GameScene from '@games/scenes/Game'
 import GameManager from '@managers/GameManager'
+import { useTranslation } from 'react-i18next'
+import Icon from '@components/Icon'
 
 interface MessageModalProps {
   id: string
@@ -17,6 +19,7 @@ export default function MessageModal({
   roomId,
   onClose,
 }: MessageModalProps) {
+  const { t } = useTranslation()
   const { data: me } = useMeQuery()
 
   const game = GameManager.getInstance()
@@ -47,34 +50,60 @@ export default function MessageModal({
   }
 
   return (
-    <div className="fixed inset-0 z-dialog h-screen w-screen">
+    <div className="fixed inset-0 z-dialog flex h-screen w-screen items-center justify-center">
       {/* Dim */}
-      <div onClick={onClose} className="size-full bg-black/70" />
+      <div
+        onClick={onClose}
+        className="absolute inset-0 size-full bg-black/60 backdrop-blur-sm"
+      />
+
       {/* Modal */}
       <m.div
         {...fade().fadeIn}
-        className={`absolute left-1/2 top-1/2 size-full h-fit w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white`}
+        className="relative z-10 h-fit w-[480px] rounded-xl bg-white shadow-2xl"
       >
         {/* 헤더 */}
-        <div className="body1 px-4 py-3">메시지</div>
+        <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
+          <h3 className="text-subtitle1 font-semibold text-gray-900">
+            {t('rooms.room.user_list_modal.title')}
+          </h3>
+          <button
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+          >
+            <Icon iconName="IconClose" className="size-5" />
+          </button>
+        </div>
 
         {/* 바디 */}
-        <div className="h-[160px] px-4">
+        <div className="px-6 py-5">
+          <div className="mb-2 flex items-center gap-2">
+            <div className="size-2 rounded-full bg-blue-500" />
+            <span className="text-caption font-medium text-gray-500">
+              {t('rooms.room.user_list_modal.send')}
+            </span>
+          </div>
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="메세지를 입력하세요."
-            className="size-full resize-none rounded-md border p-2 outline-none"
+            placeholder={t('rooms.room.user_list_modal.input_placeholder')}
+            className="size-full resize-none rounded-lg border border-gray-200 bg-white p-4 text-body2 outline-none transition-colors focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+            rows={5}
           />
         </div>
 
         {/* 푸터 */}
-        <div className="flex gap-2 px-4 py-3">
+        <div className="flex justify-end gap-3 border-t border-gray-100 px-6 py-4">
           <Button size="md" variant="ghost" onClick={onClose}>
-            취소
+            {t('rooms.room.user_list_modal.cancel')}
           </Button>
-          <Button size="md" variant="contained" onClick={onSubmit}>
-            전송
+          <Button
+            size="md"
+            variant="contained"
+            onClick={onSubmit}
+            disabled={!text.trim()}
+          >
+            {t('rooms.room.user_list_modal.send')}
           </Button>
         </div>
       </m.div>

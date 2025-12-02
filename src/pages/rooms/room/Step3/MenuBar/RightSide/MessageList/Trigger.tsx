@@ -39,14 +39,20 @@ export default function Trigger({ onClick, hasNewAlarm }: TriggerProps) {
         >
           <button
             onClick={handleClick}
-            className="flex items-center justify-center rounded-md bg-black/70 px-3 py-2 text-white duration-200 hover:bg-black/90"
+            className="group relative flex items-center justify-center rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 px-3.5 py-2.5 text-white shadow-lg transition-all duration-200 hover:from-gray-700 hover:to-gray-800 hover:shadow-xl active:scale-95"
           >
             <div className="pointer-events-none relative">
-              <Icon iconName="IconEvelope" className="size-5" />
+              <Icon
+                iconName="IconEvelope"
+                className="size-5 transition-transform group-hover:scale-110"
+              />
               {hasNewAlarm && (
                 <Badge className="absolute right-[-4px] top-[-2px]" />
               )}
             </div>
+            {hasNewAlarm && (
+              <span className="absolute inset-0 animate-pulse rounded-lg bg-cyan-500/20" />
+            )}
           </button>
         </m.div>
       </ToolTip.Trigger>

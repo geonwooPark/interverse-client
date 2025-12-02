@@ -8,6 +8,7 @@ import MessageModal from './MessageModal'
 import slide from '@components/Animation/motions/slide'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import Icon from '@components/Icon'
 
 export default function MessageList() {
   const { id: roomId } = useParams()
@@ -56,33 +57,47 @@ export default function MessageList() {
         {isOpen && (
           <m.div
             {...slide({ distance: -20, isFade: true }).inY}
-            className="absolute right-0 z-[6] mt-4 flex h-[400px] w-[320px] flex-col overflow-hidden rounded-md bg-white shadow-level2"
+            className="absolute right-0 z-[6] mt-4 flex h-[480px] w-[360px] flex-col overflow-hidden rounded-xl bg-white shadow-2xl"
           >
-            <div className="flex h-12 justify-end border-b px-3">
+            {/* 헤더 */}
+            <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white px-5 py-4">
+              <h3 className="text-subtitle1 font-semibold text-gray-900">
+                {t('rooms.room.controller.dm')}
+              </h3>
               <button
                 disabled={!hasNewAlarm}
                 onClick={readAllDM}
-                className={`${
-                  hasNewAlarm ? 'text-cyan-500' : 'text-gray-200'
-                } text-subtitle2`}
+                className={`rounded-lg px-3 py-1.5 text-caption font-medium transition-all ${
+                  hasNewAlarm
+                    ? 'bg-cyan-50 text-cyan-600 hover:bg-cyan-100 active:scale-95'
+                    : 'cursor-not-allowed text-gray-300'
+                }`}
               >
                 {t('rooms.room.message_list.mark_all_read')}
               </button>
             </div>
 
+            {/* 메시지 리스트 */}
             {messagelist.length > 0 ? (
-              <ul className="hide-scroll size-full overflow-y-scroll">
-                {messagelist?.map((message) => (
+              <ul className="hide-scroll flex-1 overflow-y-auto">
+                {messagelist.reverse().map((message, index) => (
                   <MessageItem
                     key={message.id}
                     message={message}
                     onClick={() => readDM(message)}
+                    isLast={index === messagelist.length - 1}
                   />
                 ))}
               </ul>
             ) : (
-              <div className="flex h-full items-center justify-center pb-12">
-                <p className="text-subtitle2 text-gray-400">
+              <div className="flex flex-1 flex-col items-center justify-center pb-12">
+                <div className="mb-4 rounded-full bg-gray-100 p-6">
+                  <Icon
+                    iconName="IconEvelope"
+                    className="size-8 text-gray-400"
+                  />
+                </div>
+                <p className="text-body2 text-gray-400">
                   {t('rooms.room.message_list.empty')}
                 </p>
               </div>

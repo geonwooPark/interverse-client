@@ -263,6 +263,15 @@ The Company designates a person in charge of personal information protection as 
         close: 'Close',
         reply: 'Reply',
       },
+      user_list: {
+        empty: 'No users are participating.',
+      },
+      user_list_modal: {
+        title: 'Message',
+        input_placeholder: 'Enter your message.',
+        cancel: 'Cancel',
+        send: 'Send',
+      },
     },
     create: {
       title: 'Create a new room',
