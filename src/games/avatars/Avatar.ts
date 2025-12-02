@@ -1,12 +1,14 @@
 import ObjectItem from '../items/ObjectItem'
-import { ChatBubbleManager } from '@managers/ChatBubbleManager'
+import { DomNickname } from './DomNickname'
+import { DomChatBubble } from './DomChatBubble'
 
 export default class Avatar extends Phaser.Physics.Arcade.Sprite {
   avatarTexture: string
   avatarContainer: Phaser.GameObjects.Container
   nickname: Phaser.GameObjects.Text
+  domNickname: DomNickname
   chatBox: Phaser.GameObjects.Container
-  chatBubble: ChatBubbleManager
+  domChatBubble: DomChatBubble
   timeOut?: number
   selectedInteractionItem?: ObjectItem
 
@@ -27,18 +29,15 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
 
     this.avatarContainer = this.scene.add.container(x, y - 35).setDepth(10000)
 
-    this.nickname = this.scene.add
-      .text(0, 0, '')
-      .setFontSize(12)
-      .setColor('#000000')
-      .setOrigin(0.5)
+    this.nickname = this.scene.add.text(0, 0, '')
+    this.nickname.setVisible(false)
+    this.domNickname = new DomNickname()
 
     this.chatBox = this.scene.add.container(0, 0)
+    this.domChatBubble = new DomChatBubble()
 
     this.avatarContainer.add(this.nickname)
     this.avatarContainer.add(this.chatBox)
-
-    this.chatBubble = new ChatBubbleManager()
 
     this.scene.physics.world.enable(this)
     this.scene.physics.world.enable(this.avatarContainer)
@@ -50,35 +49,52 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
     )
   }
 
-  // 닉네임 설정
-  setNickname(nickname: string) {
-    this.nickname.setText(nickname)
-  }
-
   // 아바타 텍스처 설정
   setAvatarTexture(avatarTexture: string) {
     this.avatarTexture = avatarTexture
     this.anims.play(`${avatarTexture}_stand_down`, true)
   }
 
-  // 채팅 표시
+  // 닉네임 설정
+  setNickname(nickname: string) {
+    this.nickname.setText(nickname)
+    this.domNickname.show(
+      nickname,
+      this.avatarContainer.x,
+      this.avatarContainer.y + 5,
+      this.scene.cameras.main,
+    )
+  }
+
+  // 닉네임 위치 업데이트
+  updateNicknamePosition() {
+    if (this.domNickname.isVisible()) {
+      this.domNickname.updatePosition(
+        this.avatarContainer.x,
+        this.avatarContainer.y + 5,
+        this.scene.cameras.main,
+      )
+    }
+  }
+
+  // 말풍선 표시
   updateChat(content: string) {
     this.clearChat()
 
-    this.chatBubble.show(
+    this.domChatBubble.show(
       content,
       this.avatarContainer.x,
-      this.avatarContainer.y - 10,
+      this.avatarContainer.y - 15,
       this.scene.cameras.main,
     )
   }
 
   // 말풍선 위치 업데이트
   updateChatPosition() {
-    if (this.chatBubble.isVisible()) {
-      this.chatBubble.updatePosition(
+    if (this.domChatBubble.isVisible()) {
+      this.domChatBubble.updatePosition(
         this.avatarContainer.x,
-        this.avatarContainer.y - 10,
+        this.avatarContainer.y - 15,
         this.scene.cameras.main,
       )
     }
@@ -88,6 +104,6 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
   clearChat() {
     clearTimeout(this.timeOut)
     this.chatBox.removeAll(true)
-    this.chatBubble.clear()
+    this.domChatBubble.clear()
   }
 }

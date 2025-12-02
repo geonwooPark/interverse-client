@@ -1,4 +1,4 @@
-export class ChatBubbleManager {
+export class DomChatBubble {
   private element: HTMLDivElement | null = null
   private container: HTMLElement
   private gameContainer: HTMLElement

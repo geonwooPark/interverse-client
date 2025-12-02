@@ -269,15 +269,17 @@ export default class Game extends Phaser.Scene {
       this.player.setOffset(0, 20)
     }
 
-    // 나의 말풍선 위치 업데이트
+    // 나의 말풍선 및 닉네임 위치 업데이트
     if (this.player) {
       this.player.updateChatPosition()
+      this.player.updateNicknamePosition()
     }
 
-    // 다른 플레이어들의 말풍선 위치 업데이트
+    // 다른 플레이어들의 말풍선 및 닉네임 위치 업데이트
     this.otherPlayers.children.entries.forEach((otherPlayer) => {
       if (otherPlayer instanceof OtherPlayer) {
         otherPlayer.updateChatPosition()
+        otherPlayer.updateNicknamePosition()
       }
     })
   }

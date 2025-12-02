@@ -32,6 +32,8 @@ export default class OtherPlayer extends Avatar {
   }
 
   destroy(scene?: boolean) {
+    // DOM 닉네임 정리
+    this.domNickname.clear()
     this.avatarContainer.destroy()
 
     super.destroy(scene)
