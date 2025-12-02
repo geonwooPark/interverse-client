@@ -24,7 +24,9 @@ export class DomChatBubble extends DomElement {
     const bubble = document.createElement('div')
     bubble.className = 'chat-bubble'
     bubble.style.cssText = `
-      position: fixed;
+      position: absolute;
+      left: 0;
+      top: 0;
       background: white;
       border: 1.5px solid black;
       border-radius: 5px;
@@ -36,7 +38,7 @@ export class DomChatBubble extends DomElement {
       white-space: pre-wrap;
       pointer-events: none;
       z-index: 10000;
-      transform: translate(-50%, -100%);
+      will-change: transform;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     `
 
@@ -50,7 +52,7 @@ export class DomChatBubble extends DomElement {
     this.container.appendChild(bubble)
     this.element = bubble
 
-    super.updatePosition(worldX, worldY, camera)
+    super.updatePosition(worldX, worldY, camera, true)
 
     // 5초 후 자동 삭제
     this.timeoutId = window.setTimeout(() => {

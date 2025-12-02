@@ -17,7 +17,7 @@ export class DomNickname extends DomElement {
     // 이미 표시 중이면 업데이트만
     if (this.element) {
       this.updateText(nickname)
-      super.updatePosition(worldX, worldY, camera)
+      super.updatePosition(worldX, worldY, camera, false)
       return
     }
 
@@ -25,7 +25,9 @@ export class DomNickname extends DomElement {
     const nicknameElement = document.createElement('div')
     nicknameElement.className = 'game-nickname'
     nicknameElement.style.cssText = `
-      position: fixed;
+      position: absolute;
+      left: 0;
+      top: 0;
       background: rgba(0, 0, 0, 0.6);
       color: #ffffff;
       padding: 2px 6px;
@@ -33,8 +35,8 @@ export class DomNickname extends DomElement {
       font-size: 12px;
       font-weight: 500;
       pointer-events: none;
-      z-index: -1;
-      transform: translate(-50%, -100%);
+      z-index: 10001;
+      will-change: transform;
       white-space: nowrap;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     `
@@ -44,7 +46,7 @@ export class DomNickname extends DomElement {
     this.element = nicknameElement
 
     // 초기 위치 설정
-    super.updatePosition(worldX, worldY, camera)
+    super.updatePosition(worldX, worldY, camera, true)
   }
 
   /**
