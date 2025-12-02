@@ -6,6 +6,7 @@ import { motion as m } from 'motion/react'
 import fade from '@components/Animation/motions/fade'
 import GameScene from '@games/scenes/Game'
 import GameManager from '@managers/GameManager'
+import { useTranslation } from 'react-i18next'
 
 interface DMProps {
   dm: IDirectMessage
@@ -14,8 +15,9 @@ interface DMProps {
 }
 
 function MessageModal({ dm, roomId, onClose }: DMProps) {
-  const { data: me } = useMeQuery()
+  const { t } = useTranslation()
 
+  const { data: me } = useMeQuery()
   const game = GameManager.getInstance()
 
   const gameScene = game.scene.getScene('game') as GameScene
@@ -53,7 +55,9 @@ function MessageModal({ dm, roomId, onClose }: DMProps) {
         className={`absolute left-[50%] top-[50%] size-full h-fit w-[480px] translate-x-[-50%] translate-y-[-50%] rounded-md bg-white`}
       >
         {/* 헤더 */}
-        <div className="body1 px-4 py-3">{dm.sender}님의 메시지</div>
+        <div className="body1 px-4 py-3">
+          {t('rooms.room.message_modal.title', { sender: dm.sender })}
+        </div>
 
         {/* 바디 */}
         <div className="px-4">
@@ -65,7 +69,7 @@ function MessageModal({ dm, roomId, onClose }: DMProps) {
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="메세지를 입력하세요."
+              placeholder={t('rooms.room.message_modal.input_placeholder')}
               className="size-full resize-none rounded-md border p-2 outline-none"
             />
           </div>
@@ -74,10 +78,10 @@ function MessageModal({ dm, roomId, onClose }: DMProps) {
         {/*  푸터 */}
         <div className="flex gap-2 px-4 py-3">
           <Button size="md" variant="ghost" onClick={onClose}>
-            닫기
+            {t('rooms.room.message_modal.close')}
           </Button>
           <Button size="md" variant="contained" onClick={() => onSubmit(dm)}>
-            답장
+            {t('rooms.room.message_modal.reply')}
           </Button>
         </div>
       </m.div>

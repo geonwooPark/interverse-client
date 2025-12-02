@@ -257,6 +257,12 @@ The Company designates a person in charge of personal information protection as 
       message_item: {
         subtitle: 'Message from {{sender}}',
       },
+      message_modal: {
+        title: 'Message from {{sender}}',
+        input_placeholder: 'Enter your message.',
+        close: 'Close',
+        reply: 'Reply',
+      },
     },
     create: {
       title: 'Create a new room',

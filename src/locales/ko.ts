@@ -256,6 +256,12 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
       message_item: {
         subtitle: '{{sender}}님이 보낸 메시지',
       },
+      message_modal: {
+        title: '{{sender}}님의 메시지',
+        input_placeholder: '메세지를 입력하세요.',
+        close: '닫기',
+        reply: '답장',
+      },
     },
     create: {
       title: '새로운 방 만들기',
