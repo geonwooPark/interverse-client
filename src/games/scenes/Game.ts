@@ -268,6 +268,18 @@ export default class Game extends Phaser.Scene {
     if (!this.physics.overlap(this.player, this.overlap)) {
       this.player.setOffset(0, 20)
     }
+
+    // 나의 말풍선 위치 업데이트
+    if (this.player) {
+      this.player.updateChatPosition()
+    }
+
+    // 다른 플레이어들의 말풍선 위치 업데이트
+    this.otherPlayers.children.entries.forEach((otherPlayer) => {
+      if (otherPlayer instanceof OtherPlayer) {
+        otherPlayer.updateChatPosition()
+      }
+    })
   }
 
   // Scene이 종료될 때 호출되는 메서드 - 리소스 정리

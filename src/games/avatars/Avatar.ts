@@ -1,10 +1,12 @@
 import ObjectItem from '../items/ObjectItem'
+import { ChatBubbleManager } from '@managers/ChatBubbleManager'
 
 export default class Avatar extends Phaser.Physics.Arcade.Sprite {
   avatarTexture: string
   avatarContainer: Phaser.GameObjects.Container
   nickname: Phaser.GameObjects.Text
   chatBox: Phaser.GameObjects.Container
+  chatBubble: ChatBubbleManager
   timeOut?: number
   selectedInteractionItem?: ObjectItem
 
@@ -36,6 +38,8 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
     this.avatarContainer.add(this.nickname)
     this.avatarContainer.add(this.chatBox)
 
+    this.chatBubble = new ChatBubbleManager()
+
     this.scene.physics.world.enable(this)
     this.scene.physics.world.enable(this.avatarContainer)
 
@@ -46,7 +50,7 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
     )
   }
 
-  // 닉네임 변경
+  // 닉네임 설정
   setNickname(nickname: string) {
     this.nickname.setText(nickname)
   }
@@ -57,62 +61,33 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
     this.anims.play(`${avatarTexture}_stand_down`, true)
   }
 
+  // 채팅 표시
   updateChat(content: string) {
-    const limitedText =
-      content.length <= 60 ? content : content.substring(0, 60).concat('...')
-
     this.clearChat()
 
-    // 채팅 텍스트 생성
-    const chat = this.scene.add
-      .text(0, 0, limitedText, {
-        wordWrap: { width: 150, useAdvancedWrap: true },
-      })
-      .setFontSize(14)
-      .setColor('#000000')
-      .setOrigin(0.5)
-      .setDepth(11000)
-      .setY(-25)
+    this.chatBubble.show(
+      content,
+      this.avatarContainer.x,
+      this.avatarContainer.y - 10,
+      this.scene.cameras.main,
+    )
+  }
 
-    // 채팅 박스 크기 및 위치 계산
-    const chatWidth = chat.width
-    const chatHeight = chat.height
-
-    const chatBoxWidth = chatWidth + 8
-    const chatBoxHeight = chatHeight + 4
-    const chatBoxX = chat.x - chatWidth / 2 - 4
-    const chatBoxY = chat.y - chatHeight / 2 - 2
-
-    // 채팅 박스 생성
-    this.chatBox
-      .add(
-        this.scene.add
-          .graphics()
-          .fillStyle(0xffffff, 1)
-          .fillRoundedRect(chatBoxX, chatBoxY, chatBoxWidth, chatBoxHeight, 5)
-          .lineStyle(1.5, 0x000000, 1)
-          .strokeRoundedRect(
-            chatBoxX,
-            chatBoxY,
-            chatBoxWidth,
-            chatBoxHeight,
-            5,
-          ),
+  // 말풍선 위치 업데이트
+  updateChatPosition() {
+    if (this.chatBubble.isVisible()) {
+      this.chatBubble.updatePosition(
+        this.avatarContainer.x,
+        this.avatarContainer.y - 10,
+        this.scene.cameras.main,
       )
-      .setDepth(10000)
-
-    // 채팅 박스에 텍스트를 담습니다.
-    this.chatBox.add(chat)
-
-    // 5초 후 채팅 박스를 삭제합니다.
-    this.timeOut = window.setTimeout(() => {
-      this.clearChat()
-    }, 5000)
+    }
   }
 
   // 채팅 박스 삭제
   clearChat() {
     clearTimeout(this.timeOut)
     this.chatBox.removeAll(true)
+    this.chatBubble.clear()
   }
 }
