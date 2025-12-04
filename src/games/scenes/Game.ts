@@ -19,6 +19,8 @@ export default class Game extends Phaser.Scene {
   private overlap?: Phaser.Physics.Arcade.StaticGroup
   private keySpace?: Phaser.Input.Keyboard.Key
   private keyEscape?: Phaser.Input.Keyboard.Key
+  private chairGroup?: Phaser.Physics.Arcade.StaticGroup
+  private whiteboardGroup?: Phaser.Physics.Arcade.StaticGroup
   readonly ws = socketService
   roomNum!: string
   texture!: string
@@ -108,31 +110,46 @@ export default class Game extends Phaser.Scene {
     this.addGroupFromTiled('Wall', 'FloorAndGround', 'FloorAndGround', true)
     this.addGroupFromTiled('Collidable', 'Office', 'Office', true)
     this.addGroupFromTiled('NonCollidable', 'Office', 'Office', false)
-    this.addInteractiveGroupFromTiled(
+    this.chairGroup = this.addInteractiveGroupFromTiled(
       Chair,
       'Chair',
       'object1x2',
       'object1x2',
-      (chair, _index, tileObject) => {
+      (chair, index, tileObject) => {
         chair.heading = tileObject.properties[0].value
+
+        const idProperty = tileObject.properties?.id ?? index
+
+        chair.id = Number(idProperty.value)
+
+        const interactionProperty = tileObject.properties?.find(
+          (prop: { name: string; value: unknown }) =>
+            prop.name === 'interaction',
+        )
+        if (interactionProperty) {
+          chair.interaction = interactionProperty.value as string
+        }
 
         if (chair.heading !== 'up') {
           chair.setDepth(chair.y - chair.height / 2)
         }
       },
     )
-    this.addInteractiveGroupFromTiled(
+    this.whiteboardGroup = this.addInteractiveGroupFromTiled(
       Whiteboard,
       'Whiteboard',
       'object2x2',
       'object2x2',
-      (whiteboard, index) => {},
+      () => {},
     )
 
     this.physics.add.collider(
       [this.player, this.player.avatarContainer],
       groundLayer,
     )
+
+    // 의자 및 화이트보드와의 충돌 감지 설정
+    this.setupInteractionOverlap()
 
     // Camera Setting
     this.cameras.main.zoom = 1.6
@@ -170,6 +187,9 @@ export default class Game extends Phaser.Scene {
     if (!this.physics.overlap(this.player, this.overlap)) {
       this.player.setOffset(0, 20)
     }
+
+    // 의자 및 화이트보드와의 overlap 종료 체크
+    this.checkInteractionOverlapEnd()
 
     // 나의 말풍선 및 닉네임 위치 업데이트
     if (this.player) {
@@ -282,5 +302,68 @@ export default class Game extends Phaser.Scene {
       updater(item, index, chairObj)
     })
     return group
+  }
+
+  private setupInteractionOverlap() {
+    if (!this.player) return
+
+    const interactiveGroups = [this.chairGroup, this.whiteboardGroup].filter(
+      Boolean,
+    ) as Phaser.Physics.Arcade.StaticGroup[]
+
+    interactiveGroups.forEach((group) => {
+      this.physics.add.overlap(this.player, group, (_player, item) => {
+        if (!(item instanceof ObjectItem)) return
+
+        const objectItem = item as ObjectItem
+        // 이전 상호작용 아이템이 있으면 해제
+        if (
+          this.player.selectedInteractionItem &&
+          this.player.selectedInteractionItem !== objectItem
+        ) {
+          this.player.selectedInteractionItem.clearInteractionBox()
+        }
+        // 새로운 상호작용 아이템 설정
+        if (this.player.selectedInteractionItem !== objectItem) {
+          this.player.selectedInteractionItem = objectItem
+          if (
+            'onInteractionBox' in objectItem &&
+            typeof (objectItem as Chair | Whiteboard).onInteractionBox ===
+              'function'
+          ) {
+            ;(objectItem as Chair | Whiteboard).onInteractionBox()
+          }
+        }
+      })
+    })
+  }
+
+  private checkInteractionOverlapEnd() {
+    if (!this.player || !this.player.selectedInteractionItem) return
+
+    const selectedItem = this.player.selectedInteractionItem
+
+    // 플레이어와 선택된 아이템의 거리 체크
+    const distance = Phaser.Math.Distance.Between(
+      this.player.x,
+      this.player.y,
+      selectedItem.x,
+      selectedItem.y,
+    )
+
+    // 충돌 범위: 플레이어와 아이템의 크기를 고려한 임계값
+    const threshold =
+      Math.max(
+        this.player.width,
+        this.player.height,
+        selectedItem.width,
+        selectedItem.height,
+      ) * 0.8
+
+    // 거리가 임계값을 넘으면 overlap 종료
+    if (distance > threshold) {
+      this.player.selectedInteractionItem.clearInteractionBox()
+      this.player.selectedInteractionItem = undefined
+    }
   }
 }

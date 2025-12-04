@@ -43,20 +43,10 @@ export default class Chair extends ObjectItem {
     })
     game.chair.sendChairId(this.id.toString())
 
-    if (this.interaction === 'menual') {
-      this.scene.events.emit('openCreatorModal')
-      this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
-    } else if (this.interaction === 'interview') {
-      this.scene.events.emit('openVideoModal')
-      this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
-
-      game.video.joinVideoRoom()
-    } else {
-      this.scene.events.emit(
-        'changeContent',
-        'ESC 키를 누르면 의자에서 일어날 수 있습니다.',
-      )
-    }
+    this.scene.events.emit(
+      'changeContent',
+      'ESC 키를 누르면 의자에서 일어날 수 있습니다.',
+    )
   }
 
   undo(player: Player) {
@@ -72,24 +62,10 @@ export default class Chair extends ObjectItem {
     })
     game.chair.sendChairId(this.id.toString())
 
-    if (this.interaction === 'menual') {
-      this.scene.events.emit('closeModal')
-    } else if (this.interaction === 'interview') {
-      this.scene.events.emit('closeModal')
-
-      game.video.leaveVideoRoom()
-    }
-
     this.scene.events.emit('changeContent', '')
   }
 
   onInteractionBox() {
-    if (this.interaction === 'menual') {
-      this.setInteractionBox(i18n.t('game.items.chair_menual_interaction'))
-    } else if (this.interaction === 'interview') {
-      this.setInteractionBox(i18n.t('game.items.chair_interview_interaction'))
-    } else {
-      this.setInteractionBox(i18n.t('game.items.chair_default_interaction'))
-    }
+    this.setInteractionBox(i18n.t('game.items.chair_default_interaction'))
   }
 }
