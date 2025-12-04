@@ -27,14 +27,16 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
       {maps?.map((slide, idx) => (
         <SwiperSlide
           key={idx}
-          className="flex h-[300px] w-full items-center justify-center bg-gray-100"
+          className="flex w-full items-center justify-center bg-gray-100"
         >
           <Image
             src={slide.thumbnail}
             alt={slide.name}
-            className="pointer-events-none select-none"
+            height={300}
+            objectFit="cover"
+            className="pointer-events-none w-full select-none"
           />
-          <div className="absolute bottom-0 w-full bg-black py-1">
+          <div className="absolute bottom-0 w-full bg-black/50 py-1">
             <p className="text-center text-body2 text-white">
               {slide.name?.toUpperCase()}
             </p>

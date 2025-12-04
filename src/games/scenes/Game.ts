@@ -2,10 +2,6 @@ import { createAvatarAnims } from '../animation/AvatarAnims'
 import OtherPlayer from '../avatars/OtherPlayer'
 import Player from '../avatars/Player'
 import Chair from '../items/Chair'
-import Printer from '../items/Printer'
-import Secretary from '../items/Secretary'
-import WaterPurifier from '../items/WaterPurifier'
-import ScreenBoard from '../items/ScreenBoard'
 import { RoomManager } from '@managers/RoomManager'
 import { ChatManager } from '@managers/ChatManager'
 import { ChairManager } from '@managers/ChairManager'
@@ -14,6 +10,8 @@ import { VideoManager } from '@managers/VideoManager'
 import { INIT_POSITION } from '@constants/index'
 import { DMManager } from '@managers/DMManager'
 import { socketService } from '@services/socketService'
+import ObjectItem from '@games/items/ObjectItem'
+import Whiteboard from '@games/items/Whiteboard'
 
 export default class Game extends Phaser.Scene {
   private map!: Phaser.Tilemaps.Tilemap
@@ -83,43 +81,7 @@ export default class Game extends Phaser.Scene {
 
   // Scene이 로드될 때 한번 호출, 게임 오브젝트 배치
   create() {
-    // 타일맵 로드
-    this.map = this.make.tilemap({ key: 'tilemap' })
-    // 타일셋 이미지를 로드하여 타일맵에 추가
-    const FloorAndWall = this.map.addTilesetImage(
-      'floorAndWall',
-      'floorAndWall',
-    )
-    const Office = this.map.addTilesetImage('office', 'office')
-
-    // Ground Layer
-    const groundLayer = this.map.createLayer('Ground', FloorAndWall!)
-
-    // ChairToDown Layer
-    const chairToDown = this.physics.add.staticGroup({ classType: Chair })
-    const chairToDownLayer = this.map.getObjectLayer('ChairToDown')
-    this.createObjectLayer(chairToDown, chairToDownLayer, 700)
-
-    // Secretary Layer
-    const secretary = this.physics.add.staticGroup({ classType: Secretary })
-    const secretaryLayer = this.map.getObjectLayer('Secretary')
-    this.createObjectLayer(secretary, secretaryLayer, 900)
-
-    // WaterPurifier Layer
-    const waterPurifier = this.physics.add.staticGroup({
-      classType: WaterPurifier,
-    })
-    const waterPurifierLayer = this.map.getObjectLayer('WaterPurifier')
-    this.createObjectLayer(waterPurifier, waterPurifierLayer, 900)
-
-    // Printer Layer
-    const printer = this.physics.add.staticGroup({ classType: Printer })
-    const printerLayer = this.map.getObjectLayer('Printer')
-    this.createObjectLayer(printer, printerLayer, 900)
-
-    // OtherPlayers Layer
-    this.otherPlayers = this.physics.add.group({ classType: OtherPlayer })
-
+    // 아바타 생성
     createAvatarAnims(this.anims)
     this.player = new Player(
       this,
@@ -129,69 +91,53 @@ export default class Game extends Phaser.Scene {
       this.nickname,
     )
     this.add.existing(this.player)
+    this.otherPlayers = this.physics.add.group({ classType: OtherPlayer })
+
+    // 타일맵 로드
+    this.map = this.make.tilemap({ key: 'tilemap' })
+    const FloorAndGround = this.map.addTilesetImage(
+      'FloorAndGround',
+      'FloorAndGround',
+    )
+    this.map.addTilesetImage('Office', 'Office')
+
+    const groundLayer = this.map
+      .createLayer('Floor', FloorAndGround!)!
+      .setCollisionByProperty({ collides: true })
+
+    this.addGroupFromTiled('Wall', 'FloorAndGround', 'FloorAndGround', true)
+    this.addGroupFromTiled('Collidable', 'Office', 'Office', true)
+    this.addGroupFromTiled('NonCollidable', 'Office', 'Office', false)
+    this.addInteractiveGroupFromTiled(
+      Chair,
+      'Chair',
+      'object1x2',
+      'object1x2',
+      (chair, _index, tileObject) => {
+        chair.heading = tileObject.properties[0].value
+
+        if (chair.heading !== 'up') {
+          chair.setDepth(chair.y - chair.height / 2)
+        }
+      },
+    )
+    this.addInteractiveGroupFromTiled(
+      Whiteboard,
+      'Whiteboard',
+      'object2x2',
+      'object2x2',
+      (whiteboard, index) => {},
+    )
+
+    this.physics.add.collider(
+      [this.player, this.player.avatarContainer],
+      groundLayer,
+    )
 
     // Camera Setting
     this.cameras.main.zoom = 1.6
     this.cameras.main.startFollow(this.player, true)
     this.cameras.main.setBackgroundColor('#3498db')
-
-    // ChairToUp Layer
-    const chairToUp = this.physics.add.staticGroup({ classType: Chair })
-    const chairToUpLayer = this.map.getObjectLayer('ChairToUp')
-    this.createObjectLayer(chairToUp, chairToUpLayer, 2000)
-
-    // Overlap Layer
-    const overlap = this.physics.add.staticGroup()
-    const overlapLayer = this.map.getObjectLayer('Overlap')
-    this.createObjectLayer(overlap, overlapLayer, 1100)
-    this.overlap = overlap
-
-    // ScreenBoard Layer
-    const screenBoard = this.physics.add.staticGroup({ classType: ScreenBoard })
-    const screenBoardLayer = this.map.getObjectLayer('ScreenBoard')
-    this.createObjectLayer(screenBoard, screenBoardLayer, 900)
-
-    // Interior Layer
-    const interior = this.physics.add.staticGroup()
-    const interiorLayer = this.map.getObjectLayer('Interior')
-    this.createObjectLayer(interior, interiorLayer, 2000)
-
-    // InteriorCollide Layer
-    const interiorCollide = this.physics.add.staticGroup()
-    const interiorCollideLayer = this.map.getObjectLayer('InteriorCollide')
-    this.createObjectLayer(interiorCollide, interiorCollideLayer, 900)
-
-    // Etc Layer
-    const etcLayer = this.map.createLayer('Etc', [Office!])
-    etcLayer?.setDepth(1000)
-
-    // 플레이어와 물체 간의 충돌처리
-    if (this.player) {
-      // this.physics.add.collider(this.player.avatar, secretary)
-      this.physics.add.collider(this.player, [interiorCollide])
-    }
-
-    // 타일맵 레이어에서 특정 속성을 가진 타일들에 대해 충돌처리 활성화 (collide 속성을 가진 모들 타일에 충돌 활성화)
-    this.physics.add.collider(groundLayer!, this.player)
-    groundLayer?.setCollisionByProperty({ collide: true })
-
-    this.physics.add.collider(
-      this.player,
-      [secretary, chairToDown, chairToUp, waterPurifier, printer, screenBoard],
-      this.handlePlayerCollider,
-      undefined,
-      this,
-    )
-
-    this.physics.add.overlap(
-      this.player,
-      [overlap],
-      () => {
-        this.player.setOffset(0, 50)
-      },
-      undefined,
-      this,
-    )
 
     this.joinRoom()
   }
@@ -206,50 +152,6 @@ export default class Game extends Phaser.Scene {
       texture: this.texture,
       x: INIT_POSITION[0],
       y: INIT_POSITION[1],
-    })
-  }
-
-  /** 플레이어와 오브젝트가 충돌했을 때 발생하는 콜백 함수. Player와 Object를 인수로 받음 */
-  private handlePlayerCollider(player: any, interactionItem: any) {
-    if (this.player.selectedInteractionItem) return
-
-    if (
-      interactionItem.id &&
-      this.chair.list.has(interactionItem.id.toString())
-    )
-      return
-    player.selectedInteractionItem = interactionItem
-    interactionItem.onInteractionBox()
-  }
-
-  /** 레이어 생성하기 위한 함수로 Group, Layer, Depth를 인수로 받음 */
-  private createObjectLayer(
-    group: Phaser.Physics.Arcade.StaticGroup,
-    layer: Phaser.Tilemaps.ObjectLayer | null,
-    depth: number,
-  ) {
-    layer?.objects.forEach((object) => {
-      // Tiled Map에서 Object properties에 꼭 type = '사용에셋' 추가하세요..
-      const properties = object.properties[0].value
-      const actualX = object.x! + object.width! * 0.5
-      const actualY = object.y! - object.height! * 0.5
-
-      const firstgid = this.map.getTileset(properties)?.firstgid
-      const obj = group.get(
-        actualX,
-        actualY,
-        properties,
-        object.gid! - firstgid!,
-      )
-
-      if (object.properties[0].value === 'chair') {
-        obj.heading = object.properties[1].value
-        obj.interaction = object.properties[2].value
-      }
-
-      obj.id = object.id
-      obj.setDepth(depth)
-      return obj
     })
   }
 
@@ -271,6 +173,7 @@ export default class Game extends Phaser.Scene {
 
     // 나의 말풍선 및 닉네임 위치 업데이트
     if (this.player) {
+      this.player.setDepth(this.player.y)
       this.player.updateChatPosition()
       this.player.updateNicknamePosition()
     }
@@ -278,6 +181,7 @@ export default class Game extends Phaser.Scene {
     // 다른 플레이어들의 말풍선 및 닉네임 위치 업데이트
     this.otherPlayers.children.entries.forEach((otherPlayer) => {
       if (otherPlayer instanceof OtherPlayer) {
+        otherPlayer.setDepth(otherPlayer.y)
         otherPlayer.updateChatPosition()
         otherPlayer.updateNicknamePosition()
       }
@@ -308,5 +212,75 @@ export default class Game extends Phaser.Scene {
 
     // Scene 이벤트 리스너 제거
     this.events.removeAllListeners()
+  }
+
+  private addObjectFromTiled(
+    group: Phaser.Physics.Arcade.StaticGroup,
+    object: Phaser.Types.Tilemaps.TiledObject,
+    texture: string,
+    tilesetName: string,
+  ) {
+    // Tiled 좌표계 기준을 Phaser 좌표계로 변환
+    const actualX = object.x! + object.width! * 0.5
+    const actualY = object.y! - object.height! * 0.5
+    const obj = group
+      .get(
+        actualX,
+        actualY,
+        texture,
+        object.gid! - this.map.getTileset(tilesetName)!.firstgid,
+      )
+      .setDepth(actualY + object.height! / 2)
+    return obj
+  }
+
+  private addGroupFromTiled(
+    objectLayerName: string,
+    texture: string,
+    tilesetName: string,
+    collidable: boolean,
+  ) {
+    const group = this.physics.add.staticGroup()
+    const objectLayer = this.map.getObjectLayer(objectLayerName)!
+
+    objectLayer.objects.forEach((object) => {
+      this.addObjectFromTiled(group, object, texture, tilesetName)
+    })
+    if (this.player && collidable) {
+      this.physics.add.collider(
+        [this.player, this.player.avatarContainer],
+        group,
+      )
+    }
+    return group
+  }
+
+  private addInteractiveGroupFromTiled<
+    T extends typeof ObjectItem,
+    S = InstanceType<T>,
+  >(
+    classType: T,
+    objectLayerName: string,
+    texture: string,
+    tilesetName: string,
+    updater: (
+      object: S,
+      index: number,
+      tileObject: Phaser.Types.Tilemaps.TiledObject,
+    ) => void,
+  ) {
+    const group = this.physics.add.staticGroup({ classType })
+    const objectLayer = this.map.getObjectLayer(objectLayerName)!
+
+    objectLayer.objects.forEach((chairObj, index) => {
+      const item = this.addObjectFromTiled(
+        group,
+        chairObj,
+        texture,
+        tilesetName,
+      ) as S
+      updater(item, index, chairObj)
+    })
+    return group
   }
 }

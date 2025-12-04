@@ -25,7 +25,7 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
 
     this.anims.play(`${texture}_stand_down`, true)
 
-    this.setDepth(1000)
+    this.setDepth(y)
 
     this.avatarContainer = this.scene.add.container(x, y - 35).setDepth(10000)
 

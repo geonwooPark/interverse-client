@@ -2,7 +2,7 @@ import ObjectItem from './ObjectItem'
 import Player from '@games/avatars/Player'
 import i18n from '@locales/index'
 
-export default class ScreenBoard extends ObjectItem {
+export default class Whiteboard extends ObjectItem {
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -12,15 +12,12 @@ export default class ScreenBoard extends ObjectItem {
   ) {
     super(scene, x, y, texture, frame)
 
-    this.itemType = 'screenBoard'
+    this.itemType = 'whiteboard'
   }
 
   do(player: Player) {
     this.scene.events.emit('openVideoModal')
-    this.scene.events.emit(
-      'changeContent',
-      i18n.t('game.items.esc_to_game'),
-    )
+    this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
 
     player.anims.play(`${player.avatarTexture}_stand_down`, true)
   }
