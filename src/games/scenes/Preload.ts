@@ -32,10 +32,8 @@ export default class Preload extends Phaser.Scene {
 
   // Scene이 로드되기 전에 호출, 사용할 에셋을 로드
   preload() {
-    // Tiled로 생성된 JSON 형식의 타입맵을 로드
     this.load.tilemapTiledJSON('tilemap', this.mapSrc)
 
-    // 스프라이트 시트 이미지 파일을 로드
     this.load.spritesheet('Office', this.builder, {
       frameWidth: 32,
       frameHeight: 32,
