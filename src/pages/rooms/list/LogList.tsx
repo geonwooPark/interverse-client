@@ -44,7 +44,7 @@ export default function LogList() {
   }
 
   return (
-    <div className="grid size-full grid-cols-1 gap-4 pb-[60px] tablet:grid-cols-2 desktop:grid-cols-4">
+    <div className="grid size-full grid-cols-1 gap-6 pb-[60px] tablet:grid-cols-2 desktop:grid-cols-3 desktop:gap-8">
       {logs?.map((log) => (
         <Log key={log.joinedAt} log={log} onDelete={handleDeleteModal} />
       ))}
