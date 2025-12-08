@@ -39,6 +39,8 @@ export interface paths {
                                 thumbnail: string;
                                 /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
                                 mapSrc: string;
+                                /** @example https://example.com/builder */
+                                builder: string;
                             }[];
                         };
                     };
@@ -75,6 +77,8 @@ export interface paths {
                         thumbnail: string;
                         /** @example https://example.com/map-source */
                         mapSrc: string;
+                        /** @example https://example.com/builder */
+                        builder: string;
                     };
                 };
             };
@@ -97,6 +101,8 @@ export interface paths {
                                 thumbnail?: string;
                                 /** @example https://example.com/map-source */
                                 mapSrc?: string;
+                                /** @example https://example.com/builder */
+                                builder?: string;
                             };
                         };
                     };
@@ -985,38 +991,48 @@ export interface paths {
                             /** @example 참여한 방 리스트입니다. */
                             message?: string;
                             data?: {
+                                /** @example 645f3d8f2345abcd12340001 */
+                                _id: string;
                                 /**
                                  * Format: objectId
                                  * @example 645f3d8f2345abcd12340001
                                  */
-                                userId?: string;
+                                userId: string;
+                                room: {
+                                    /** @example 645f3d8f2345abcd12345679 */
+                                    _id: string;
+                                    /** @example Sample Room */
+                                    title: string;
+                                    /** @example abcd12345679 */
+                                    host: string;
+                                    /** @example 4 */
+                                    headCount: number;
+                                    map: {
+                                        /** @example 645f3d8f2345abcd12345680 */
+                                        _id: string;
+                                        /** @example office */
+                                        name: string;
+                                        /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                        thumbnail: string;
+                                        /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                        mapSrc: string;
+                                        /** @example https://example.com/builder */
+                                        builder: string;
+                                        /** Format: date-time */
+                                        createdAt?: string;
+                                        /** Format: date-time */
+                                        updatedAt?: string;
+                                    };
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                };
                                 /**
                                  * Format: date-time
                                  * @example 2025-05-20T14:00:00Z
                                  */
-                                joinedAt?: string;
-                                room?: {
-                                    /** @example 645f3d8f2345abcd12345679 */
-                                    _id?: string;
-                                    /** @example Sample Room */
-                                    title?: string;
-                                    /** @example abcd12345679 */
-                                    host?: string;
-                                    /** @example 4 */
-                                    headCount?: number;
-                                    /** @example https://example.com/map-source */
-                                    mapSrc?: string;
-                                };
-                                map?: {
-                                    /** @example 645f3d8f2345abcd12345680 */
-                                    _id?: string;
-                                    /** @example office */
-                                    name?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                    thumbnail?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                    source?: string;
-                                };
+                                joinedAt: string;
                             }[];
                         };
                     };
@@ -1060,7 +1076,10 @@ export interface paths {
                         password: string;
                         /** @example 6 */
                         headCount: number;
-                        /** @example office */
+                        /**
+                         * @description 맵의 mapSrc로 맵을 찾아서 연결합니다
+                         * @example office
+                         */
                         mapSrc: string;
                     };
                 };
@@ -1073,14 +1092,37 @@ export interface paths {
                     };
                     content: {
                         "application/json": {
-                            /** @example 방이 생성되었습니다. */
+                            /** @example 함께할 준비 되셨나요? 새로운 방이 시작됐어요! */
                             message?: string;
                             data?: {
+                                /** @example 645f3d8f2345abcd12345679 */
                                 _id?: string;
+                                /** @example 새로운 방 */
                                 title?: string;
+                                /** @example 6 */
                                 headCount?: number;
+                                /** @example abcd12345679 */
                                 host?: string;
-                                mapSrc?: string;
+                                map?: {
+                                    /** @example 645f3d8f2345abcd12345680 */
+                                    _id?: string;
+                                    /** @example office */
+                                    name?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                    thumbnail?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                    mapSrc?: string;
+                                    /** @example https://example.com/builder */
+                                    builder?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                };
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
                             };
                         };
                     };
@@ -1149,13 +1191,36 @@ export interface paths {
                             /** @example abc123방 정보입니다. */
                             message?: string;
                             data?: {
+                                /** @example 645f3d8f2345abcd12345679 */
                                 _id?: string;
-                                name?: string;
-                                host?: string;
-                                isHost?: boolean;
+                                /** @example Sample Room */
                                 title?: string;
-                                mapSrc?: string;
+                                /** @example abcd12345679 */
+                                host?: string;
+                                /** @example 4 */
                                 headCount?: number;
+                                map?: {
+                                    /** @example 645f3d8f2345abcd12345680 */
+                                    _id?: string;
+                                    /** @example office */
+                                    name?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                    thumbnail?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                    mapSrc?: string;
+                                    /** @example https://example.com/builder */
+                                    builder?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                };
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
+                                /** @example true */
+                                isHost?: boolean;
                             };
                         };
                     };
@@ -1285,11 +1350,34 @@ export interface paths {
                             /** @example 방에 입장했습니다. */
                             message?: string;
                             data?: {
+                                /** @example 645f3d8f2345abcd12345679 */
                                 _id?: string;
+                                /** @example Sample Room */
                                 title?: string;
+                                /** @example 4 */
                                 headCount?: number;
+                                /** @example abcd12345679 */
                                 host?: string;
-                                mapSrc?: string;
+                                map?: {
+                                    /** @example 645f3d8f2345abcd12345680 */
+                                    _id?: string;
+                                    /** @example office */
+                                    name?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                    thumbnail?: string;
+                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                    mapSrc?: string;
+                                    /** @example https://example.com/builder */
+                                    builder?: string;
+                                    /** Format: date-time */
+                                    createdAt?: string;
+                                    /** Format: date-time */
+                                    updatedAt?: string;
+                                };
+                                /** Format: date-time */
+                                createdAt?: string;
+                                /** Format: date-time */
+                                updatedAt?: string;
                             };
                         };
                     };

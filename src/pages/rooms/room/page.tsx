@@ -36,15 +36,16 @@ function RoomPage() {
 
   // 필요한 에셋 프리로드
   useEffect(() => {
-    if (!room?.mapSrc) return
+    if (!room?.map?.mapSrc || !room?.map?.builder) return
 
     const game = GameManager.getInstance()
 
     game.scene.start('preload', {
-      mapSrc: room?.mapSrc,
+      mapSrc: room?.map.mapSrc,
+      builder: room?.map.builder,
       charactersSrc: characters,
     })
-  }, [room?._id, room?.mapSrc, characters])
+  }, [room?._id, room?.map?.mapSrc, room?.map?.builder, characters])
 
   useEffect(() => {
     return () => {

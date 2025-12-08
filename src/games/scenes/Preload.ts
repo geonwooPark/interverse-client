@@ -1,5 +1,6 @@
 export default class Preload extends Phaser.Scene {
   private mapSrc!: string
+  private builder!: string
   private charactersSrc!: {
     _id: string
     name: string
@@ -15,6 +16,7 @@ export default class Preload extends Phaser.Scene {
 
   init(data: {
     mapSrc: string
+    builder: string
     charactersSrc: {
       _id: string
       name: string
@@ -24,6 +26,7 @@ export default class Preload extends Phaser.Scene {
     }[]
   }) {
     this.mapSrc = data.mapSrc
+    this.builder = data.builder
     this.charactersSrc = data.charactersSrc
   }
 
@@ -33,14 +36,16 @@ export default class Preload extends Phaser.Scene {
     this.load.tilemapTiledJSON('tilemap', this.mapSrc)
 
     // 스프라이트 시트 이미지 파일을 로드
+    this.load.spritesheet('Office', this.builder, {
+      frameWidth: 32,
+      frameHeight: 32,
+    })
+
     this.load.spritesheet('FloorAndGround', `/assets/FloorAndGround.png`, {
       frameWidth: 32,
       frameHeight: 32,
     })
-    this.load.spritesheet('Office', `/assets/Office.png`, {
-      frameWidth: 32,
-      frameHeight: 32,
-    })
+
     this.load.spritesheet('object1x2', '/assets/object1x2.png', {
       frameWidth: 32,
       frameHeight: 64,

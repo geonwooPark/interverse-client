@@ -1,29 +1,14 @@
 import { IconDelete } from '@assets/svgs'
 import Image from '@components/Image'
 import { useMeQuery } from '@hooks/queries/authQueries'
+import { ResponseBody } from '@interfaces/api'
 import dayjs from 'dayjs'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 interface LogProps {
-  log: {
-    userId?: string
-    joinedAt?: string
-    room?: {
-      _id?: string
-      title?: string
-      host?: string
-      headCount?: number
-      mapId?: string
-    }
-    map?: {
-      _id?: string
-      name?: string
-      thumbnail?: string
-      source?: string
-    }
-  }
+  log: NonNullable<ResponseBody<'/rooms', 'get'>['data']>[number]
   onDelete: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     roomId: string,
@@ -40,8 +25,8 @@ export default function Log({ log, onDelete }: LogProps) {
       <Link to={`/rooms/${log.room?._id}`}>
         <div className="overflow-hidden rounded-lg">
           <Image
-            src={log.map?.thumbnail}
-            alt={`map-${log.map?.name}`}
+            src={log.room?.map?.thumbnail}
+            alt={`map-${log?.room?.map?.name}`}
             className="absolute inset-0 size-full object-cover"
             ratio={4 / 3}
           />
