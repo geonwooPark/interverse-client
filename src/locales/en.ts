@@ -22,6 +22,13 @@ export default {
       setting: 'Settings',
       logout: 'Log out',
     },
+    date: {
+      just_now: 'Just now',
+      minutes_ago: '{{minutes}} minutes ago',
+      hours_ago: '{{hours}} hours ago',
+      yesterday: 'Yesterday',
+      days_ago: '{{days}} days ago',
+    },
   },
   auth: {
     login: {
@@ -209,6 +216,7 @@ The Company designates a person in charge of personal information protection as 
         'Deleted rooms cannot be recovered.\n          Are you sure you want to delete this room?',
       empty_label: 'There are no rooms you are currently participating in.',
       last_joined: 'Last joined: {{date}}',
+      host: 'Host',
     },
     room: {
       exit_title: 'Do you want to exit the game?',

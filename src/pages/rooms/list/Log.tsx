@@ -2,7 +2,7 @@ import { IconDelete } from '@assets/svgs'
 import Image from '@components/Image'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import { ResponseBody } from '@interfaces/api'
-import dayjs, { formatDate } from '@utils/dayjs'
+import { formatDate } from '@utils/dayjs'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -10,13 +10,14 @@ import { cn } from '@utils/cn'
 
 interface LogProps {
   log: NonNullable<ResponseBody<'/rooms', 'get'>['data']>[number]
+  participantCount?: number
   onDelete: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     roomId: string,
   ) => void
 }
 
-export default function Log({ log, onDelete }: LogProps) {
+export default function Log({ log, participantCount, onDelete }: LogProps) {
   const { data: me } = useMeQuery()
 
   const { t } = useTranslation()
@@ -25,9 +26,15 @@ export default function Log({ log, onDelete }: LogProps) {
 
   const headCount = log.room?.headCount ?? 0
 
+  const currentCount = participantCount ?? 0
+
+  const isFull = currentCount >= headCount && headCount > 0
+
+  const Component = isFull ? 'div' : Link
+
   return (
     <div className="group relative">
-      <Link
+      <Component
         to={`/rooms/${log.room?._id}`}
         className="block h-full transition-all duration-300 hover:scale-[1.02]"
       >
@@ -46,14 +53,21 @@ export default function Log({ log, onDelete }: LogProps) {
             {/* 호스트 배지 */}
             {isHost && (
               <div className="absolute left-3 top-3 rounded-full bg-cyan-500/90 px-2.5 py-1 text-xs font-semibold text-white shadow-lg backdrop-blur-sm">
-                호스트
+                {t('rooms.log_list.host')}
               </div>
             )}
 
             {/* 참가자 수 배지 */}
             <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-green-400"></span>
-              <span>{headCount}명</span>
+              <span
+                className={cn(
+                  'size-1.5 rounded-full',
+                  isFull ? 'bg-red-400' : 'bg-green-400',
+                )}
+              ></span>
+              <span>
+                {currentCount} / {headCount} 명
+              </span>
             </div>
           </div>
 
@@ -72,7 +86,7 @@ export default function Log({ log, onDelete }: LogProps) {
             </div>
           </div>
         </div>
-      </Link>
+      </Component>
 
       {/* 삭제 버튼 */}
       {isHost && (

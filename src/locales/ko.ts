@@ -22,6 +22,13 @@ export default {
       setting: '설정',
       logout: '로그아웃',
     },
+    date: {
+      just_now: '방금 전',
+      minutes_ago: '{{minutes}}분 전',
+      hours_ago: '{{hours}}시간 전',
+      yesterday: '어제',
+      days_ago: '{{days}}일 전',
+    },
   },
   auth: {
     login: {
@@ -209,6 +216,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
         '삭제된 방은 되돌릴 수 없습니다.\n          정말 방을 삭제하시겠습니까?',
       empty_label: '현재 참여 중인 방이 없습니다.',
       last_joined: '최근 참여: {{date}}',
+      host: '호스트',
     },
     room: {
       exit_title: '게임을 종료하시겠습니까?',
