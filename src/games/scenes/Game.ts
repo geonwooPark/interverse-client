@@ -21,6 +21,8 @@ export default class Game extends Phaser.Scene {
   private keyEscape?: Phaser.Input.Keyboard.Key
   private chairGroup?: Phaser.Physics.Arcade.StaticGroup
   private whiteboardGroup?: Phaser.Physics.Arcade.StaticGroup
+  private camAreaGroup?: Phaser.Physics.Arcade.StaticGroup
+  private isInCamArea = false
   readonly ws = socketService
   roomNum!: string
   texture!: string
@@ -143,6 +145,14 @@ export default class Game extends Phaser.Scene {
       () => {},
     )
 
+    this.camAreaGroup = this.addGroupFromTiled(
+      'CamArea',
+      'FloorAndGround',
+      'FloorAndGround',
+      false,
+      -100,
+    )
+
     this.physics.add.collider(
       [this.player, this.player.avatarContainer],
       groundLayer,
@@ -150,6 +160,9 @@ export default class Game extends Phaser.Scene {
 
     // 의자 및 화이트보드와의 충돌 감지 설정
     this.setupInteractionOverlap()
+
+    // CamArea와의 충돌 감지 설정
+    this.setupCamAreaOverlap()
 
     // Camera Setting
     this.cameras.main.zoom = 1.6
@@ -190,6 +203,9 @@ export default class Game extends Phaser.Scene {
 
     // 의자 및 화이트보드와의 overlap 종료 체크
     this.checkInteractionOverlapEnd()
+
+    // CamArea와의 overlap 종료 체크
+    this.checkCamAreaOverlapEnd()
 
     // 나의 말풍선 및 닉네임 위치 업데이트
     if (this.player) {
@@ -239,6 +255,7 @@ export default class Game extends Phaser.Scene {
     object: Phaser.Types.Tilemaps.TiledObject,
     texture: string,
     tilesetName: string,
+    depthOffset: number = 0,
   ) {
     // Tiled 좌표계 기준을 Phaser 좌표계로 변환
     const actualX = object.x! + object.width! * 0.5
@@ -250,7 +267,7 @@ export default class Game extends Phaser.Scene {
         texture,
         object.gid! - this.map.getTileset(tilesetName)!.firstgid,
       )
-      .setDepth(actualY + object.height! / 2)
+      .setDepth(actualY + object.height! / 2 + depthOffset)
     return obj
   }
 
@@ -259,12 +276,13 @@ export default class Game extends Phaser.Scene {
     texture: string,
     tilesetName: string,
     collidable: boolean,
+    depthOffset: number = 0,
   ) {
     const group = this.physics.add.staticGroup()
     const objectLayer = this.map.getObjectLayer(objectLayerName)!
 
     objectLayer.objects.forEach((object) => {
-      this.addObjectFromTiled(group, object, texture, tilesetName)
+      this.addObjectFromTiled(group, object, texture, tilesetName, depthOffset)
     })
     if (this.player && collidable) {
       this.physics.add.collider(
@@ -316,6 +334,7 @@ export default class Game extends Phaser.Scene {
         if (!(item instanceof ObjectItem)) return
 
         const objectItem = item as ObjectItem
+
         // 이전 상호작용 아이템이 있으면 해제
         if (
           this.player.selectedInteractionItem &&
@@ -335,6 +354,17 @@ export default class Game extends Phaser.Scene {
           }
         }
       })
+    })
+  }
+
+  private setupCamAreaOverlap() {
+    if (!this.player || !this.camAreaGroup) return
+
+    this.physics.add.overlap(this.player, this.camAreaGroup, () => {
+      if (!this.isInCamArea) {
+        this.isInCamArea = true
+        console.log('카메라 영역 입장')
+      }
     })
   }
 
@@ -364,6 +394,16 @@ export default class Game extends Phaser.Scene {
     if (distance > threshold) {
       this.player.selectedInteractionItem.clearInteractionBox()
       this.player.selectedInteractionItem = undefined
+    }
+  }
+
+  private checkCamAreaOverlapEnd() {
+    if (!this.player || !this.camAreaGroup || !this.isInCamArea) return
+
+    // overlap이 없으면 나간 것으로 판단
+    if (!this.physics.overlap(this.player, this.camAreaGroup)) {
+      this.isInCamArea = false
+      console.log('카메라 영역 나가기')
     }
   }
 }
