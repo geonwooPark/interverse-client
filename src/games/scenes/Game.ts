@@ -152,6 +152,12 @@ export default class Game extends Phaser.Scene {
       false,
       -100,
     )
+    // CamArea 그룹의 모든 오브젝트에 불투명도 설정 (0.0 ~ 1.0)
+    this.camAreaGroup.children.entries.forEach((child) => {
+      if (child instanceof Phaser.Physics.Arcade.Sprite) {
+        child.setAlpha(0.5) // 예시: 50% 불투명도
+      }
+    })
 
     this.physics.add.collider(
       [this.player, this.player.avatarContainer],
