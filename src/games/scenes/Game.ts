@@ -400,6 +400,7 @@ export default class Game extends Phaser.Scene {
       if (!this.isInCamArea) {
         this.isInCamArea = true
         console.log('카메라 영역 입장')
+        this.video.joinVideoRoom()
       }
     })
   }
@@ -440,6 +441,7 @@ export default class Game extends Phaser.Scene {
     if (!this.physics.overlap(this.player, this.camAreaGroup)) {
       this.isInCamArea = false
       console.log('카메라 영역 나가기')
+      this.video.leaveVideoRoom()
     }
   }
 }

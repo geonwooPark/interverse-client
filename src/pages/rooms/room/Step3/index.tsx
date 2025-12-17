@@ -7,6 +7,7 @@ import Controller from './Controller'
 import SceneProvider from '@providers/SceneProvider'
 import { useTranslation } from 'react-i18next'
 import useRequestMediaPermissions from '@hooks/useRequestMediaPermissions'
+import VideoList from './VideoList'
 
 export default function Step3() {
   const { addModal, removeModal } = useModal()
@@ -31,6 +32,7 @@ export default function Step3() {
     <SceneProvider>
       <MenuBar />
       <Controller />
+      <VideoList />
       <Alert />
       <Modals />
     </SceneProvider>
