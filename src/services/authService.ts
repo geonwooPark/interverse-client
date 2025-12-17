@@ -53,6 +53,16 @@ class AuthService {
   ): Promise<ResponseBody<'/auth/change-nickname', 'patch'>> {
     return await api.patch('/auth/change-nickname', params)
   }
+
+  async changeProfile(
+    params: FormData,
+  ): Promise<ResponseBody<'/auth/change-profile', 'patch'>> {
+    return await api.patch('/auth/change-profile', params, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+  }
 }
 
 export const authService = new AuthService()

@@ -128,3 +128,27 @@ export const useChangeNicknameMutation = () => {
     },
   })
 }
+
+export const useChangeProfileMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<
+    ResponseBody<'/auth/change-profile', 'patch'>,
+    AxiosError,
+    FormData
+  >({
+    mutationFn: (params) => authService.changeProfile(params),
+    onSuccess: (result) => {
+      const { message } = result
+
+      queryClient.invalidateQueries({ queryKey: authKeys.me() })
+
+      if (message) {
+        toast.success(message)
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+}

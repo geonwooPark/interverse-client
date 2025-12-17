@@ -2,7 +2,10 @@ import Button from '@components/Button'
 import FormProvider from '@components/Rhf/FormProvider'
 import RhfProfileUploader from '@components/Rhf/RhfProfileUploader'
 import RhfTextField from '@components/Rhf/RhfTextField'
-import { useChangeNicknameMutation } from '@hooks/mutations/authMutations'
+import {
+  useChangeNicknameMutation,
+  useChangeProfileMutation,
+} from '@hooks/mutations/authMutations'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +23,8 @@ export default function ProfileSection() {
   const { t } = useTranslation()
 
   const { data: me } = useMeQuery()
+
+  const changeProfileMutation = useChangeProfileMutation()
 
   const changeNicknameMutation = useChangeNicknameMutation()
 
@@ -48,7 +53,22 @@ export default function ProfileSection() {
       formData.append('profile', profile[0] as CustomFile)
     }
 
-    // TODO: 프로필 이미지 업로드 API 연동
+    changeProfileMutation.mutate(formData, {
+      onSuccess: (result) => {
+        const newProfile =
+          (result as { data?: { user?: { profile?: string } } })?.data?.user
+            ?.profile ??
+          me?.user?.profile ??
+          ''
+        profileMethods.reset({
+          profile: [
+            {
+              preview: newProfile,
+            } as CustomFile,
+          ],
+        })
+      },
+    })
   })
 
   const onNicknameSubmit = nicknameMethods.handleSubmit(async (data) => {
