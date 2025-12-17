@@ -2,10 +2,10 @@ import Button from '@components/Button'
 import FormProvider from '@components/Rhf/FormProvider'
 import RhfProfileUploader from '@components/Rhf/RhfProfileUploader'
 import RhfTextField from '@components/Rhf/RhfTextField'
+import { useChangeNicknameMutation } from '@hooks/mutations/authMutations'
 import { useMeQuery } from '@hooks/queries/authQueries'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'ventileco-ui'
 import { CustomFile } from 'ventileco-ui'
 
 interface ProfileImageFormData {
@@ -21,6 +21,8 @@ export default function ProfileSection() {
 
   const { data: me } = useMeQuery()
 
+  const changeNicknameMutation = useChangeNicknameMutation()
+
   const profileMethods = useForm<ProfileImageFormData>({
     defaultValues: {
       profile: [
@@ -30,8 +32,6 @@ export default function ProfileSection() {
       ],
     },
   })
-
-  console.log(profileMethods.watch('profile'))
 
   const nicknameMethods = useForm<NicknameFormData>({
     defaultValues: {
@@ -48,17 +48,20 @@ export default function ProfileSection() {
       formData.append('profile', profile[0] as CustomFile)
     }
 
-    toast.info(t('setting.nickname_todo'))
+    // TODO: 프로필 이미지 업로드 API 연동
   })
 
   const onNicknameSubmit = nicknameMethods.handleSubmit(async (data) => {
     const { nickname } = data
 
-    const formData = new FormData()
-
-    formData.append('nickname', nickname)
-
-    toast.info(t('setting.nickname_todo'))
+    changeNicknameMutation.mutate(
+      { nickname },
+      {
+        onSuccess: () => {
+          nicknameMethods.reset({ nickname })
+        },
+      },
+    )
   })
 
   return (

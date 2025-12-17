@@ -47,6 +47,12 @@ class AuthService {
   ): Promise<ResponseBody<'/auth/check-id', 'post'>> {
     return await api.post('/auth/check-id', params)
   }
+
+  async changeNickname(
+    params: RequestBody<'/auth/change-nickname', 'patch'>,
+  ): Promise<ResponseBody<'/auth/change-nickname', 'patch'>> {
+    return await api.patch('/auth/change-nickname', params)
+  }
 }
 
 export const authService = new AuthService()

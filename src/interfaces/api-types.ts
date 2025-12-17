@@ -915,6 +915,117 @@ export interface paths {
         };
         trace?: never;
     };
+    "/auth/change-nickname": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** 닉네임 변경 */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @example newNickname */
+                        nickname: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description 닉네임 변경 성공 */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 닉네임이 성공적으로 변경되었어요! */
+                            message?: string;
+                            data?: {
+                                user?: {
+                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
+                                    id?: string;
+                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
+                                    profile?: string;
+                                    /** @example user@example.com */
+                                    email?: string;
+                                    /** @example newNickname */
+                                    nickname?: string;
+                                    /**
+                                     * @example user
+                                     * @enum {string}
+                                     */
+                                    role?: "user" | "admin";
+                                };
+                            };
+                        };
+                    };
+                };
+                /** @description 요청 데이터 유효성 검사 실패 */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 이름은 10자 이하로 입력해주세요. */
+                            message?: string;
+                        };
+                    };
+                };
+                /** @description 인증 실패 (토큰 없음 또는 만료) */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 인증이 필요합니다. */
+                            message?: string;
+                        };
+                    };
+                };
+                /** @description 존재하지 않는 회원 */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 존재하지 않는 회원입니다. */
+                            message?: string;
+                        };
+                    };
+                };
+                /** @description 서버 내부 오류 */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example 서버 내부 오류 */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        trace?: never;
+    };
     "/auth/google": {
         parameters: {
             query?: never;

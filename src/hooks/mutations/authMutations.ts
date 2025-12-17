@@ -1,7 +1,8 @@
+import { authKeys } from '@hooks/queries/authQueries'
 import { RequestBody, ResponseBody } from '@interfaces/api'
 import { authService } from '@services/authService'
 import { isLoggedInStore } from '@store/index'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { setLocalStorageItem } from '@utils/localStorage'
 import { AxiosError } from 'axios'
 import { useStore } from 'ventileco-store'
@@ -101,5 +102,29 @@ export const useCheckVerificationCode = () => {
     RequestBody<'/auth/check-verification-code', 'post'>
   >({
     mutationFn: (params) => authService.checkVerificationCode(params),
+  })
+}
+
+export const useChangeNicknameMutation = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<
+    ResponseBody<'/auth/change-nickname', 'patch'>,
+    AxiosError,
+    RequestBody<'/auth/change-nickname', 'patch'>
+  >({
+    mutationFn: (params) => authService.changeNickname(params),
+    onSuccess: (result) => {
+      const { message } = result
+
+      queryClient.invalidateQueries({ queryKey: authKeys.me() })
+
+      if (message) {
+        toast.success(message)
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
   })
 }
