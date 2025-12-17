@@ -16,14 +16,12 @@ export default class Whiteboard extends ObjectItem {
   }
 
   do(player: Player) {
-    this.scene.events.emit('openVideoModal')
     this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
 
     player.anims.play(`${player.avatarTexture}_stand_down`, true)
   }
 
   undo() {
-    this.scene.events.emit('closeModal')
     this.scene.events.emit('changeContent', '')
   }
 

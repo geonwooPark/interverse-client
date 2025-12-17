@@ -1,5 +1,5 @@
 export default class ObjectItem extends Phaser.Physics.Arcade.Sprite {
-  itemType!: 'secretary' | 'chair' | 'waterPurifier' | 'printer' | 'whiteboard'
+  itemType!: 'chair' | 'whiteboard'
 
   constructor(
     scene: Phaser.Scene,

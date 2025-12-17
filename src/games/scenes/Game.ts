@@ -103,11 +103,24 @@ export default class Game extends Phaser.Scene {
       'FloorAndGround',
       'FloorAndGround',
     )
-    this.map.addTilesetImage('Office', 'Office')
+    const Office = this.map.addTilesetImage('Office', 'Office')
 
-    const groundLayer = this.map
-      .createLayer('Floor', FloorAndGround!)!
-      .setCollisionByProperty({ collides: true })
+    if (!FloorAndGround) {
+      console.error('Failed to load FloorAndGround tileset')
+      return
+    }
+
+    if (!Office) {
+      console.error('Failed to load Office tileset')
+      return
+    }
+
+    const groundLayer = this.map.createLayer('Floor', FloorAndGround)
+    if (!groundLayer) {
+      console.error('Failed to create Floor layer')
+      return
+    }
+    groundLayer.setCollisionByProperty({ collides: true })
 
     this.addGroupFromTiled('Wall', 'FloorAndGround', 'FloorAndGround', true)
     this.addGroupFromTiled('Collidable', 'Office', 'Office', true)
@@ -152,10 +165,10 @@ export default class Game extends Phaser.Scene {
       false,
       -100,
     )
-    // CamArea 그룹의 모든 오브젝트에 불투명도 설정 (0.0 ~ 1.0)
+
     this.camAreaGroup.children.entries.forEach((child) => {
       if (child instanceof Phaser.Physics.Arcade.Sprite) {
-        child.setAlpha(0.5) // 예시: 50% 불투명도
+        child.setAlpha(0.5)
       }
     })
 
@@ -266,13 +279,15 @@ export default class Game extends Phaser.Scene {
     // Tiled 좌표계 기준을 Phaser 좌표계로 변환
     const actualX = object.x! + object.width! * 0.5
     const actualY = object.y! - object.height! * 0.5
+
+    const tileset = this.map.getTileset(tilesetName)
+    if (!tileset) {
+      console.error(`Failed to get tileset: ${tilesetName}`)
+      return null
+    }
+
     const obj = group
-      .get(
-        actualX,
-        actualY,
-        texture,
-        object.gid! - this.map.getTileset(tilesetName)!.firstgid,
-      )
+      .get(actualX, actualY, texture, object.gid! - tileset.firstgid)
       .setDepth(actualY + object.height! / 2 + depthOffset)
     return obj
   }
@@ -285,7 +300,12 @@ export default class Game extends Phaser.Scene {
     depthOffset: number = 0,
   ) {
     const group = this.physics.add.staticGroup()
-    const objectLayer = this.map.getObjectLayer(objectLayerName)!
+    const objectLayer = this.map.getObjectLayer(objectLayerName)
+
+    if (!objectLayer) {
+      console.error(`Failed to get object layer: ${objectLayerName}`)
+      return group
+    }
 
     objectLayer.objects.forEach((object) => {
       this.addObjectFromTiled(group, object, texture, tilesetName, depthOffset)
@@ -314,7 +334,12 @@ export default class Game extends Phaser.Scene {
     ) => void,
   ) {
     const group = this.physics.add.staticGroup({ classType })
-    const objectLayer = this.map.getObjectLayer(objectLayerName)!
+    const objectLayer = this.map.getObjectLayer(objectLayerName)
+
+    if (!objectLayer) {
+      console.error(`Failed to get object layer: ${objectLayerName}`)
+      return group
+    }
 
     objectLayer.objects.forEach((chairObj, index) => {
       const item = this.addObjectFromTiled(
@@ -323,7 +348,9 @@ export default class Game extends Phaser.Scene {
         texture,
         tilesetName,
       ) as S
-      updater(item, index, chairObj)
+      if (item) {
+        updater(item, index, chairObj)
+      }
     })
     return group
   }
@@ -351,12 +378,15 @@ export default class Game extends Phaser.Scene {
         // 새로운 상호작용 아이템 설정
         if (this.player.selectedInteractionItem !== objectItem) {
           this.player.selectedInteractionItem = objectItem
+          // Chair 또는 Whiteboard인지 확인하고 onInteractionBox 호출
           if (
-            'onInteractionBox' in objectItem &&
-            typeof (objectItem as Chair | Whiteboard).onInteractionBox ===
-              'function'
+            objectItem.itemType === 'chair' ||
+            objectItem.itemType === 'whiteboard'
           ) {
-            ;(objectItem as Chair | Whiteboard).onInteractionBox()
+            const interactiveItem = objectItem as Chair | Whiteboard
+            if (interactiveItem.onInteractionBox) {
+              interactiveItem.onInteractionBox()
+            }
           }
         }
       })

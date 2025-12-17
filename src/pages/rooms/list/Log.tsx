@@ -45,6 +45,7 @@ export default function Log({ log, participantCount, onDelete }: LogProps) {
               src={log.room?.map?.thumbnail}
               alt={`map-${log?.room?.map?.name}`}
               className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
+              objectFit="cover"
               ratio={4 / 3}
             />
             {/* 그라데이션 오버레이 */}
