@@ -35,8 +35,15 @@ export default function LanguageSection() {
                 setLanguageState(value)
               }
             }}
-            options={LANGUAGE_OPTIONS}
-          />
+          >
+            {LANGUAGE_OPTIONS.map((option) => (
+              <Select.Item
+                key={option.value}
+                value={option.value}
+                label={option.label}
+              />
+            ))}
+          </Select>
         </div>
 
         <Button

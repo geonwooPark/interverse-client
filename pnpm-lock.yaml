@@ -69,8 +69,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(react@18.3.1)
       ventileco-ui:
-        specifier: ^1.0.1
-        version: 1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.0.7
+        version: 1.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       yup:
         specifier: ^1.6.1
         version: 1.6.1
@@ -2417,8 +2417,8 @@ packages:
     peerDependencies:
       react: '>=18.0.0'
 
-  ventileco-ui@1.0.1:
-    resolution: {integrity: sha512-N867gNcJ+t0f4gQ2PJnOeDXWCi5C//QiTSUvboWwCAOxUhbVqeyfEiXd8SH+0k2nxPRoRNVnzvkLKCjnLR+QwA==}
+  ventileco-ui@1.0.7:
+    resolution: {integrity: sha512-z6X4jMdQc2+/ohJS0s9SrmJTMeMU5u8a58Kkj2Puca9fuKG1I9eNR953IpnbgR+MGzUoKm89lJd2MLFkMHaBTw==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -4982,7 +4982,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  ventileco-ui@1.0.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  ventileco-ui@1.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

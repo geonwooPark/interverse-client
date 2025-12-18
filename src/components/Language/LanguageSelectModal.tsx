@@ -51,8 +51,15 @@ export default function LanguageSelectModal({
                   setSelectedLanguage(value)
                 }
               }}
-              options={LANGUAGE_OPTIONS}
-            />
+            >
+              {LANGUAGE_OPTIONS.map((option) => (
+                <Select.Item
+                  key={option.value}
+                  value={option.value}
+                  label={option.label}
+                />
+              ))}
+            </Select>
 
             <Button
               type="button"

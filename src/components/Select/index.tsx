@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { SelectBox } from 'ventileco-ui'
 import { motion as m } from 'motion/react'
 import slide from '@components/Animation/motions/slide'
@@ -6,10 +6,9 @@ import slide from '@components/Animation/motions/slide'
 interface SelectProps {
   value: string
   onChange: (value: string) => void
-  options: { value: string; label: string; disabled?: boolean }[]
 }
 
-export default function Select({ value, onChange, options }: SelectProps) {
+function Select({ children, value, onChange }: PropsWithChildren<SelectProps>) {
   return (
     <SelectBox
       defaultValue={value}
@@ -25,30 +24,41 @@ export default function Select({ value, onChange, options }: SelectProps) {
         {...slide({ distance: 10, isFade: true }).inY}
         className="absolute z-50 mt-2 max-h-52 w-full overflow-y-auto rounded-md border border-slate-200 bg-white shadow-lg"
       >
-        {options.map((item) => (
-          <SelectBox.Item
-            key={item.value}
-            value={item.value}
-            label={item.label}
-            isDisabled={item.disabled}
-          >
-            {({ isFocused }) => (
-              <div
-                className={`flex cursor-pointer items-center gap-2 px-3 py-2
-                  ${value === item.value ? 'text-blue-600' : ''}
-                  ${
-                    item.disabled
-                      ? 'cursor-not-allowed text-slate-300'
-                      : 'hover:bg-blue-50'
-                  }
-                  ${isFocused ? 'bg-blue-100' : ''}`}
-              >
-                {item.label}
-              </div>
-            )}
-          </SelectBox.Item>
-        ))}
+        {children}
       </SelectBox.List>
     </SelectBox>
   )
 }
+
+function SelectItem({
+  value,
+  label,
+  disabled,
+}: {
+  value: string
+  label: string
+  disabled?: boolean
+}) {
+  return (
+    <SelectBox.Item value={value} label={label} isDisabled={disabled}>
+      {({ isFocused, isSelected }) => (
+        <div
+          className={`flex cursor-pointer items-center gap-2 px-3 py-2
+                  ${isSelected ? 'text-blue-600' : ''}
+                  ${
+                    disabled
+                      ? 'cursor-not-allowed text-slate-300'
+                      : 'hover:bg-blue-50'
+                  }
+                  ${isFocused ? 'bg-blue-100' : ''}`}
+        >
+          {label}
+        </div>
+      )}
+    </SelectBox.Item>
+  )
+}
+
+export default Object.assign(Select, {
+  Item: SelectItem,
+})
