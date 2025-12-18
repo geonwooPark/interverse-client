@@ -20,7 +20,13 @@ export default function Step3({ onPrev }: StepProps) {
   return (
     <FadeIn>
       <div className="mb-3 flex w-full flex-1 flex-col gap-3">
-        <RhfProfileUploader name="profile" />
+        <div className="flex flex-col items-center gap-2">
+          <RhfProfileUploader name="profile" />
+          <p className="text-caption text-gray-400">
+            {t('auth.sign_up.step3.profile_caption')}
+          </p>
+        </div>
+
         <RhfTextField
           name="nickname"
           placeholder={t('auth.sign_up.step3.nickname_placeholder')}

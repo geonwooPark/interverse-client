@@ -48,7 +48,7 @@ export default function MediaSection() {
             <label className="text-body2 font-medium text-gray-700">
               {t('setting.camera_label')}
             </label>
-            <p className="text-caption text-gray-500">
+            <p className="text-caption text-gray-400">
               {t('setting.camera_helper')}
             </p>
           </div>
@@ -63,7 +63,7 @@ export default function MediaSection() {
             <label className="text-body2 font-medium text-gray-700">
               {t('setting.microphone_label')}
             </label>
-            <p className="text-caption text-gray-500">
+            <p className="text-caption text-gray-400">
               {t('setting.microphone_helper')}
             </p>
           </div>

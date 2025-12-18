@@ -93,6 +93,10 @@ export default function ProfileSection() {
         <div className="mb-6 flex flex-col items-center gap-4">
           <RhfProfileUploader name="profile" />
 
+          <p className="text-caption text-gray-400">
+            {t('auth.sign_up.step3.profile_caption')}
+          </p>
+
           {profileMethods.formState.isDirty && (
             <Button type="submit" size="md" variant="contained">
               {t('setting.profile_submit')}

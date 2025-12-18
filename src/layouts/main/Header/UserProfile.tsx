@@ -53,7 +53,11 @@ export default function UserProfile() {
         }`}
       >
         <div className="relative size-9 overflow-hidden rounded-full border-2 border-gray-200 shadow-sm transition-transform group-hover:scale-105 group-hover:border-gray-300">
-          <Image src={me?.user?.profile || placeholder} alt="placeholder" />
+          <Image
+            src={me?.user?.profile || placeholder}
+            alt="placeholder"
+            ratio={1}
+          />
         </div>
         <p className="text-body2 font-medium text-gray-800">
           {me?.user?.nickname}

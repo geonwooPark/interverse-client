@@ -64,6 +64,7 @@ export default {
       },
       step3: {
         profile_placeholder: 'Profile image',
+        profile_caption: 'You can upload up to 2MB',
         nickname_placeholder: 'Nickname',
         password_placeholder: 'Password',
         confirm_password_placeholder: 'Confirm password',
@@ -318,5 +319,7 @@ The Company designates a person in charge of personal information protection as 
     privacy_required: 'Please agree to the Privacy Policy.',
     room_title_required: 'Please enter the room title.',
     room_password_required: 'Please enter the room password.',
+    file_size_exceeded: 'File size exceeds 2MB. Please select a smaller file.',
+    file_upload_error: 'An error occurred while uploading the file.',
   },
 }

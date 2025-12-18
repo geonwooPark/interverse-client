@@ -64,6 +64,7 @@ export default {
       },
       step3: {
         profile_placeholder: 'プロフィール画像',
+        profile_caption: '最大2MBまでアップロード可能です',
         nickname_placeholder: 'ニックネーム',
         password_placeholder: 'パスワード',
         confirm_password_placeholder: 'パスワード確認',
@@ -323,5 +324,7 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
     privacy_required: 'プライバシーポリシーに同意してください。',
     room_title_required: 'ルームタイトルを入力してください。',
     room_password_required: 'パスワードを入力してください。',
+    file_size_exceeded: 'ファイルサイズが2MBを超えています。より小さいファイルを選択してください。',
+    file_upload_error: 'ファイルのアップロード中にエラーが発生しました。',
   },
 }

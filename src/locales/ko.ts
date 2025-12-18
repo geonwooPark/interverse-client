@@ -64,6 +64,7 @@ export default {
       },
       step3: {
         profile_placeholder: '프로필 이미지',
+        profile_caption: '최대 2MB까지 업로드 가능합니다',
         nickname_placeholder: '닉네임',
         password_placeholder: '비밀번호',
         confirm_password_placeholder: '비밀번호 확인',
@@ -316,5 +317,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
     privacy_required: '개인정보처리방침에 동의해주세요.',
     room_title_required: '방제목을 입력해주세요.',
     room_password_required: '비밀번호를 입력해주세요.',
+    file_size_exceeded: '파일 크기가 2MB를 초과합니다. 더 작은 파일을 선택해주세요.',
+    file_upload_error: '파일 업로드 중 오류가 발생했습니다.',
   },
 }
