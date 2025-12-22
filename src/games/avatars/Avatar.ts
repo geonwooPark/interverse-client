@@ -96,6 +96,7 @@ export default class Avatar extends Phaser.Physics.Arcade.Sprite {
         this.avatarContainer.x,
         this.avatarContainer.y - 15,
         this.scene.cameras.main,
+        true,
       )
     }
   }
