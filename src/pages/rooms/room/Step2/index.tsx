@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AvatarSelector from './AvatarSelector'
 import { StepFlowProps } from '@components/StepFlow/types'
 import Button from '@components/Button'
-import GameManager from '@managers/GameManager'
+import GameService from '@services/gameService'
 import Container from '@components/Container'
 import { useParams } from 'react-router-dom'
 import { useJoinRoomMutation } from '@hooks/mutations/roomsMutation'
@@ -36,7 +36,7 @@ export default function Step2({ onNext }: Step2Props) {
     if (!nickname) return
     if (!roomId) return
 
-    const game = GameManager.getInstance()
+    const game = GameService.getInstance()
 
     // 게임씬 실행
     game.scene.start('game', {

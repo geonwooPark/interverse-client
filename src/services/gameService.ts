@@ -2,13 +2,13 @@ import Phaser from 'phaser'
 import Game from '../games/scenes/Game'
 import Preload from '../games/scenes/Preload'
 
-class GameManager {
+class GameService {
   private static instance: Phaser.Game | null = null
 
   private constructor() {}
 
   public static getInstance(): Phaser.Game {
-    if (!GameManager.instance) {
+    if (!GameService.instance) {
       const config: Phaser.Types.Core.GameConfig = {
         type: Phaser.AUTO,
         pixelArt: true,
@@ -28,18 +28,18 @@ class GameManager {
         backgroundColor: '#fff',
       }
 
-      GameManager.instance = new Phaser.Game(config)
+      GameService.instance = new Phaser.Game(config)
     }
 
-    return GameManager.instance
+    return GameService.instance
   }
 
   public static destroy() {
-    if (GameManager.instance) {
-      GameManager.instance.destroy(true)
-      GameManager.instance = null
+    if (GameService.instance) {
+      GameService.instance.destroy(true)
+      GameService.instance = null
     }
   }
 }
 
-export default GameManager
+export default GameService

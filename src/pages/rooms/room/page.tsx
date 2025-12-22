@@ -5,7 +5,7 @@ import Step2 from './Step2'
 import Step3 from './Step3'
 import { useSingleRoomQuery } from '@hooks/queries/roomsQueries'
 import { useNavigate, useParams } from 'react-router-dom'
-import GameManager from '@managers/GameManager'
+import GameService from '@services/gameService'
 import { useCharactersQuery } from '@hooks/queries/assetsQueries'
 import { useBlockGoBack } from '@hooks/useBlockGoBack'
 import { useModal } from '@providers/ModalProvider'
@@ -38,7 +38,7 @@ function RoomPage() {
   useEffect(() => {
     if (!room?.map?.mapSrc || !room?.map?.builder) return
 
-    const game = GameManager.getInstance()
+    const game = GameService.getInstance()
 
     game.scene.start('preload', {
       mapSrc: room?.map.mapSrc,
@@ -49,7 +49,7 @@ function RoomPage() {
 
   useEffect(() => {
     return () => {
-      GameManager.destroy()
+      GameService.destroy()
     }
   }, [])
 

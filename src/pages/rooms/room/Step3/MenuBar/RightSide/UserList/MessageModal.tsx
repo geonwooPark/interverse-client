@@ -4,7 +4,7 @@ import Button from '@components/Button'
 import fade from '@components/Animation/motions/fade'
 import { motion as m } from 'motion/react'
 import GameScene from '@games/scenes/Game'
-import GameManager from '@managers/GameManager'
+import GameService from '@services/gameService'
 import { useTranslation } from 'react-i18next'
 import Icon from '@components/Icon'
 
@@ -22,7 +22,7 @@ export default function MessageModal({
   const { t } = useTranslation()
   const { data: me } = useMeQuery()
 
-  const game = GameManager.getInstance()
+  const game = GameService.getInstance()
 
   const gameScene = game.scene.getScene('game') as GameScene
 
