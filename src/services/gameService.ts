@@ -36,6 +36,13 @@ class GameService {
 
   public static destroy() {
     if (GameService.instance) {
+      const scenes = GameService.instance.scene.getScenes(true)
+      scenes.forEach((scene) => {
+        if (scene.scene.isActive() || scene.scene.isPaused()) {
+          scene.scene.stop()
+        }
+      })
+
       GameService.instance.destroy(true)
       GameService.instance = null
     }

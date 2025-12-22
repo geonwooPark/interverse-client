@@ -135,4 +135,21 @@ export default class Player extends Avatar {
       }
     }
   }
+
+  destroy(scene?: boolean) {
+    // DOM 닉네임 및 채팅 정리
+    this.domNickname.clear()
+    this.domChatBubble.clear()
+    if (this.avatarContainer) {
+      this.avatarContainer.destroy()
+    }
+
+    // 타이머 정리
+    if (this.stopTimeout) {
+      clearTimeout(this.stopTimeout)
+      this.stopTimeout = null
+    }
+
+    super.destroy(scene)
+  }
 }

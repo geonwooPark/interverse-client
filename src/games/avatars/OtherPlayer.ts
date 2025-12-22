@@ -32,9 +32,12 @@ export default class OtherPlayer extends Avatar {
   }
 
   destroy(scene?: boolean) {
-    // DOM 닉네임 정리
+    // DOM 닉네임 및 채팅 정리
     this.domNickname.clear()
-    this.avatarContainer.destroy()
+    this.domChatBubble.clear()
+    if (this.avatarContainer) {
+      this.avatarContainer.destroy()
+    }
 
     super.destroy(scene)
   }

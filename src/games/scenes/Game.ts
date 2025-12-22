@@ -261,6 +261,19 @@ export default class Game extends Phaser.Scene {
       }
     })
 
+    // Player 및 OtherPlayers 정리 (destroy 메서드가 DOM 요소도 정리함)
+    if (this.player) {
+      this.player.destroy()
+    }
+
+    if (this.otherPlayers) {
+      this.otherPlayers.children.entries.forEach((otherPlayer) => {
+        if (otherPlayer instanceof OtherPlayer) {
+          otherPlayer.destroy()
+        }
+      })
+    }
+
     // Socket 연결 종료
     if (this.socketManager?.socket?.connected) {
       this.socketManager.disconnect()
