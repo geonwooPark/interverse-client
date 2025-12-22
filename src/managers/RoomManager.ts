@@ -21,22 +21,22 @@ export class RoomManager extends Observable<Map<string, OtherPlayer>> {
 
   private initialize() {
     // 새로 입장한 유저
-    this.game.ws.socket.on('serverPlayerInfo', (player) => {
+    this.game.socketManager.socket.on('serverPlayerInfo', (player) => {
       this.addOtherPlayer(player)
       this.notify(this.otherPlayerMap)
     })
 
     // 기존 방에 들어와 있던 유저들
-    this.game.ws.socket.on('serverRoomMember', (users) => {
+    this.game.socketManager.socket.on('serverRoomMember', (users) => {
       for (const user of users) {
-        if (user.socketId === this.game.ws.socket.id) continue
+        if (user.socketId === this.game.socketManager.socket.id) continue
         this.addOtherPlayer(user)
       }
       this.notify(this.otherPlayerMap)
     })
 
     // 방에서 퇴장한 유저
-    this.game.ws.socket.on('serverLeaveRoom', (socketId) => {
+    this.game.socketManager.socket.on('serverLeaveRoom', (socketId) => {
       this.removeOtherPlayer(socketId)
       this.notify(this.otherPlayerMap)
     })
@@ -44,7 +44,7 @@ export class RoomManager extends Observable<Map<string, OtherPlayer>> {
 
   /** 방 참여하기 */
   joinRoom({ roomNum, nickname, texture, x, y }: IJoinRoom) {
-    this.game.ws.socket.emit('clientJoinRoom', {
+    this.game.socketManager.socket.emit('clientJoinRoom', {
       roomNum,
       nickname,
       texture,
@@ -90,9 +90,9 @@ export class RoomManager extends Observable<Map<string, OtherPlayer>> {
   // 리소스 정리
   cleanup() {
     // Socket 이벤트 리스너 제거
-    this.game.ws.socket.off('serverPlayerInfo')
-    this.game.ws.socket.off('serverRoomMember')
-    this.game.ws.socket.off('serverLeaveRoom')
+    this.game.socketManager.socket.off('serverPlayerInfo')
+    this.game.socketManager.socket.off('serverRoomMember')
+    this.game.socketManager.socket.off('serverLeaveRoom')
 
     // 다른 플레이어 맵 정리
     this.otherPlayerMap.clear()

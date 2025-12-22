@@ -9,7 +9,7 @@ import { PlayManager } from '@managers/PlayManager'
 import { VideoManager } from '@managers/VideoManager'
 import { INIT_POSITION } from '@constants/index'
 import { DMManager } from '@managers/DMManager'
-import { socketService } from '@services/socketService'
+import { SocketManager } from '@managers/SocketManager'
 import ObjectItem from '@games/items/ObjectItem'
 import Whiteboard from '@games/items/Whiteboard'
 
@@ -23,23 +23,24 @@ export default class Game extends Phaser.Scene {
   private whiteboardGroup?: Phaser.Physics.Arcade.StaticGroup
   private camAreaGroup?: Phaser.Physics.Arcade.StaticGroup
   private isInCamArea = false
-  readonly ws = socketService
+  readonly socketManager: SocketManager
+  readonly room: RoomManager
+  readonly chat: ChatManager
+  readonly chair: ChairManager
+  readonly play: PlayManager
+  readonly video: VideoManager
+  readonly dm: DMManager
   roomNum!: string
   texture!: string
   nickname!: string
   player!: Player
   otherPlayers!: Phaser.Physics.Arcade.Group
-  room: RoomManager
-  chat: ChatManager
-  chair: ChairManager
-  play: PlayManager
-  video: VideoManager
-  dm: DMManager
 
   constructor() {
     // Scene Key
     super('game')
 
+    this.socketManager = new SocketManager()
     this.room = new RoomManager(this)
     this.chat = new ChatManager(this)
     this.chair = new ChairManager(this)
@@ -259,6 +260,11 @@ export default class Game extends Phaser.Scene {
         manager.cleanup()
       }
     })
+
+    // Socket 연결 종료
+    if (this.socketManager?.socket?.connected) {
+      this.socketManager.disconnect()
+    }
 
     // 키보드 이벤트 리스너 제거
     if (this.input.keyboard) {

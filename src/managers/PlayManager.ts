@@ -12,7 +12,7 @@ export class PlayManager {
 
   private initialize() {
     // 서버로부터 다른 모든 유저들 위치 정보 받기
-    this.game.ws.socket.on('serverAvatarPosition', (avatarPosition) => {
+    this.game.socketManager.socket.on('serverAvatarPosition', (avatarPosition) => {
       this.updateOtherPlayer(avatarPosition)
     })
   }
@@ -30,7 +30,7 @@ export class PlayManager {
 
   // 실시간 나의 위치 정보 보내기
   sendAvatarPosition({ x, y, animation, isLast }: IAvatarPosition) {
-    this.game.ws.socket.emit('clientAvatarPosition', {
+    this.game.socketManager.socket.emit('clientAvatarPosition', {
       x,
       y,
       roomNum: this.game.roomNum,
@@ -42,6 +42,6 @@ export class PlayManager {
   // 리소스 정리
   cleanup() {
     // Socket 이벤트 리스너 제거
-    this.game.ws.socket.off('serverAvatarPosition')
+    this.game.socketManager.socket.off('serverAvatarPosition')
   }
 }

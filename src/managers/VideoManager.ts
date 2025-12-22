@@ -23,7 +23,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
   }
 
   private initialize() {
-    this.game.ws.socket.once(
+    this.game.socketManager.socket.once(
       'serverRtpCapabilities',
       async (rtpCapabilities) => {
         this.device
@@ -32,7 +32,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
             console.log('Device loaded successfully')
 
             // 송신 Transport 요청
-            this.game.ws.socket.emit(
+            this.game.socketManager.socket.emit(
               'clientCreateSendTransport',
               this.game.roomNum,
             )
@@ -44,7 +44,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
     )
 
     // 송신 Transport 생성
-    this.game.ws.socket.on(
+    this.game.socketManager.socket.on(
       'serverSendTransportCreated',
       async ({ id, iceParameters, iceCandidates, dtlsParameters }) => {
         if (!this.device) return
@@ -58,7 +58,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
         })
 
         this.sendTransport.on('connect', ({ dtlsParameters }, callback) => {
-          this.game.ws.socket.emit('clientConnectTransport', {
+          this.game.socketManager.socket.emit('clientConnectTransport', {
             roomNum: this.game.roomNum,
             dtlsParameters,
           })
@@ -68,13 +68,13 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
         this.sendTransport.on(
           'produce',
           async ({ kind, rtpParameters }, callback) => {
-            this.game.ws.socket.emit('clientProduce', {
+            this.game.socketManager.socket.emit('clientProduce', {
               roomNum: this.game.roomNum,
               kind,
               rtpCapabilities: this.device.rtpCapabilities,
               rtpParameters,
             })
-            this.game.ws.socket.once('serverProduced', ({ id }) => {
+            this.game.socketManager.socket.once('serverProduced', ({ id }) => {
               callback({ id })
             })
           },
@@ -89,11 +89,11 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
         await this.sendTransport.produce({ track })
 
         // 수신 트랜스포트 생성 요청
-        this.game.ws.socket.emit('clientCreateRecvTransport', this.game.roomNum)
+        this.game.socketManager.socket.emit('clientCreateRecvTransport', this.game.roomNum)
       },
     )
 
-    this.game.ws.socket.on(
+    this.game.socketManager.socket.on(
       'serverRecvTransportCreated',
       async ({ id, iceParameters, iceCandidates, dtlsParameters }) => {
         if (!this.device) return
@@ -108,14 +108,14 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
         })
 
         // 기존 프로듀서 목록 요청
-        this.game.ws.socket.emit('clientRequestProducers', {
+        this.game.socketManager.socket.emit('clientRequestProducers', {
           roomNum: this.game.roomNum,
           rtpCapabilities: this.device.rtpCapabilities,
         })
 
         // consumerTransport의 consume 메서드가 호출될 때 connect 이벤트가 emit 됨
         this.recvTransport.on('connect', ({ dtlsParameters }, callback) => {
-          this.game.ws.socket.emit('clientConnectRecvTransport', {
+          this.game.socketManager.socket.emit('clientConnectRecvTransport', {
             roomNum: this.game.roomNum,
             dtlsParameters,
           })
@@ -126,7 +126,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
     )
 
     // 기존 플레이어 목록 수신
-    this.game.ws.socket.on('serverExistingProducers', async (users) => {
+    this.game.socketManager.socket.on('serverExistingProducers', async (users) => {
       if (users.length === 0) return
 
       for (const user of users) {
@@ -142,7 +142,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
     })
 
     // 새로 추가된 플레이어 수신
-    this.game.ws.socket.on('serverNewProducer', async (newUser) => {
+    this.game.socketManager.socket.on('serverNewProducer', async (newUser) => {
       await this.consumeTrack(
         newUser.producerId,
         newUser.consumerId,
@@ -168,7 +168,7 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
         rtpParameters,
       })
 
-      this.game.ws.socket.emit('clientResumeConsumer', {
+      this.game.socketManager.socket.emit('clientResumeConsumer', {
         roomNum: this.game.roomNum,
         consumerId,
       })
@@ -189,22 +189,22 @@ export class VideoManager extends Observable<MediaStreamTrack[]> {
   }
 
   joinVideoRoom() {
-    this.game.ws.socket.emit('clientJoinVideoRoom', this.game.roomNum)
+    this.game.socketManager.socket.emit('clientJoinVideoRoom', this.game.roomNum)
   }
 
   leaveVideoRoom() {
-    this.game.ws.socket.emit('clientLeaveVideoRoom', this.game.roomNum)
+    this.game.socketManager.socket.emit('clientLeaveVideoRoom', this.game.roomNum)
   }
 
   // 리소스 정리
   cleanup() {
     // Socket 이벤트 리스너 제거
-    this.game.ws.socket.off('serverRtpCapabilities')
-    this.game.ws.socket.off('serverSendTransportCreated')
-    this.game.ws.socket.off('serverRecvTransportCreated')
-    this.game.ws.socket.off('serverExistingProducers')
-    this.game.ws.socket.off('serverNewProducer')
-    this.game.ws.socket.off('serverProduced')
+    this.game.socketManager.socket.off('serverRtpCapabilities')
+    this.game.socketManager.socket.off('serverSendTransportCreated')
+    this.game.socketManager.socket.off('serverRecvTransportCreated')
+    this.game.socketManager.socket.off('serverExistingProducers')
+    this.game.socketManager.socket.off('serverNewProducer')
+    this.game.socketManager.socket.off('serverProduced')
 
     // MediaStream 트랙 정지 및 해제
     this.tracks.forEach((track) => {

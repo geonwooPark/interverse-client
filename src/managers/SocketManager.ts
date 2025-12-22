@@ -1,7 +1,7 @@
 import { ClientToServerEvents, ServerToClientEvents } from '@interfaces/index'
 import { io, Socket } from 'socket.io-client'
 
-class SocketService {
+export class SocketManager {
   socket: Socket<ServerToClientEvents, ClientToServerEvents>
 
   constructor() {
@@ -29,4 +29,3 @@ class SocketService {
   }
 }
 
-export const socketService = new SocketService()

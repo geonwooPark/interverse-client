@@ -17,7 +17,7 @@ export class DMManager extends Observable<IDirectMessage[]> {
 
   private initialize() {
     // 서버에서 DM 받기
-    this.game.ws.socket.on('serverDM', (serverChat) => {
+    this.game.socketManager.socket.on('serverDM', (serverChat) => {
       this.receiveDM(serverChat)
     })
   }
@@ -35,7 +35,7 @@ export class DMManager extends Observable<IDirectMessage[]> {
 
   // DM 송신
   sendDM(dm: IDirectMessage) {
-    this.game.ws.socket.emit('clientDM', dm)
+    this.game.socketManager.socket.emit('clientDM', dm)
   }
 
   // DM 제거
@@ -65,7 +65,7 @@ export class DMManager extends Observable<IDirectMessage[]> {
   // 리소스 정리
   cleanup() {
     // Socket 이벤트 리스너 제거
-    this.game.ws.socket.off('serverDM')
+    this.game.socketManager.socket.off('serverDM')
 
     // DM 리스트 정리
     this.list = []

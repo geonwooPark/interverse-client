@@ -60,6 +60,7 @@ function RoomPage() {
         description={t('rooms.room.exit_description')}
         onClose={removeModal}
         onSubmit={() => {
+          GameService.destroy()
           removeModal()
           navigate('/rooms')
         }}

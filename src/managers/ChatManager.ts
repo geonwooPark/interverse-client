@@ -17,7 +17,7 @@ export class ChatManager extends Observable<IChat[]> {
 
   private initialize() {
     // 서버에서 메시지 받기
-    this.game.ws.socket.on('serverChat', (serverChat) => {
+    this.game.socketManager.socket.on('serverChat', (serverChat) => {
       this.receiveChat(serverChat)
     })
   }
@@ -37,7 +37,7 @@ export class ChatManager extends Observable<IChat[]> {
 
   // 메시지 송신
   sendChat(chat: IChat) {
-    this.game.ws.socket.emit('clientChat', chat)
+    this.game.socketManager.socket.emit('clientChat', chat)
   }
 
   /** 플레이어의 채팅을 말풍선으로 표시  */
@@ -57,7 +57,7 @@ export class ChatManager extends Observable<IChat[]> {
   // 리소스 정리
   cleanup() {
     // Socket 이벤트 리스너 제거
-    this.game.ws.socket.off('serverChat')
+    this.game.socketManager.socket.off('serverChat')
 
     // 채팅 리스트 정리
     this.list = []
