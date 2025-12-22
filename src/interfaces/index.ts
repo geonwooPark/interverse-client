@@ -108,16 +108,6 @@ export interface ServerToClientEvents {
     rtpParameters: any
   }) => void
   serverExceedHeadCount: ({ message }: { message: string }) => void
-  serverRoomParticipantCount: ({
-    roomId,
-    participantCount,
-  }: {
-    roomId: string
-    participantCount: number
-  }) => void
-  serverRoomParticipantCounts: (
-    counts: Array<{ roomId: string; participantCount: number }>,
-  ) => void
 }
 
 export interface ClientToServerEvents {
@@ -169,5 +159,4 @@ export interface ClientToServerEvents {
     roomNum: string
     consumerId: string
   }) => void
-  clientRequestRoomParticipantCounts: (roomIds: string[]) => void
 }

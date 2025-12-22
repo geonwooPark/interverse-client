@@ -10,31 +10,22 @@ import { cn } from '@utils/cn'
 
 interface LogProps {
   log: NonNullable<ResponseBody<'/rooms', 'get'>['data']>[number]
-  participantCount?: number
   onDelete: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     roomId: string,
   ) => void
 }
 
-export default function Log({ log, participantCount, onDelete }: LogProps) {
+export default function Log({ log, onDelete }: LogProps) {
   const { data: me } = useMeQuery()
 
   const { t } = useTranslation()
 
   const isHost = me?.user?.id === log.room?.host
 
-  const headCount = log.room?.headCount ?? 0
-
-  const currentCount = participantCount ?? 0
-
-  const isFull = currentCount >= headCount && headCount > 0
-
-  const Component = isFull ? 'div' : Link
-
   return (
     <div className="group relative">
-      <Component
+      <Link
         to={`/rooms/${log.room?._id}`}
         className="block h-full transition-all duration-300 hover:scale-[1.02]"
       >
@@ -57,19 +48,6 @@ export default function Log({ log, participantCount, onDelete }: LogProps) {
                 {t('rooms.log_list.host')}
               </div>
             )}
-
-            {/* 참가자 수 배지 */}
-            <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
-              <span
-                className={cn(
-                  'size-1.5 rounded-full',
-                  isFull ? 'bg-red-400' : 'bg-green-400',
-                )}
-              ></span>
-              <span>
-                {currentCount} / {headCount} 명
-              </span>
-            </div>
           </div>
 
           {/* 카드 정보 영역 */}
@@ -87,7 +65,7 @@ export default function Log({ log, participantCount, onDelete }: LogProps) {
             </div>
           </div>
         </div>
-      </Component>
+      </Link>
 
       {/* 삭제 버튼 */}
       {isHost && (
