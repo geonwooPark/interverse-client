@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Loading() {
   return (
-    <div className="grid w-full grid-cols-2 gap-4 desktop:grid-cols-4">
-      {Array(8)
+    <div className="grid w-full grid-cols-2 gap-4 desktop:grid-cols-3">
+      {Array(6)
         .fill(0)
         .map((_, i) => (
           <div key={i}>

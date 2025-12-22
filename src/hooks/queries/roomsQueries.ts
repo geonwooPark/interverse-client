@@ -4,6 +4,9 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 // 쿼리키
 export const roomsKeys = {
   base: ['rooms'],
+  list(page?: number, limit?: number) {
+    return [...this.base, 'list', page, limit]
+  },
   single_room(id: string) {
     return [...this.base, id]
   },
@@ -11,10 +14,10 @@ export const roomsKeys = {
 
 // ----------------------------------------------------------------------
 
-export const useRoomsQuery = () => {
+export const useRoomsQuery = (page: number = 1, limit: number = 6) => {
   return useSuspenseQuery({
-    queryKey: roomsKeys.base,
-    queryFn: () => roomsService.getRooms(),
+    queryKey: roomsKeys.list(page, limit),
+    queryFn: () => roomsService.getRooms({ page, limit }),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 3,
     select: (result) => result.data,

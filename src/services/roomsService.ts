@@ -2,8 +2,11 @@ import { RequestBody, ResponseBody } from '@interfaces/api'
 import { api } from '@utils/api'
 
 class RoomsService {
-  async getRooms(): Promise<ResponseBody<'/rooms', 'get'>> {
-    return await api.get('/rooms')
+  async getRooms(params?: {
+    page?: number
+    limit?: number
+  }): Promise<ResponseBody<'/rooms', 'get'>> {
+    return await api.get('/rooms', { params })
   }
 
   async getSingleRoom(

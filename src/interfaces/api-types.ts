@@ -1199,7 +1199,12 @@ export interface paths {
         /** 사용자가 참여한 방 리스트 조회 */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description 페이지 번호 */
+                    page?: number;
+                    /** @description 페이지당 항목 수 */
+                    limit?: number;
+                };
                 header?: never;
                 path?: never;
                 cookie?: never;
@@ -1216,49 +1221,61 @@ export interface paths {
                             /** @example 참여한 방 리스트입니다. */
                             message?: string;
                             data?: {
-                                /** @example 645f3d8f2345abcd12340001 */
-                                _id: string;
-                                /**
-                                 * Format: objectId
-                                 * @example 645f3d8f2345abcd12340001
-                                 */
-                                userId: string;
-                                room: {
-                                    /** @example 645f3d8f2345abcd12345679 */
+                                logs?: {
+                                    /** @example 645f3d8f2345abcd12340001 */
                                     _id: string;
-                                    /** @example Sample Room */
-                                    title: string;
-                                    /** @example abcd12345679 */
-                                    host: string;
-                                    /** @example 4 */
-                                    headCount: number;
-                                    map: {
-                                        /** @example 645f3d8f2345abcd12345680 */
+                                    /**
+                                     * Format: objectId
+                                     * @example 645f3d8f2345abcd12340001
+                                     */
+                                    userId: string;
+                                    room: {
+                                        /** @example 645f3d8f2345abcd12345679 */
                                         _id: string;
-                                        /** @example office */
-                                        name: string;
-                                        /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                        thumbnail: string;
-                                        /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                        mapSrc: string;
-                                        /** @example https://example.com/builder */
-                                        builder: string;
+                                        /** @example Sample Room */
+                                        title: string;
+                                        /** @example abcd12345679 */
+                                        host: string;
+                                        /** @example 4 */
+                                        headCount: number;
+                                        map: {
+                                            /** @example 645f3d8f2345abcd12345680 */
+                                            _id: string;
+                                            /** @example office */
+                                            name: string;
+                                            /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
+                                            thumbnail: string;
+                                            /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
+                                            mapSrc: string;
+                                            /** @example https://example.com/builder */
+                                            builder: string;
+                                            /** Format: date-time */
+                                            createdAt?: string;
+                                            /** Format: date-time */
+                                            updatedAt?: string;
+                                        };
                                         /** Format: date-time */
                                         createdAt?: string;
                                         /** Format: date-time */
                                         updatedAt?: string;
                                     };
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
+                                    /**
+                                     * Format: date-time
+                                     * @example 2025-05-20T14:00:00Z
+                                     */
+                                    joinedAt: string;
+                                }[];
+                                metadata?: {
+                                    /** @example 1 */
+                                    page?: number;
+                                    /** @example 6 */
+                                    limit?: number;
+                                    /** @example 50 */
+                                    totalCount?: number;
+                                    /** @example 5 */
+                                    totalPages?: number;
                                 };
-                                /**
-                                 * Format: date-time
-                                 * @example 2025-05-20T14:00:00Z
-                                 */
-                                joinedAt: string;
-                            }[];
+                            };
                         };
                     };
                 };

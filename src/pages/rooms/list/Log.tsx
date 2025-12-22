@@ -1,15 +1,19 @@
 import { IconDelete } from '@assets/svgs'
 import Image from '@components/Image'
 import { useMeQuery } from '@hooks/queries/authQueries'
-import { ResponseBody } from '@interfaces/api'
 import { formatDate } from '@utils/dayjs'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@utils/cn'
+import { ResponseBody } from '@interfaces/api'
+
+type LogItem = NonNullable<
+  NonNullable<ResponseBody<'/rooms', 'get'>['data']>['logs']
+>[number]
 
 interface LogProps {
-  log: NonNullable<ResponseBody<'/rooms', 'get'>['data']>[number]
+  log: LogItem
   onDelete: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     roomId: string,
