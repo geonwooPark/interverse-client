@@ -307,6 +307,9 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
       screen_share_interaction:
         'スペースキーを押して画面共有を開始してください！',
       whiteboard_interaction: 'スペースキーを押してホワイトボードを開いてください！',
+      whiteboard_clear: 'クリア',
+      whiteboard_color: '色',
+      whiteboard_line_width: '線の太さ',
       secretary_interaction: 'スペースキーを押して案内資料を確認してください！',
     },
   },

@@ -34,11 +34,12 @@ function SelectItem({
   value,
   label,
   disabled,
-}: {
+  children,
+}: PropsWithChildren<{
   value: string
   label: string
   disabled?: boolean
-}) {
+}>) {
   return (
     <SelectBox.Item value={value} label={label} isDisabled={disabled}>
       {({ isFocused, isSelected }) => (
@@ -52,7 +53,7 @@ function SelectItem({
                   }
                   ${isFocused ? 'bg-blue-100' : ''}`}
         >
-          {label}
+          {children ?? label}
         </div>
       )}
     </SelectBox.Item>

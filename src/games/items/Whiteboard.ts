@@ -17,12 +17,14 @@ export default class Whiteboard extends ObjectItem {
 
   do(player: Player) {
     this.scene.events.emit('changeContent', i18n.t('game.items.esc_to_game'))
+    this.scene.events.emit('openWhiteboard')
 
     player.anims.play(`${player.avatarTexture}_stand_down`, true)
   }
 
   undo() {
     this.scene.events.emit('changeContent', '')
+    this.scene.events.emit('closeWhiteboard')
   }
 
   onInteractionBox() {

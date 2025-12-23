@@ -10,6 +10,7 @@ import { VideoManager } from '@managers/VideoManager'
 import { INIT_POSITION } from '@constants/index'
 import { DMManager } from '@managers/DMManager'
 import { SocketManager } from '@managers/SocketManager'
+import { WhiteboardManager } from '@managers/WhiteboardManager'
 import ObjectItem from '@games/items/ObjectItem'
 import Whiteboard from '@games/items/Whiteboard'
 
@@ -30,6 +31,7 @@ export default class Game extends Phaser.Scene {
   readonly play: PlayManager
   readonly video: VideoManager
   readonly dm: DMManager
+  readonly whiteboard: WhiteboardManager
   roomNum!: string
   texture!: string
   nickname!: string
@@ -47,6 +49,7 @@ export default class Game extends Phaser.Scene {
     this.play = new PlayManager(this)
     this.video = new VideoManager(this)
     this.dm = new DMManager(this)
+    this.whiteboard = new WhiteboardManager(this)
   }
 
   setUpKeys() {
@@ -253,6 +256,7 @@ export default class Game extends Phaser.Scene {
       this.chair,
       this.play,
       this.dm,
+      this.whiteboard,
     ]
 
     managers.forEach((manager) => {

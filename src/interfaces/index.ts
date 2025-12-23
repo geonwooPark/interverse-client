@@ -108,6 +108,16 @@ export interface ServerToClientEvents {
     rtpParameters: any
   }) => void
   serverExceedHeadCount: ({ message }: { message: string }) => void
+  serverWhiteboardDraw: (draw: {
+    x: number
+    y: number
+    prevX: number
+    prevY: number
+    color: string
+    lineWidth: number
+    type: 'draw' | 'clear'
+  }) => void
+  serverWhiteboardClear: () => void
 }
 
 export interface ClientToServerEvents {
@@ -159,4 +169,20 @@ export interface ClientToServerEvents {
     roomNum: string
     consumerId: string
   }) => void
+  clientWhiteboardDraw: ({
+    roomNum,
+    draw,
+  }: {
+    roomNum: string
+    draw: {
+      x: number
+      y: number
+      prevX: number
+      prevY: number
+      color: string
+      lineWidth: number
+      type: 'draw' | 'clear'
+    }
+  }) => void
+  clientWhiteboardClear: ({ roomNum }: { roomNum: string }) => void
 }
