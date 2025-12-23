@@ -26,6 +26,6 @@ export default class Whiteboard extends ObjectItem {
   }
 
   onInteractionBox() {
-    this.setInteractionBox(i18n.t('game.items.screen_share_interaction'))
+    this.setInteractionBox(i18n.t('game.items.whiteboard_interaction'))
   }
 }

@@ -360,15 +360,23 @@ export default class Game extends Phaser.Scene {
       return group
     }
 
-    objectLayer.objects.forEach((chairObj, index) => {
+    objectLayer.objects.forEach((object, index) => {
       const item = this.addObjectFromTiled(
         group,
-        chairObj,
+        object,
         texture,
         tilesetName,
       ) as S
       if (item) {
-        updater(item, index, chairObj)
+        // 화이트보드인 경우 위치를 아래로 조정 (아바타와 겹치도록)
+        if (item instanceof Whiteboard) {
+          const offsetY = 1
+          item.y += offsetY
+          if (item.body) {
+            item.body.y += offsetY
+          }
+        }
+        updater(item, index, object)
       }
     })
     return group
@@ -398,14 +406,9 @@ export default class Game extends Phaser.Scene {
         if (this.player.selectedInteractionItem !== objectItem) {
           this.player.selectedInteractionItem = objectItem
           // Chair 또는 Whiteboard인지 확인하고 onInteractionBox 호출
-          if (
-            objectItem.itemType === 'chair' ||
-            objectItem.itemType === 'whiteboard'
-          ) {
-            const interactiveItem = objectItem as Chair | Whiteboard
-            if (interactiveItem.onInteractionBox) {
-              interactiveItem.onInteractionBox()
-            }
+          const interactiveItem = objectItem as Chair | Whiteboard
+          if (interactiveItem.onInteractionBox) {
+            interactiveItem.onInteractionBox()
           }
         }
       })

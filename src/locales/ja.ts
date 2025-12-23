@@ -306,6 +306,7 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
         'スペースキーを押して椅子に座ってみてください！',
       screen_share_interaction:
         'スペースキーを押して画面共有を開始してください！',
+      whiteboard_interaction: 'スペースキーを押してホワイトボードを開いてください！',
       secretary_interaction: 'スペースキーを押して案内資料を確認してください！',
     },
   },

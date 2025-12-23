@@ -302,6 +302,7 @@ The Company designates a person in charge of personal information protection as 
       chair_interview_interaction: 'Press SPACE to start a video call!',
       chair_default_interaction: 'Press SPACE to sit on the chair!',
       screen_share_interaction: 'Press SPACE to start screen sharing!',
+      whiteboard_interaction: 'Press SPACE to open the whiteboard!',
       secretary_interaction: 'Press SPACE to view the guide!',
     },
   },

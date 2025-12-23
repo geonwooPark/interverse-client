@@ -301,6 +301,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
       chair_interview_interaction: '스페이스키를 눌러 화상통화를 시작하세요!',
       chair_default_interaction: '스페이스키를 눌러 의자에 앉아보세요!',
       screen_share_interaction: '스페이스키를 눌러 화면공유를 시작하세요!',
+      whiteboard_interaction: '스페이스키를 눌러 화이트보드를 열어보세요!',
       secretary_interaction: '스페이스키를 눌러 안내서를 확인하세요!',
     },
   },
