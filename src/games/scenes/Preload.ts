@@ -59,5 +59,15 @@ export default class Preload extends Phaser.Scene {
         frameHeight: character.height,
       }),
     )
+
+    this.load.once('complete', () => {
+      window.dispatchEvent(
+        new CustomEvent('assets-loaded', {
+          detail: {
+            scene: this.scene.key,
+          },
+        }),
+      )
+    })
   }
 }

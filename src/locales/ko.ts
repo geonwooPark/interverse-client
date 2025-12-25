@@ -233,6 +233,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
         nickname_placeholder: '닉네임',
         nickname_caption: '닉네임은 최대 {{length}}글자까지 가능합니다.',
         enter: '입장하기',
+        loading: '로딩 중...',
       },
       step3: {
         permission_title: '카메라, 마이크 권한',

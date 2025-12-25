@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AvatarSelector from './AvatarSelector'
 import { StepFlowProps } from '@components/StepFlow/types'
 import Button from '@components/Button'
@@ -26,6 +26,8 @@ export default function Step2({ onNext }: Step2Props) {
 
   const [texture, setTexture] = useState(0)
 
+  const [isLoading, setIsLoading] = useState(true)
+
   const nickname = me?.user?.nickname
 
   const onTextureChange = (value: number) => {
@@ -50,8 +52,20 @@ export default function Step2({ onNext }: Step2Props) {
     onNext && onNext()
   }
 
+  useEffect(() => {
+    const onAssetsLoaded = (e: Event) => {
+      setIsLoading(false)
+    }
+
+    window.addEventListener('assets-loaded', onAssetsLoaded)
+
+    return () => {
+      window.removeEventListener('assets-loaded', onAssetsLoaded)
+    }
+  }, [])
+
   return (
-    <div className="flex size-full items-center justify-center">
+    <div className="flex items-center justify-center size-full">
       <Container className="max-w-[360px]">
         <AvatarSelector texture={texture} onChange={onTextureChange} />
 
@@ -59,10 +73,12 @@ export default function Step2({ onNext }: Step2Props) {
           size="md"
           variant="contained"
           fullWidth
-          disabled={!me?.user?.nickname}
+          disabled={!me?.user?.nickname || isLoading}
           onClick={onEnter}
         >
-          {t('rooms.room.step2.enter')}
+          {isLoading
+            ? t('rooms.room.step2.loading')
+            : t('rooms.room.step2.enter')}
         </Button>
       </Container>
     </div>

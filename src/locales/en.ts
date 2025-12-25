@@ -233,6 +233,7 @@ The Company designates a person in charge of personal information protection as 
         nickname_placeholder: 'Nickname',
         nickname_caption: 'Nickname can be up to {{length}} characters long.',
         enter: 'Enter',
+        loading: 'Loading...',
       },
       step3: {
         permission_title: 'Camera and microphone permission',
