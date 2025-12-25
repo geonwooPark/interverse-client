@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import { SelectBox } from 'ventileco-ui'
 import { motion as m } from 'motion/react'
 import slide from '@components/Animation/motions/slide'
+import Icon from '@components/Icon'
 
 interface SelectProps {
   value: string
@@ -17,7 +18,7 @@ function Select({ children, value, onChange }: PropsWithChildren<SelectProps>) {
     >
       <SelectBox.Input
         className="flex h-10 items-center rounded-md border border-slate-300 bg-white px-3 focus-within:border-blue-500"
-        endIcon={<span className="text-xs text-slate-400">▼</span>}
+        endIcon={<Icon iconName="IconChevronDown" className="size-4" />}
       />
       <SelectBox.List
         as={m.ul}
