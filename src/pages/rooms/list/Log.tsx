@@ -46,6 +46,16 @@ export default function Log({ log, onDelete }: LogProps) {
             {/* 그라데이션 오버레이 */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
 
+            {log.room?.map?.name && (
+              <div className="absolute inset-x-3 bottom-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="rounded-lg bg-black/70 px-3 py-1.5 backdrop-blur-sm">
+                  <span className="text-body2 text-white">
+                    {log.room.map.name}
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* 호스트 배지 */}
             {isHost && (
               <div className="absolute left-3 top-3 rounded-full bg-cyan-500/90 px-2.5 py-1 text-xs font-semibold text-white shadow-lg backdrop-blur-sm">
