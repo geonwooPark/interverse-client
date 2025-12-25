@@ -8,12 +8,13 @@ import BG_AUTH_02 from '/images/bg_auth_02.png'
 import BG_AUTH_03 from '/images/bg_auth_03.png'
 import BG_AUTH_04 from '/images/bg_auth_04.png'
 import Image from '@components/Image'
+import FadeIn from '@components/Animation/FadeIn'
 
 export default function AuthLayout({ children }: PropsWithChildren) {
   return (
-    <main className="relative flex h-screen flex-col items-center justify-center">
+    <main className="relative flex flex-col items-center justify-center py-10">
       {/* 로고 */}
-      <div className="fixed left-6 top-6 z-popover rounded-full px-6 py-4">
+      <div className="fixed left-3 top-3 z-popover rounded-full px-6 py-4">
         <Link to={'/'}>
           <Logo width={160} className="pointer-events-none" />
         </Link>
@@ -55,7 +56,7 @@ export default function AuthLayout({ children }: PropsWithChildren) {
         </div>
 
         {/* 컨텐츠 영역 */}
-        {children}
+        <FadeIn>{children}</FadeIn>
       </Container>
     </main>
   )
