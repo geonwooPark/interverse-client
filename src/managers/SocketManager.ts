@@ -28,4 +28,3 @@ export class SocketManager {
     this.socket.disconnect()
   }
 }
-

@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Game from '../games/scenes/Game'
 import Preload from '../games/scenes/Preload'
+import type GameScene from '../games/scenes/Game'
 
 class GameService {
   private static instance: Phaser.Game | null = null
@@ -37,7 +38,15 @@ class GameService {
   public static destroy() {
     if (GameService.instance) {
       const scenes = GameService.instance.scene.getScenes(true)
+
       scenes.forEach((scene) => {
+        if (scene.scene.key === 'game' && 'socketManager' in scene) {
+          const gameScene = scene as GameScene
+          if (gameScene.socketManager?.socket?.connected) {
+            gameScene.socketManager.disconnect()
+          }
+        }
+
         if (scene.scene.isActive() || scene.scene.isPaused()) {
           scene.scene.stop()
         }
