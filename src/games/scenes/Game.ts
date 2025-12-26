@@ -172,7 +172,7 @@ export default class Game extends Phaser.Scene {
 
     this.camAreaGroup.children.entries.forEach((child) => {
       if (child instanceof Phaser.Physics.Arcade.Sprite) {
-        child.setAlpha(0.5)
+        child.setAlpha(0.25)
       }
     })
 
