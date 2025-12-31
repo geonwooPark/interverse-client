@@ -303,7 +303,7 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
       chair_default_interaction: '스페이스키를 눌러 의자에 앉아보세요!',
       screen_share_interaction: '스페이스키를 눌러 화면공유를 시작하세요!',
       whiteboard_interaction: '스페이스키를 눌러 화이트보드를 열어보세요!',
-      whiteboard_clear: '지우기',
+      whiteboard_eraser: '지우개',
       whiteboard_color: '색상',
       whiteboard_line_width: '선 굵기',
       secretary_interaction: '스페이스키를 눌러 안내서를 확인하세요!',
@@ -322,7 +322,8 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
     privacy_required: '개인정보처리방침에 동의해주세요.',
     room_title_required: '방제목을 입력해주세요.',
     room_password_required: '비밀번호를 입력해주세요.',
-    file_size_exceeded: '파일 크기가 2MB를 초과합니다. 더 작은 파일을 선택해주세요.',
+    file_size_exceeded:
+      '파일 크기가 2MB를 초과합니다. 더 작은 파일을 선택해주세요.',
     file_upload_error: '파일 업로드 중 오류가 발생했습니다.',
   },
 }

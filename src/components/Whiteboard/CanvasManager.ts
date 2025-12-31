@@ -10,6 +10,7 @@ import {
 interface WhiteboardState {
   color: string
   lineWidth: number
+  eraserMode: boolean
   options: { colors: ColorOption[]; sizes: SizeOption[] }
 }
 
@@ -19,8 +20,6 @@ export class CanvasManager extends Observable<WhiteboardState> {
   private isDrawing = false
   private lastPos = { x: 0, y: 0 }
   private state: WhiteboardState
-  private onDraw?: (draw: IWhiteboardDraw) => void
-  private onClear?: () => void
   private canvasOptions: CanvasOptions
 
   constructor(canvas: HTMLCanvasElement | null, options?: CanvasOptionsInput) {
@@ -33,6 +32,7 @@ export class CanvasManager extends Observable<WhiteboardState> {
     this.state = {
       color: '#000000',
       lineWidth: 5,
+      eraserMode: false,
       options: this.canvasOptions.getState(),
     }
     this.notify(this.state)
@@ -55,16 +55,13 @@ export class CanvasManager extends Observable<WhiteboardState> {
     this.notify(this.state)
   }
 
+  setEraserMode(eraserMode: boolean) {
+    this.state = { ...this.state, eraserMode }
+    this.notify(this.state)
+  }
+
   getState(): WhiteboardState {
     return this.state
-  }
-
-  setOnDraw(callback: (draw: IWhiteboardDraw) => void) {
-    this.onDraw = callback
-  }
-
-  setOnClear(callback: () => void) {
-    this.onClear = callback
   }
 
   getMousePos(
@@ -75,8 +72,8 @@ export class CanvasManager extends Observable<WhiteboardState> {
     if (!this.canvas) return { x: 0, y: 0 }
 
     const rect = this.canvas.getBoundingClientRect()
-    const clientX = 'touches' in e ? e.touches[0]?.clientX ?? 0 : e.clientX
-    const clientY = 'touches' in e ? e.touches[0]?.clientY ?? 0 : e.clientY
+    const clientX = 'touches' in e ? (e.touches[0]?.clientX ?? 0) : e.clientX
+    const clientY = 'touches' in e ? (e.touches[0]?.clientY ?? 0) : e.clientY
 
     return {
       x: clientX - rect.left,
@@ -87,7 +84,14 @@ export class CanvasManager extends Observable<WhiteboardState> {
   drawOnCanvas(draw: IWhiteboardDraw) {
     if (!this.canvas || !this.ctx) return
 
-    this.ctx.strokeStyle = draw.color
+    // 지우개 모드 처리 (transparent 색상일 때)
+    if (draw.color === 'transparent') {
+      this.ctx.globalCompositeOperation = 'destination-out'
+    } else {
+      this.ctx.globalCompositeOperation = 'source-over'
+      this.ctx.strokeStyle = draw.color
+    }
+
     this.ctx.lineWidth = draw.lineWidth
     this.ctx.lineCap = 'round'
     this.ctx.lineJoin = 'round'
@@ -113,14 +117,24 @@ export class CanvasManager extends Observable<WhiteboardState> {
     e:
       | React.MouseEvent<HTMLCanvasElement>
       | React.TouchEvent<HTMLCanvasElement>,
-  ) {
-    if (!this.isDrawing || !this.canvas || !this.ctx) return
+  ): IWhiteboardDraw | null {
+    if (!this.isDrawing || !this.canvas || !this.ctx) return null
     e.preventDefault()
 
     const pos = this.getMousePos(e)
 
-    this.ctx.strokeStyle = this.state.color
-    this.ctx.lineWidth = this.state.lineWidth
+    // 지우개 모드 설정
+    if (this.state.eraserMode) {
+      this.ctx.globalCompositeOperation = 'destination-out'
+    } else {
+      this.ctx.globalCompositeOperation = 'source-over'
+      this.ctx.strokeStyle = this.state.color
+    }
+
+    // 지우개 모드일 때 실제 지워지는 영역을 20px로 고정
+    const effectiveLineWidth = this.state.eraserMode ? 20 : this.state.lineWidth
+
+    this.ctx.lineWidth = effectiveLineWidth
     this.ctx.lineCap = 'round'
     this.ctx.lineJoin = 'round'
 
@@ -129,36 +143,23 @@ export class CanvasManager extends Observable<WhiteboardState> {
     this.ctx.lineTo(pos.x, pos.y)
     this.ctx.stroke()
 
-    // 소켓으로 그리기 데이터 전송
-    if (this.onDraw) {
-      this.onDraw({
-        x: pos.x,
-        y: pos.y,
-        prevX: this.lastPos.x,
-        prevY: this.lastPos.y,
-        color: this.state.color,
-        lineWidth: this.state.lineWidth,
-        type: 'draw',
-      })
+    // 그리기 데이터 반환 (소켓 통신은 WhiteboardManager에서 처리)
+    const drawData: IWhiteboardDraw = {
+      x: pos.x,
+      y: pos.y,
+      prevX: this.lastPos.x,
+      prevY: this.lastPos.y,
+      color: this.state.eraserMode ? 'transparent' : this.state.color,
+      lineWidth: effectiveLineWidth,
+      type: 'draw',
     }
 
     this.lastPos = pos
+    return drawData
   }
 
   stopDrawing() {
     this.isDrawing = false
-  }
-
-  clearCanvas() {
-    if (!this.canvas || !this.ctx) return
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-  }
-
-  clear() {
-    this.clearCanvas()
-    if (this.onClear) {
-      this.onClear()
-    }
   }
 
   resizeCanvas() {
@@ -190,8 +191,5 @@ export class CanvasManager extends Observable<WhiteboardState> {
     this.ctx = null
     this.isDrawing = false
     this.lastPos = { x: 0, y: 0 }
-    this.onDraw = undefined
-    this.onClear = undefined
-    this.clear()
   }
 }

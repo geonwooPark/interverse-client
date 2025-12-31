@@ -307,8 +307,9 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
         'スペースキーを押して椅子に座ってみてください！',
       screen_share_interaction:
         'スペースキーを押して画面共有を開始してください！',
-      whiteboard_interaction: 'スペースキーを押してホワイトボードを開いてください！',
-      whiteboard_clear: 'クリア',
+      whiteboard_interaction:
+        'スペースキーを押してホワイトボードを開いてください！',
+      whiteboard_eraser: '消しゴム',
       whiteboard_color: '色',
       whiteboard_line_width: '線の太さ',
       secretary_interaction: 'スペースキーを押して案内資料を確認してください！',
@@ -329,7 +330,8 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
     privacy_required: 'プライバシーポリシーに同意してください。',
     room_title_required: 'ルームタイトルを入力してください。',
     room_password_required: 'パスワードを入力してください。',
-    file_size_exceeded: 'ファイルサイズが2MBを超えています。より小さいファイルを選択してください。',
+    file_size_exceeded:
+      'ファイルサイズが2MBを超えています。より小さいファイルを選択してください。',
     file_upload_error: 'ファイルのアップロード中にエラーが発生しました。',
   },
 }

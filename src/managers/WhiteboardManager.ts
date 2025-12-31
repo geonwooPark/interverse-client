@@ -1,3 +1,4 @@
+import React from 'react'
 import GameScene from '@games/scenes/Game'
 import { CanvasManager } from '@components/Whiteboard/CanvasManager'
 
@@ -33,11 +34,6 @@ export class WhiteboardManager {
         this.game.events.emit('whiteboardDraw', draw)
       },
     )
-
-    // 서버에서 화이트보드 클리어 받기
-    this.game.socketManager.socket.on('serverWhiteboardClear', () => {
-      this.game.events.emit('whiteboardClear')
-    })
   }
 
   // 그리기 데이터 전송
@@ -48,22 +44,26 @@ export class WhiteboardManager {
     })
   }
 
-  // 화이트보드 클리어 전송
-  sendClear() {
-    this.game.socketManager.socket.emit('clientWhiteboardClear', {
-      roomNum: this.game.roomNum,
-    })
-  }
-
   // CanvasManager 가져오기
   getCanvasManager(): CanvasManager {
     return this.canvasManager
   }
 
+  // 그리기 처리 (CanvasManager의 draw를 감싸서 소켓 통신 처리)
+  handleDraw(
+    e:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
+  ) {
+    const drawData = this.canvasManager.draw(e)
+    if (drawData) {
+      this.sendDraw(drawData)
+    }
+  }
+
   // 리소스 정리
   cleanup() {
     this.game.socketManager.socket.off('serverWhiteboardDraw')
-    this.game.socketManager.socket.off('serverWhiteboardClear')
     this.canvasManager.cleanup()
   }
 }
