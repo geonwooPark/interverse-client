@@ -32,29 +32,27 @@ function Select({ children, value, onChange }: PropsWithChildren<SelectProps>) {
 }
 
 function SelectItem({
-  value,
-  label,
-  disabled,
   children,
+  ...props
 }: PropsWithChildren<{
   value: string
   label: string
   disabled?: boolean
 }>) {
   return (
-    <SelectBox.Item value={value} label={label} isDisabled={disabled}>
+    <SelectBox.Item {...props}>
       {({ isFocused, isSelected }) => (
         <div
           className={`flex cursor-pointer items-center gap-2 px-3 py-2
                   ${isSelected ? 'text-blue-600' : ''}
                   ${
-                    disabled
+                    props.disabled
                       ? 'cursor-not-allowed text-slate-300'
                       : 'hover:bg-blue-50'
                   }
                   ${isFocused ? 'bg-blue-100' : ''}`}
         >
-          {children ?? label}
+          {children ?? props.label}
         </div>
       )}
     </SelectBox.Item>

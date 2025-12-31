@@ -31,13 +31,6 @@ export default function Canvas({ isOpen }: CanvasProps) {
 
   const options = state.options
 
-  // Canvas 설정
-  useEffect(() => {
-    if (canvasRef.current && canvasManager) {
-      canvasManager.setCanvas(canvasRef.current)
-    }
-  }, [canvasManager])
-
   // Manager와 상태 동기화
   const handleColorChange = (color: string) => {
     canvasManager?.setColor(color)
@@ -50,6 +43,13 @@ export default function Canvas({ isOpen }: CanvasProps) {
   const handleClear = () => {
     canvasManager?.clear()
   }
+
+  // Canvas 설정
+  useEffect(() => {
+    if (canvasRef.current && canvasManager) {
+      canvasManager.setCanvas(canvasRef.current)
+    }
+  }, [canvasManager])
 
   useEffect(() => {
     if (!canvasManager) return
