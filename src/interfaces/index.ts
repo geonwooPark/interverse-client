@@ -118,6 +118,17 @@ export interface ServerToClientEvents {
     type: 'draw' | 'clear'
   }) => void
   serverWhiteboardClear: () => void
+  serverWhiteboardData: (
+    draws: {
+      x: number
+      y: number
+      prevX: number
+      prevY: number
+      color: string
+      lineWidth: number
+      type: 'draw' | 'clear'
+    }[],
+  ) => void
 }
 
 export interface ClientToServerEvents {
@@ -185,4 +196,5 @@ export interface ClientToServerEvents {
     }
   }) => void
   clientWhiteboardClear: ({ roomNum }: { roomNum: string }) => void
+  clientRequestWhiteboardData: ({ roomNum }: { roomNum: string }) => void
 }

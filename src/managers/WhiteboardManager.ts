@@ -34,6 +34,14 @@ export class WhiteboardManager {
         this.game.events.emit('whiteboardDraw', draw)
       },
     )
+
+    // 서버에서 저장된 화이트보드 데이터 받기
+    this.game.socketManager.socket.on(
+      'serverWhiteboardData',
+      (draws: IWhiteboardDraw[]) => {
+        this.game.events.emit('whiteboardData', draws)
+      },
+    )
   }
 
   // 그리기 데이터 전송
@@ -61,9 +69,17 @@ export class WhiteboardManager {
     }
   }
 
+  // 저장된 화이트보드 데이터 요청
+  requestWhiteboardData() {
+    this.game.socketManager.socket.emit('clientRequestWhiteboardData', {
+      roomNum: this.game.roomNum,
+    })
+  }
+
   // 리소스 정리
   cleanup() {
     this.game.socketManager.socket.off('serverWhiteboardDraw')
+    this.game.socketManager.socket.off('serverWhiteboardData')
     this.canvasManager.cleanup()
   }
 }

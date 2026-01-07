@@ -6,12 +6,23 @@ import {
   ColorOption,
   SizeOption,
 } from './CanvasOptions'
+import {
+  IDrawingStrategy,
+  PenStrategy,
+  EraserStrategy,
+} from './DrawingStrategy'
+
+export type DrawingTool = 'pen' | 'eraser'
 
 interface WhiteboardState {
-  color: string
-  lineWidth: number
-  eraserMode: boolean
+  tool: DrawingTool
   options: { colors: ColorOption[]; sizes: SizeOption[] }
+  // 전략에서 가져온 설정 (펜 전략의 경우에만 값이 있음)
+  color: string | null
+  lineWidth: number | null
+  // 전략이 지원하는 기능
+  supportsColor: boolean
+  supportsLineWidth: boolean
 }
 
 export class CanvasManager extends Observable<WhiteboardState> {
@@ -21,6 +32,8 @@ export class CanvasManager extends Observable<WhiteboardState> {
   private lastPos = { x: 0, y: 0 }
   private state: WhiteboardState
   private canvasOptions: CanvasOptions
+  private strategies: Map<DrawingTool, IDrawingStrategy>
+  private currentStrategy: IDrawingStrategy
 
   constructor(canvas: HTMLCanvasElement | null, options?: CanvasOptionsInput) {
     super()
@@ -29,11 +42,21 @@ export class CanvasManager extends Observable<WhiteboardState> {
       this.ctx = canvas.getContext('2d')
     }
     this.canvasOptions = new CanvasOptions(options)
+    const penStrategy = new PenStrategy()
+    const eraserStrategy = new EraserStrategy()
+
+    this.strategies = new Map<DrawingTool, IDrawingStrategy>([
+      ['pen', penStrategy],
+      ['eraser', eraserStrategy],
+    ])
+    this.currentStrategy = penStrategy
     this.state = {
-      color: '#000000',
-      lineWidth: 5,
-      eraserMode: false,
+      tool: 'pen',
       options: this.canvasOptions.getState(),
+      color: penStrategy.getColor(),
+      lineWidth: penStrategy.getLineWidth(),
+      supportsColor: penStrategy.supportsColor(),
+      supportsLineWidth: penStrategy.supportsLineWidth(),
     }
     this.notify(this.state)
   }
@@ -46,18 +69,45 @@ export class CanvasManager extends Observable<WhiteboardState> {
   }
 
   setColor(color: string) {
-    this.state = { ...this.state, color }
+    if (!this.currentStrategy.supportsColor() || !this.currentStrategy.setColor)
+      return
+
+    this.currentStrategy.setColor(color)
+    this.state = {
+      ...this.state,
+      color: this.currentStrategy.getColor(),
+    }
     this.notify(this.state)
   }
 
   setLineWidth(lineWidth: number) {
-    this.state = { ...this.state, lineWidth }
+    if (
+      !this.currentStrategy.supportsLineWidth() ||
+      !this.currentStrategy.setLineWidth
+    )
+      return
+    this.currentStrategy.setLineWidth(lineWidth)
+    this.state = {
+      ...this.state,
+      lineWidth: this.currentStrategy.getLineWidth(),
+    }
     this.notify(this.state)
   }
 
-  setEraserMode(eraserMode: boolean) {
-    this.state = { ...this.state, eraserMode }
-    this.notify(this.state)
+  setTool(tool: DrawingTool) {
+    const strategy = this.strategies.get(tool)
+    if (strategy) {
+      this.currentStrategy = strategy
+      this.state = {
+        ...this.state,
+        tool,
+        color: strategy.getColor(),
+        lineWidth: strategy.getLineWidth(),
+        supportsColor: strategy.supportsColor(),
+        supportsLineWidth: strategy.supportsLineWidth(),
+      }
+      this.notify(this.state)
+    }
   }
 
   getState(): WhiteboardState {
@@ -72,8 +122,8 @@ export class CanvasManager extends Observable<WhiteboardState> {
     if (!this.canvas) return { x: 0, y: 0 }
 
     const rect = this.canvas.getBoundingClientRect()
-    const clientX = 'touches' in e ? (e.touches[0]?.clientX ?? 0) : e.clientX
-    const clientY = 'touches' in e ? (e.touches[0]?.clientY ?? 0) : e.clientY
+    const clientX = 'touches' in e ? e.touches[0]?.clientX ?? 0 : e.clientX
+    const clientY = 'touches' in e ? e.touches[0]?.clientY ?? 0 : e.clientY
 
     return {
       x: clientX - rect.left,
@@ -84,22 +134,14 @@ export class CanvasManager extends Observable<WhiteboardState> {
   drawOnCanvas(draw: IWhiteboardDraw) {
     if (!this.canvas || !this.ctx) return
 
-    // 지우개 모드 처리 (transparent 색상일 때)
-    if (draw.color === 'transparent') {
-      this.ctx.globalCompositeOperation = 'destination-out'
-    } else {
-      this.ctx.globalCompositeOperation = 'source-over'
-      this.ctx.strokeStyle = draw.color
+    // 적절한 전략 찾기
+    const strategy = Array.from(this.strategies.values()).find((s) =>
+      s.canHandle(draw),
+    )
+
+    if (strategy) {
+      strategy.drawOnCanvas(this.ctx, draw)
     }
-
-    this.ctx.lineWidth = draw.lineWidth
-    this.ctx.lineCap = 'round'
-    this.ctx.lineJoin = 'round'
-
-    this.ctx.beginPath()
-    this.ctx.moveTo(draw.prevX, draw.prevY)
-    this.ctx.lineTo(draw.x, draw.y)
-    this.ctx.stroke()
   }
 
   startDrawing(
@@ -123,38 +165,34 @@ export class CanvasManager extends Observable<WhiteboardState> {
 
     const pos = this.getMousePos(e)
 
-    // 지우개 모드 설정
-    if (this.state.eraserMode) {
-      this.ctx.globalCompositeOperation = 'destination-out'
-    } else {
-      this.ctx.globalCompositeOperation = 'source-over'
-      this.ctx.strokeStyle = this.state.color
-    }
-
-    // 지우개 모드일 때 실제 지워지는 영역을 20px로 고정
-    const effectiveLineWidth = this.state.eraserMode ? 20 : this.state.lineWidth
-
-    this.ctx.lineWidth = effectiveLineWidth
-    this.ctx.lineCap = 'round'
-    this.ctx.lineJoin = 'round'
+    // 현재 전략에 따라 컨텍스트 설정
+    const strategyColor = this.currentStrategy.getColor() ?? '#000000'
+    const strategyLineWidth = this.currentStrategy.getLineWidth() ?? 5
+    const effectiveLineWidth =
+      this.currentStrategy.getEffectiveLineWidth(strategyLineWidth)
+    this.currentStrategy.configureContext(
+      this.ctx,
+      strategyColor,
+      effectiveLineWidth,
+    )
 
     this.ctx.beginPath()
     this.ctx.moveTo(this.lastPos.x, this.lastPos.y)
     this.ctx.lineTo(pos.x, pos.y)
     this.ctx.stroke()
 
-    // 그리기 데이터 반환 (소켓 통신은 WhiteboardManager에서 처리)
-    const drawData: IWhiteboardDraw = {
-      x: pos.x,
-      y: pos.y,
-      prevX: this.lastPos.x,
-      prevY: this.lastPos.y,
-      color: this.state.eraserMode ? 'transparent' : this.state.color,
-      lineWidth: effectiveLineWidth,
-      type: 'draw',
-    }
+    // 전략에 따라 그리기 데이터 생성
+    const drawData = this.currentStrategy.getDrawData(
+      pos.x,
+      pos.y,
+      this.lastPos.x,
+      this.lastPos.y,
+      strategyColor,
+      effectiveLineWidth,
+    )
 
     this.lastPos = pos
+
     return drawData
   }
 

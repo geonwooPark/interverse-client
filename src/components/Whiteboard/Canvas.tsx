@@ -15,6 +15,7 @@ export default function Canvas({ isOpen }: CanvasProps) {
   const gameScene = useScene()
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
+
   const cursorOverlayRef = useRef<HTMLDivElement>(null)
 
   const whiteboardManager = gameScene.whiteboard
@@ -26,31 +27,35 @@ export default function Canvas({ isOpen }: CanvasProps) {
     () => canvasManager?.getState(),
   )
 
-  const color = state.color
+  const color = state.color ?? '#000000'
 
-  const lineWidth = state.lineWidth
+  const lineWidth = state.lineWidth ?? 5
 
   const lineWidthString = String(lineWidth)
 
-  const eraserMode = state.eraserMode
+  const tool = state.tool
+
+  const isEraser = tool === 'eraser'
 
   const options = state.options
 
-  const cursorSize = eraserMode ? 20 : lineWidth
+  const supportsColor = state.supportsColor
+
+  const supportsLineWidth = state.supportsLineWidth
+
+  const cursorSize = isEraser ? 20 : lineWidth
 
   const handleEraserToggle = () => {
-    canvasManager?.setEraserMode(!eraserMode)
+    canvasManager?.setTool(isEraser ? 'pen' : 'eraser')
   }
 
   // Manager와 상태 동기화
   const handleColorChange = (color: string) => {
     canvasManager?.setColor(color)
-    canvasManager?.setEraserMode(false)
   }
 
   const handleLineWidthChange = (lineWidth: string) => {
     canvasManager?.setLineWidth(Number(lineWidth))
-    canvasManager?.setEraserMode(false)
   }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -86,10 +91,19 @@ export default function Canvas({ isOpen }: CanvasProps) {
       canvasManager.drawOnCanvas(draw)
     }
 
+    const handleWhiteboardData = (draws: IWhiteboardDraw[]) => {
+      // 저장된 모든 그리기 데이터를 캔버스에 복원
+      draws.forEach((draw) => {
+        canvasManager.drawOnCanvas(draw)
+      })
+    }
+
     gameScene.events.on('whiteboardDraw', handleDraw)
+    gameScene.events.on('whiteboardData', handleWhiteboardData)
 
     return () => {
       gameScene.events.off('whiteboardDraw', handleDraw)
+      gameScene.events.off('whiteboardData', handleWhiteboardData)
     }
   }, [gameScene, canvasManager])
 
@@ -98,6 +112,11 @@ export default function Canvas({ isOpen }: CanvasProps) {
 
     canvasManager.setCanvas(canvasRef.current)
     canvasManager.resizeCanvas()
+
+    // 화이트보드가 열릴 때 저장된 데이터 요청
+    if (whiteboardManager) {
+      whiteboardManager.requestWhiteboardData()
+    }
 
     const handleResize = () => {
       canvasManager.resizeCanvas()
@@ -108,7 +127,7 @@ export default function Canvas({ isOpen }: CanvasProps) {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [isOpen, canvasManager])
+  }, [isOpen, canvasManager, whiteboardManager])
 
   useEffect(() => {
     if (!cursorOverlayRef.current) return
@@ -117,55 +136,59 @@ export default function Canvas({ isOpen }: CanvasProps) {
     overlay.style.width = `${cursorSize}px`
     overlay.style.height = `${cursorSize}px`
 
-    if (eraserMode) {
+    if (isEraser) {
       overlay.style.border = '2px solid rgb(156 163 175)'
       overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'
     } else {
       overlay.style.border = 'none'
       overlay.style.backgroundColor = `${color}40`
     }
-  }, [color, eraserMode, cursorSize])
+  }, [color, isEraser, cursorSize])
 
   return (
     <div className="flex flex-col gap-4 rounded-lg bg-white p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
       <div className="flex items-center gap-3 rounded bg-gray-100 p-3">
-        <div className="flex items-center gap-2">
-          <span className="text-body2 text-gray-700">
-            {t('game.items.whiteboard_color')}
-          </span>
-          <Select value={color} onChange={handleColorChange}>
-            {options.colors.map((c) => (
-              <Select.Item key={c.value} value={c.value} label={c.label}>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="size-4 rounded-full border border-gray-300"
-                    style={{ backgroundColor: c.value }}
-                  />
-                  {c.label}
-                </div>
-              </Select.Item>
-            ))}
-          </Select>
-        </div>
+        {supportsColor && (
+          <div className="flex items-center gap-2">
+            <span className="text-body2 text-gray-700">
+              {t('game.items.whiteboard_color')}
+            </span>
+            <Select value={color} onChange={handleColorChange}>
+              {options.colors.map((c) => (
+                <Select.Item key={c.value} value={c.value} label={c.label}>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="size-4 rounded-full border border-gray-300"
+                      style={{ backgroundColor: c.value }}
+                    />
+                    {c.label}
+                  </div>
+                </Select.Item>
+              ))}
+            </Select>
+          </div>
+        )}
 
-        <div className="flex items-center gap-2">
-          <span className="text-body2 text-gray-700">
-            {t('game.items.whiteboard_line_width')}
-          </span>
-          <Select value={lineWidthString} onChange={handleLineWidthChange}>
-            {options.sizes.map((size) => (
-              <Select.Item
-                key={size.value}
-                value={size.value}
-                label={size.label}
-              />
-            ))}
-          </Select>
-        </div>
+        {supportsLineWidth && (
+          <div className="flex items-center gap-2">
+            <span className="text-body2 text-gray-700">
+              {t('game.items.whiteboard_line_width')}
+            </span>
+            <Select value={lineWidthString} onChange={handleLineWidthChange}>
+              {options.sizes.map((size) => (
+                <Select.Item
+                  key={size.value}
+                  value={size.value}
+                  label={size.label}
+                />
+              ))}
+            </Select>
+          </div>
+        )}
 
         <Button
           size="sm"
-          variant={'ghost'}
+          variant={isEraser ? 'contained' : 'ghost'}
           onClick={handleEraserToggle}
           className="ml-auto"
         >
