@@ -36,7 +36,7 @@ function ChatInput({ inputRef }: ChatInputProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (!me?.user) return
+    if (!me) return
     if (!roomId) return
     if (!inputValue) {
       inputRef.current?.blur()

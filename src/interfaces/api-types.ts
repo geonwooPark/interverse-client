@@ -4,237 +4,6 @@
  */
 
 export interface paths {
-    "/assets/maps": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 모든 맵 리스트 조회 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 맵 리스트 반환 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 성공적으로 맵 리스트를 가져왔습니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345680 */
-                                _id: string;
-                                /** @example office */
-                                name: string;
-                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                thumbnail: string;
-                                /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                mapSrc: string;
-                                /** @example https://example.com/builder */
-                                builder: string;
-                            }[];
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        /** 새 맵 생성 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @example Sample Map */
-                        name: string;
-                        /** @example https://example.com/image.jpg */
-                        thumbnail: string;
-                        /** @example https://example.com/map-source */
-                        mapSrc: string;
-                        /** @example https://example.com/builder */
-                        builder: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 맵 생성 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 성공적으로 맵을 생성했습니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345678 */
-                                _id?: string;
-                                /** @example Sample Map */
-                                name?: string;
-                                /** @example https://example.com/image.jpg */
-                                thumbnail?: string;
-                                /** @example https://example.com/map-source */
-                                mapSrc?: string;
-                                /** @example https://example.com/builder */
-                                builder?: string;
-                            };
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/assets/characters": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 모든 캐릭터 리스트 조회 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 캐릭터 리스트 반환 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 성공적으로 캐릭터 리스트를 가져왔습니다. */
-                            message?: string;
-                            data?: {
-                                _id: string;
-                                name: string;
-                                source: string;
-                                width: number;
-                                height: number;
-                            }[];
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        /** 새 캐릭터 생성 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        name: string;
-                        source: string;
-                        width: number;
-                        height: number;
-                    };
-                };
-            };
-            responses: {
-                /** @description 캐릭터 생성 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message?: string;
-                            data?: {
-                                _id?: string;
-                                name?: string;
-                                source?: string;
-                                width?: number;
-                                height?: number;
-                            };
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/auth/login": {
         parameters: {
             query?: never;
@@ -245,95 +14,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 사용자 로그인 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * Format: email
-                         * @example user@example.com
-                         */
-                        email: string;
-                        /** @example mypassword123 */
-                        password: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 로그인 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 로그인에 성공했습니다. */
-                            message?: string;
-                            data?: {
-                                /**
-                                 * @description JWT 토큰
-                                 * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-                                 */
-                                token?: string;
-                                user?: {
-                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
-                                    id?: string;
-                                    /** @example user@example.com */
-                                    email?: string;
-                                    /**
-                                     * @example user
-                                     * @enum {string}
-                                     */
-                                    role?: "user" | "admin";
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 요청 데이터 유효성 검사 실패 */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이메일 형식이 올바르지 않습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 존재하지 않는 회원이거나 비밀번호 불일치 */
-                409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 잘못된 비밀번호입니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["AuthController_login"];
         delete?: never;
         options?: never;
         head?: never;
@@ -349,60 +30,8 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /**
-         * 액세스 토큰 재발급 (리프레시 토큰 사용)
-         * @description 클라이언트가 쿠키에 저장된 리프레시 토큰을 보내면, 서버가 토큰을 검증하여 새 액세스 토큰을 발급합니다.
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 새 액세스 토큰 발급 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /**
-                             * @description 새로 발급된 JWT 액세스 토큰
-                             * @example eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-                             */
-                            token?: string;
-                        };
-                    };
-                };
-                /** @description 리프레시 토큰 없음 또는 유효하지 않음 */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 리프레시 토큰 없음 */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        /** 액세스 토큰 재발급 (리프레시 토큰 사용) */
+        post: operations["AuthController_refreshToken"];
         delete?: never;
         options?: never;
         head?: never;
@@ -419,100 +48,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 회원가입 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "multipart/form-data": {
-                        /**
-                         * Format: binary
-                         * @description 업로드할 프로필 이미지
-                         */
-                        profile?: string;
-                        /** Format: email */
-                        email: string;
-                        password: string;
-                        nickname: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 회원가입 성공 */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 가입이 완료됐어요! 지금부터 함께해요 🙌 */
-                            message?: string;
-                            data?: {
-                                user?: {
-                                    /** @example 60d0fe4f5311236168a109ca */
-                                    _id?: string;
-                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
-                                    profile?: string;
-                                    /**
-                                     * Format: email
-                                     * @example user@example.com
-                                     */
-                                    email?: string;
-                                    /** @example geonwoo */
-                                    nickname?: string;
-                                    /**
-                                     * @example user
-                                     * @enum {string}
-                                     */
-                                    role?: "user" | "admin";
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 요청 데이터 유효성 검사 실패 */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이메일 형식이 올바르지 않습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 이미 존재하는 이메일 */
-                409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이미 존재하는 이메일입니다. */
-                            message?: string;
-                            user?: null;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["AuthController_createUser"];
         delete?: never;
         options?: never;
         head?: never;
@@ -527,82 +63,7 @@ export interface paths {
             cookie?: never;
         };
         /** 현재 로그인한 사용자 정보 조회 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 사용자 정보 반환 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example  */
-                            message?: string;
-                            data?: {
-                                user?: {
-                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
-                                    id?: string;
-                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
-                                    profile?: string;
-                                    /** @example user@example.com */
-                                    email?: string;
-                                    /** @example cooluser */
-                                    nickname?: string;
-                                    /**
-                                     * @example user
-                                     * @enum {string}
-                                     */
-                                    role?: "user" | "admin";
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 인증 실패 (토큰 없음 또는 만료) */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 인증이 필요합니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 존재하지 않는 회원 */
-                409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 존재하지 않는 회원입니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["AuthController_getCurrentUser"];
         put?: never;
         post?: never;
         delete?: never;
@@ -621,65 +82,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 이메일 인증 코드 전송 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * Format: email
-                         * @example user@example.com
-                         */
-                        email: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 이메일 전송 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이메일 전송에 성공했습니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 30초 이내 재전송 제한 */
-                429: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이전 전송 30초 이후 재전송 가능합니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["AuthController_sendVerificationEmail"];
         delete?: never;
         options?: never;
         head?: never;
@@ -696,67 +99,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 이메일 인증 코드 확인 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * Format: email
-                         * @example user@example.com
-                         */
-                        email: string;
-                        /** @example 123456 */
-                        code: number;
-                    };
-                };
-            };
-            responses: {
-                /** @description 인증 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 인증에 성공했습니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 인증 실패 (코드 불일치) */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 인증에 실패했습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["AuthController_checkVerificationCode"];
         delete?: never;
         options?: never;
         head?: never;
@@ -773,65 +116,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 이메일 가입 가능 여부 확인 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * Format: email
-                         * @example user@example.com
-                         */
-                        email: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 가입 가능한 이메일일 경우 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 가입 가능한 이메일입니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 이미 존재하는 이메일일 경우 */
-                409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 가입이 불가능한 이메일입니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["AuthController_checkId"];
         delete?: never;
         options?: never;
         head?: never;
@@ -852,67 +137,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** 비밀번호 변경 */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /**
-                         * Format: email
-                         * @example user@example.com
-                         */
-                        email: string;
-                        /** @example newStrongPassword123 */
-                        newPassword: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 비밀번호 변경 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 비밀번호가 성공적으로 변경되었습니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 해당 이메일 유저 없음 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 해당 이메일의 유저를 찾을 수 없습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        patch: operations["AuthController_changePassword"];
         trace?: never;
     };
     "/auth/change-nickname": {
@@ -929,101 +154,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** 닉네임 변경 */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @example newNickname */
-                        nickname: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 닉네임 변경 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 닉네임이 성공적으로 변경되었어요! */
-                            message?: string;
-                            data?: {
-                                user?: {
-                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
-                                    id?: string;
-                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
-                                    profile?: string;
-                                    /** @example user@example.com */
-                                    email?: string;
-                                    /** @example newNickname */
-                                    nickname?: string;
-                                    /**
-                                     * @example user
-                                     * @enum {string}
-                                     */
-                                    role?: "user" | "admin";
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 요청 데이터 유효성 검사 실패 */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 이름은 10자 이하로 입력해주세요. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 인증 실패 (토큰 없음 또는 만료) */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 인증이 필요합니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 존재하지 않는 회원 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 존재하지 않는 회원입니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        patch: operations["AuthController_changeNickname"];
         trace?: never;
     };
     "/auth/change-profile": {
@@ -1040,104 +171,7 @@ export interface paths {
         options?: never;
         head?: never;
         /** 프로필 이미지 변경 */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "multipart/form-data": {
-                        /**
-                         * Format: binary
-                         * @description 업로드할 프로필 이미지
-                         */
-                        profile: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 프로필 이미지 변경 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 프로필 이미지가 성공적으로 변경되었어요! */
-                            message?: string;
-                            data?: {
-                                user?: {
-                                    /** @example 608c1f9b4f1a4629a4e9c8a1 */
-                                    id?: string;
-                                    /** @example https://pub-xxxxxx.r2.dev/interverse-user-profile-images/profiles/123456_img.png */
-                                    profile?: string;
-                                    /** @example user@example.com */
-                                    email?: string;
-                                    /** @example geonwoo */
-                                    nickname?: string;
-                                    /**
-                                     * @example user
-                                     * @enum {string}
-                                     */
-                                    role?: "user" | "admin";
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 프로필 이미지가 없음 */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 프로필 이미지가 필요합니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 인증 실패 (토큰 없음 또는 만료) */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 인증이 필요합니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 존재하지 않는 회원 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 존재하지 않는 회원입니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        patch: operations["AuthController_changeProfile"];
         trace?: never;
     };
     "/auth/google": {
@@ -1147,40 +181,25 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /**
-         * 구글 OAuth 로그인 시작
-         * @description 사용자를 구글 로그인 페이지로 리디렉션합니다.
-         */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 구글 로그인 페이지로 리디렉션 */
-                302: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example Google OAuth redirection failed */
-                            message?: string;
-                        };
-                    };
-                };
-            };
+        /** 구글 OAuth 로그인 시작 */
+        get: operations["AuthController_startGoogleOAuth"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/google/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
+        /** 구글 OAuth 콜백 */
+        get: operations["AuthController_handleGoogleCallback"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1197,206 +216,10 @@ export interface paths {
             cookie?: never;
         };
         /** 사용자가 참여한 방 리스트 조회 */
-        get: {
-            parameters: {
-                query?: {
-                    /** @description 페이지 번호 */
-                    page?: number;
-                    /** @description 페이지당 항목 수 */
-                    limit?: number;
-                };
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 참여한 방 리스트 반환 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 참여한 방 리스트입니다. */
-                            message?: string;
-                            data?: {
-                                logs?: {
-                                    /** @example 645f3d8f2345abcd12340001 */
-                                    _id: string;
-                                    /**
-                                     * Format: objectId
-                                     * @example 645f3d8f2345abcd12340001
-                                     */
-                                    userId: string;
-                                    room: {
-                                        /** @example 645f3d8f2345abcd12345679 */
-                                        _id: string;
-                                        /** @example Sample Room */
-                                        title: string;
-                                        /** @example abcd12345679 */
-                                        host: string;
-                                        /** @example 4 */
-                                        headCount: number;
-                                        map: {
-                                            /** @example 645f3d8f2345abcd12345680 */
-                                            _id: string;
-                                            /** @example office */
-                                            name: string;
-                                            /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                            thumbnail: string;
-                                            /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                            mapSrc: string;
-                                            /** @example https://example.com/builder */
-                                            builder: string;
-                                            /** Format: date-time */
-                                            createdAt?: string;
-                                            /** Format: date-time */
-                                            updatedAt?: string;
-                                        };
-                                        /** Format: date-time */
-                                        createdAt?: string;
-                                        /** Format: date-time */
-                                        updatedAt?: string;
-                                    };
-                                    /**
-                                     * Format: date-time
-                                     * @example 2025-05-20T14:00:00Z
-                                     */
-                                    joinedAt: string;
-                                }[];
-                                metadata?: {
-                                    /** @example 1 */
-                                    page?: number;
-                                    /** @example 6 */
-                                    limit?: number;
-                                    /** @example 50 */
-                                    totalCount?: number;
-                                    /** @example 5 */
-                                    totalPages?: number;
-                                };
-                            };
-                        };
-                    };
-                };
-                /** @description 인증 실패 */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["RoomsController_getRooms"];
         put?: never;
         /** 방 생성 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @example 새로운 방 */
-                        title: string;
-                        /** @example 1234 */
-                        password: string;
-                        /** @example 6 */
-                        headCount: number;
-                        /**
-                         * @description 맵의 mapSrc로 맵을 찾아서 연결합니다
-                         * @example office
-                         */
-                        mapSrc: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 방 생성 성공 */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 함께할 준비 되셨나요? 새로운 방이 시작됐어요! */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345679 */
-                                _id?: string;
-                                /** @example 새로운 방 */
-                                title?: string;
-                                /** @example 6 */
-                                headCount?: number;
-                                /** @example abcd12345679 */
-                                host?: string;
-                                map?: {
-                                    /** @example 645f3d8f2345abcd12345680 */
-                                    _id?: string;
-                                    /** @example office */
-                                    name?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                    thumbnail?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                    mapSrc?: string;
-                                    /** @example https://example.com/builder */
-                                    builder?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                };
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                            };
-                        };
-                    };
-                };
-                /** @description 잘못된 요청 */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 인증 실패 */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["RoomsController_createRoom"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1411,150 +234,11 @@ export interface paths {
             cookie?: never;
         };
         /** 특정 방의 정보 조회 */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description 조회할 방의 ID */
-                    roomId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 방 정보 조회 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example abc123방 정보입니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345679 */
-                                _id?: string;
-                                /** @example Sample Room */
-                                title?: string;
-                                /** @example abcd12345679 */
-                                host?: string;
-                                /** @example 4 */
-                                headCount?: number;
-                                map?: {
-                                    /** @example 645f3d8f2345abcd12345680 */
-                                    _id?: string;
-                                    /** @example office */
-                                    name?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                    thumbnail?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                    mapSrc?: string;
-                                    /** @example https://example.com/builder */
-                                    builder?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                };
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                                /** @example true */
-                                isHost?: boolean;
-                            };
-                        };
-                    };
-                };
-                /** @description 인증 실패 */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        get: operations["RoomsController_getSingleRoom"];
         put?: never;
         post?: never;
         /** 방 삭제 */
-        delete: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description 삭제할 방의 ID */
-                    roomId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 방 삭제 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 방이 성공적으로 삭제되었습니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 삭제 권한 없음 */
-                403: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 해당 방을 삭제할 권한이 없습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 방 없음 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 해당 방을 찾을 수 없습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        delete: operations["RoomsController_deleteRoom"];
         options?: never;
         head?: never;
         patch?: never;
@@ -1570,86 +254,7 @@ export interface paths {
         get?: never;
         put?: never;
         /** 방 입장 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description 입장할 방의 ID */
-                    roomId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description 방 입장 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 방에 입장했습니다. */
-                            message?: string;
-                            data?: {
-                                /** @example 645f3d8f2345abcd12345679 */
-                                _id?: string;
-                                /** @example Sample Room */
-                                title?: string;
-                                /** @example 4 */
-                                headCount?: number;
-                                /** @example abcd12345679 */
-                                host?: string;
-                                map?: {
-                                    /** @example 645f3d8f2345abcd12345680 */
-                                    _id?: string;
-                                    /** @example office */
-                                    name?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.png */
-                                    thumbnail?: string;
-                                    /** @example https://pub-b1bcdfea0c06423d871965b53c9a3103.r2.dev/thumbnails/office.json */
-                                    mapSrc?: string;
-                                    /** @example https://example.com/builder */
-                                    builder?: string;
-                                    /** Format: date-time */
-                                    createdAt?: string;
-                                    /** Format: date-time */
-                                    updatedAt?: string;
-                                };
-                                /** Format: date-time */
-                                createdAt?: string;
-                                /** Format: date-time */
-                                updatedAt?: string;
-                            };
-                        };
-                    };
-                };
-                /** @description 방을 찾을 수 없음 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 방을 찾을 수 없습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
-        };
+        post: operations["RoomsController_joinRoom"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1666,77 +271,43 @@ export interface paths {
         get?: never;
         put?: never;
         /** 방 비밀번호 확인 */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    /** @description 비밀번호를 확인할 방의 ID */
-                    roomId: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @example 123456 */
-                        password?: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description 비밀번호 확인 성공 */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 비밀번호가 일치합니다. */
-                            message?: string;
-                            /** @example true */
-                            data?: boolean;
-                        };
-                    };
-                };
-                /** @description 방 없음 */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 방을 찾을 수 없습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 비밀번호 불일치 */
-                409: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 비밀번호가 일치하지 않습니다. */
-                            message?: string;
-                        };
-                    };
-                };
-                /** @description 서버 내부 오류 */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @example 서버 내부 오류 */
-                            message?: string;
-                        };
-                    };
-                };
-            };
+        post: operations["RoomsController_checkPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/assets/maps": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
+        /** 모든 맵 리스트 조회 */
+        get: operations["AssetsController_getMaps"];
+        put?: never;
+        /** 새 맵 생성 */
+        post: operations["AssetsController_createMap"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/assets/characters": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 모든 캐릭터 리스트 조회 */
+        get: operations["AssetsController_getCharacters"];
+        put?: never;
+        /** 새 캐릭터 생성 */
+        post: operations["AssetsController_createCharacter"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1746,7 +317,105 @@ export interface paths {
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: never;
+    schemas: {
+        LoginDto: {
+            /** @example user@example.com */
+            email: string;
+            /** @example mypassword123 */
+            password: string;
+        };
+        LoginResponseDataDto: {
+            /** @description 액세스 토큰 */
+            token: string;
+            /** @description 사용자 정보 */
+            user: Record<string, never>;
+        };
+        LoginResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 응답 데이터 */
+            data: components["schemas"]["LoginResponseDataDto"];
+        };
+        RefreshTokenResponseDataDto: {
+            /** @description 새 액세스 토큰 */
+            token: string;
+        };
+        RefreshTokenResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 응답 데이터 */
+            data: components["schemas"]["RefreshTokenResponseDataDto"];
+        };
+        UserResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 사용자 정보 */
+            data: Record<string, never>;
+        };
+        SendVerificationEmailDto: {
+            /** @example user@example.com */
+            email: string;
+        };
+        ApiResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 응답 데이터 */
+            data: Record<string, never>;
+        };
+        CheckVerificationCodeDto: {
+            /** @example user@example.com */
+            email: string;
+            /** @example 123456 */
+            code: number;
+        };
+        CheckIdDto: {
+            /** @example user@example.com */
+            email: string;
+        };
+        ChangePasswordDto: {
+            /** @example user@example.com */
+            email: string;
+            /** @example newStrongPassword123 */
+            newPassword: string;
+        };
+        ChangeNicknameDto: {
+            /** @example newNickname */
+            nickname: string;
+        };
+        CreateRoomDto: {
+            /** @example 새로운 방 */
+            title: string;
+            /** @example 1234 */
+            password: string;
+            /** @example 6 */
+            headCount: number;
+            /**
+             * @description 맵의 mapSrc로 맵을 찾아서 연결합니다
+             * @example office
+             */
+            mapSrc: string;
+        };
+        CheckPasswordDto: {
+            /** @example 123456 */
+            password: string;
+        };
+        CreateMapDto: {
+            /** @example Sample Map */
+            name: string;
+            /** @example https://example.com/image.jpg */
+            thumbnail: string;
+            /** @example https://example.com/map-source */
+            mapSrc: string;
+            /** @example https://example.com/builder */
+            builder: string;
+        };
+        CreateCharacterDto: {
+            name: string;
+            source: string;
+            width: number;
+            height: number;
+        };
+    };
     responses: never;
     parameters: never;
     requestBodies: never;
@@ -1754,4 +423,699 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    AuthController_login: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginDto"];
+            };
+        };
+        responses: {
+            /** @description 로그인 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoginResponseDto"];
+                };
+            };
+            /** @description 요청 데이터 유효성 검사 실패 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 존재하지 않는 회원이거나 비밀번호 불일치 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_refreshToken: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 새 액세스 토큰 발급 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefreshTokenResponseDto"];
+                };
+            };
+            /** @description 리프레시 토큰 없음 또는 유효하지 않음 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_createUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    profile?: string;
+                    email?: string;
+                    password?: string;
+                    nickname?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description 회원가입 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponseDto"];
+                };
+            };
+            /** @description 요청 데이터 유효성 검사 실패 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 이미 존재하는 이메일 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_getCurrentUser: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 사용자 정보 반환 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponseDto"];
+                };
+            };
+            /** @description 인증 실패 (토큰 없음 또는 만료) */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 존재하지 않는 회원 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_sendVerificationEmail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendVerificationEmailDto"];
+            };
+        };
+        responses: {
+            /** @description 이메일 전송 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 30초 이내 재전송 제한 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_checkVerificationCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckVerificationCodeDto"];
+            };
+        };
+        responses: {
+            /** @description 인증 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 인증 실패 (코드 불일치) */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_checkId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckIdDto"];
+            };
+        };
+        responses: {
+            /** @description 가입 가능한 이메일일 경우 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 이미 존재하는 이메일일 경우 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_changePassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChangePasswordDto"];
+            };
+        };
+        responses: {
+            /** @description 비밀번호 변경 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 해당 이메일 유저 없음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_changeNickname: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ChangeNicknameDto"];
+            };
+        };
+        responses: {
+            /** @description 닉네임 변경 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponseDto"];
+                };
+            };
+            /** @description 요청 데이터 유효성 검사 실패 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 인증 실패 (토큰 없음 또는 만료) */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_changeProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    profile?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description 프로필 이미지 변경 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserResponseDto"];
+                };
+            };
+            /** @description 프로필 이미지가 없음 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 인증 실패 (토큰 없음 또는 만료) */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 존재하지 않는 회원 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_startGoogleOAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 구글 로그인 페이지로 리디렉션 */
+            302: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_handleGoogleCallback: {
+        parameters: {
+            query: {
+                code: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_getRooms: {
+        parameters: {
+            query?: {
+                page?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 참여한 방 리스트 반환 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 인증 실패 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_createRoom: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRoomDto"];
+            };
+        };
+        responses: {
+            /** @description 방 생성 성공 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 잘못된 요청 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 인증 실패 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_getSingleRoom: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roomId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 방 정보 조회 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 인증 실패 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 방을 찾을 수 없음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_deleteRoom: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roomId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 방 삭제 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 삭제 권한 없음 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 방 없음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_joinRoom: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roomId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 방 입장 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 방을 찾을 수 없음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_checkPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roomId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckPasswordDto"];
+            };
+        };
+        responses: {
+            /** @description 비밀번호 확인 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+            /** @description 방 없음 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 비밀번호 불일치 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AssetsController_getMaps: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 맵 리스트 반환 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+        };
+    };
+    AssetsController_createMap: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateMapDto"];
+            };
+        };
+        responses: {
+            /** @description 맵 생성 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+        };
+    };
+    AssetsController_getCharacters: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 캐릭터 리스트 반환 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+        };
+    };
+    AssetsController_createCharacter: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCharacterDto"];
+            };
+        };
+        responses: {
+            /** @description 캐릭터 생성 성공 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiResponseDto"];
+                };
+            };
+        };
+    };
+}

@@ -32,7 +32,7 @@ export default function ProfileSection() {
     defaultValues: {
       profile: [
         {
-          preview: me?.user?.profile ?? '',
+          preview: me?.profile ?? '',
         } as CustomFile,
       ],
     },
@@ -40,7 +40,7 @@ export default function ProfileSection() {
 
   const nicknameMethods = useForm<NicknameFormData>({
     defaultValues: {
-      nickname: me?.user?.nickname ?? '',
+      nickname: me?.nickname ?? '',
     },
   })
 
@@ -56,9 +56,8 @@ export default function ProfileSection() {
     changeProfileMutation.mutate(formData, {
       onSuccess: (result) => {
         const newProfile =
-          (result as { data?: { user?: { profile?: string } } })?.data?.user
-            ?.profile ??
-          me?.user?.profile ??
+          (result as { data?: { profile?: string } })?.data?.profile ??
+          me?.profile ??
           ''
         profileMethods.reset({
           profile: [

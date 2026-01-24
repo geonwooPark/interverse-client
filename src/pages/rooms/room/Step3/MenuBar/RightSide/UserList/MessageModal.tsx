@@ -33,7 +33,7 @@ export default function MessageModal({
   const [text, setText] = useState('')
 
   const onSubmit = () => {
-    if (!me?.user) return
+    if (!me) return
     if (!roomId) return
 
     const id = Math.random().toString()

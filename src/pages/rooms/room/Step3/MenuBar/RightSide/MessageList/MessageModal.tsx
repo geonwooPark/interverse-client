@@ -30,7 +30,7 @@ function MessageModal({ dm, roomId, onClose }: DMProps) {
   const [text, setText] = useState('')
 
   const onSubmit = (dm: IDirectMessage) => {
-    if (!me?.user) return
+    if (!me) return
     if (!roomId) return
     if (!dm.socketId) return
 

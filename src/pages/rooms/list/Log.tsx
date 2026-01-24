@@ -25,7 +25,7 @@ export default function Log({ log, onDelete }: LogProps) {
 
   const { t } = useTranslation()
 
-  const isHost = me?.user?.id === log.room?.host
+  const isHost = me?.id === log.room?.host
 
   return (
     <div className="group relative">

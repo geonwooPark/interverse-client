@@ -28,7 +28,7 @@ export default function Step2({ onNext }: Step2Props) {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const nickname = me?.user?.nickname
+  const nickname = me?.nickname
 
   const onTextureChange = (value: number) => {
     setTexture(value)
@@ -65,7 +65,7 @@ export default function Step2({ onNext }: Step2Props) {
   }, [])
 
   return (
-    <div className="flex items-center justify-center size-full">
+    <div className="flex size-full items-center justify-center">
       <Container className="max-w-[360px]">
         <AvatarSelector texture={texture} onChange={onTextureChange} />
 
@@ -73,7 +73,7 @@ export default function Step2({ onNext }: Step2Props) {
           size="md"
           variant="contained"
           fullWidth
-          disabled={!me?.user?.nickname || isLoading}
+          disabled={!me?.nickname || isLoading}
           onClick={onEnter}
         >
           {isLoading
