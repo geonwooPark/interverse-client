@@ -30,7 +30,7 @@ export default function Log({ log, onDelete }: LogProps) {
   return (
     <div className="group relative">
       <Link
-        to={`/rooms/${log.room?._id}`}
+        to={`/rooms/${log.room?.id}`}
         className="block h-full transition-all duration-300 hover:scale-[1.02]"
       >
         <div className="relative overflow-hidden rounded-xl bg-gray-100 shadow-md transition-all duration-300 group-hover:shadow-xl">
@@ -84,7 +84,7 @@ export default function Log({ log, onDelete }: LogProps) {
       {/* 삭제 버튼 */}
       {isHost && (
         <button
-          onClick={(e) => onDelete(e, log.room?._id || '')}
+          onClick={(e) => onDelete(e, log.room?.id || '')}
           className={cn(
             'absolute right-3 top-3 z-10 flex size-9 items-center justify-center rounded-full',
             'bg-white/90 backdrop-blur-sm shadow-lg',

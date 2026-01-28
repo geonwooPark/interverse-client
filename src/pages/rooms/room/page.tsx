@@ -45,7 +45,7 @@ function RoomPage() {
       builder: room?.map.builder,
       charactersSrc: characters,
     })
-  }, [room?._id, room?.map?.mapSrc, room?.map?.builder, characters])
+  }, [room?.id, room?.map?.mapSrc, room?.map?.builder, characters])
 
   useEffect(() => {
     return () => {

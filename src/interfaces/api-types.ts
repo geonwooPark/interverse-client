@@ -324,11 +324,26 @@ export interface components {
             /** @example mypassword123 */
             password: string;
         };
+        UserDto: {
+            /** @description 사용자 ID */
+            id: string;
+            /** @description 닉네임 */
+            nickname: string;
+            /** @description 이메일 */
+            email: string;
+            /**
+             * @description 역할
+             * @enum {string}
+             */
+            role: "admin" | "user";
+            /** @description 프로필 이미지 URL */
+            profile?: string;
+        };
         LoginResponseDataDto: {
             /** @description 액세스 토큰 */
             token: string;
             /** @description 사용자 정보 */
-            user: Record<string, never>;
+            user: components["schemas"]["UserDto"];
         };
         LoginResponseDto: {
             /** @description 응답 메시지 */
@@ -350,17 +365,17 @@ export interface components {
             /** @description 응답 메시지 */
             message: string;
             /** @description 사용자 정보 */
-            data: Record<string, never>;
+            data: components["schemas"]["UserDto"];
         };
         SendVerificationEmailDto: {
             /** @example user@example.com */
             email: string;
         };
-        ApiResponseDto: {
+        MessageOnlyResponseDto: {
             /** @description 응답 메시지 */
             message: string;
-            /** @description 응답 데이터 */
-            data: Record<string, never>;
+            /** @description 응답 데이터 (없음) */
+            data: Record<string, never> | null;
         };
         CheckVerificationCodeDto: {
             /** @example user@example.com */
@@ -382,6 +397,82 @@ export interface components {
             /** @example newNickname */
             nickname: string;
         };
+        MapResponseDto: {
+            /** @description 맵 ID */
+            id: string;
+            /** @description 맵 이름 */
+            name: string;
+            /** @description 썸네일 URL */
+            thumbnail: string;
+            /** @description 맵 소스 */
+            mapSrc: string;
+            /** @description 빌더 */
+            builder: string;
+            /** @description 생성일시 */
+            createdAt: string;
+            /** @description 수정일시 */
+            updatedAt: string;
+        };
+        RoomResponseDto: {
+            /** @description 방 ID */
+            id: string;
+            /** @description 방 제목 */
+            title: string;
+            /** @description 호스트 사용자 ID */
+            host: string;
+            /** @description 최대 인원 */
+            headCount: number;
+            /** @description 맵 ID */
+            mapId: string;
+            /** @description 생성일시 */
+            createdAt: string;
+            /** @description 수정일시 */
+            updatedAt: string;
+            /** @description 맵 정보 */
+            map?: components["schemas"]["MapResponseDto"];
+            /** @description 호스트 여부 */
+            isHost?: boolean;
+        };
+        RoomLogItemDto: {
+            /** @description 로그 ID */
+            id: string;
+            /** @description 사용자 ID */
+            userId: string;
+            /** @description 방 ID */
+            roomId: string;
+            /** @description 입장일시 */
+            joinedAt: string;
+            /** @description 방 정보 */
+            room: components["schemas"]["RoomResponseDto"];
+        };
+        GetRoomsMetadataDto: {
+            /** @description 현재 페이지 */
+            page: number;
+            /** @description 페이지당 개수 */
+            limit: number;
+            /** @description 전체 개수 */
+            totalCount: number;
+            /** @description 전체 페이지 수 */
+            totalPages: number;
+        };
+        GetRoomsResponseDataDto: {
+            /** @description 방 로그 목록 */
+            logs: components["schemas"]["RoomLogItemDto"][];
+            /** @description 페이지 메타데이터 */
+            metadata: components["schemas"]["GetRoomsMetadataDto"];
+        };
+        GetRoomsResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 응답 데이터 */
+            data: components["schemas"]["GetRoomsResponseDataDto"];
+        };
+        RoomWithMessageResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 방 정보 */
+            data: components["schemas"]["RoomResponseDto"];
+        };
         CreateRoomDto: {
             /** @example 새로운 방 */
             title: string;
@@ -395,9 +486,24 @@ export interface components {
              */
             mapSrc: string;
         };
+        SuccessResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /**
+             * @description 성공 여부
+             * @example true
+             */
+            data: boolean;
+        };
         CheckPasswordDto: {
             /** @example 123456 */
             password: string;
+        };
+        MapListResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 맵 리스트 */
+            data: components["schemas"]["MapResponseDto"][];
         };
         CreateMapDto: {
             /** @example Sample Map */
@@ -409,11 +515,45 @@ export interface components {
             /** @example https://example.com/builder */
             builder: string;
         };
+        MapWithMessageResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 맵 정보 */
+            data: components["schemas"]["MapResponseDto"];
+        };
+        CharacterResponseDto: {
+            /** @description 캐릭터 ID */
+            id: string;
+            /** @description 캐릭터 이름 */
+            name: string;
+            /** @description 소스 URL */
+            source: string;
+            /** @description 너비 */
+            width: number;
+            /** @description 높이 */
+            height: number;
+            /** @description 생성일시 */
+            createdAt: string;
+            /** @description 수정일시 */
+            updatedAt: string;
+        };
+        CharacterListResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 캐릭터 리스트 */
+            data: components["schemas"]["CharacterResponseDto"][];
+        };
         CreateCharacterDto: {
             name: string;
             source: string;
             width: number;
             height: number;
+        };
+        CharacterWithMessageResponseDto: {
+            /** @description 응답 메시지 */
+            message: string;
+            /** @description 캐릭터 정보 */
+            data: components["schemas"]["CharacterResponseDto"];
         };
     };
     responses: never;
@@ -586,7 +726,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MessageOnlyResponseDto"];
                 };
             };
             /** @description 30초 이내 재전송 제한 */
@@ -617,7 +757,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MessageOnlyResponseDto"];
                 };
             };
             /** @description 인증 실패 (코드 불일치) */
@@ -648,7 +788,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MessageOnlyResponseDto"];
                 };
             };
             /** @description 이미 존재하는 이메일일 경우 */
@@ -679,7 +819,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MessageOnlyResponseDto"];
                 };
             };
             /** @description 해당 이메일 유저 없음 */
@@ -839,7 +979,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["GetRoomsResponseDto"];
                 };
             };
             /** @description 인증 실패 */
@@ -870,7 +1010,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["RoomWithMessageResponseDto"];
                 };
             };
             /** @description 잘못된 요청 */
@@ -906,7 +1046,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["RoomWithMessageResponseDto"];
                 };
             };
             /** @description 인증 실패 */
@@ -942,7 +1082,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["SuccessResponseDto"];
                 };
             };
             /** @description 삭제 권한 없음 */
@@ -978,7 +1118,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["RoomWithMessageResponseDto"];
                 };
             };
             /** @description 방을 찾을 수 없음 */
@@ -1011,7 +1151,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["SuccessResponseDto"];
                 };
             };
             /** @description 방 없음 */
@@ -1045,7 +1185,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MapListResponseDto"];
                 };
             };
         };
@@ -1069,7 +1209,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["MapWithMessageResponseDto"];
                 };
             };
         };
@@ -1089,7 +1229,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["CharacterListResponseDto"];
                 };
             };
         };
@@ -1113,7 +1253,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ApiResponseDto"];
+                    "application/json": components["schemas"]["CharacterWithMessageResponseDto"];
                 };
             };
         };

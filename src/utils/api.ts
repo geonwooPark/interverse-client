@@ -28,9 +28,10 @@ api.interceptors.response.use(
     if (err.response?.status === 419 && !originalRequest._retry) {
       originalRequest._retry = true
 
-      const { token } = await refreshTokenService.refresh(() =>
-        authService.refresh(),
-      )
+      const { token } = await refreshTokenService.refresh(async () => {
+        const res = await authService.refresh()
+        return { token: res.data.token }
+      })
 
       setLocalStorageItem(TOKEN, token)
       originalRequest.headers.Authorization = `Bearer ${token}`
