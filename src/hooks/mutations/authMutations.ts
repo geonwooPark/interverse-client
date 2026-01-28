@@ -92,6 +92,9 @@ export const useSendVerificationEmailMutation = () => {
     RequestBody<'/auth/send-verification-email', 'post'>
   >({
     mutationFn: (params) => authService.sendVerificationEmail(params),
+    onError: (error) => {
+      toast.error(error.message)
+    },
   })
 }
 
@@ -102,6 +105,9 @@ export const useCheckVerificationCode = () => {
     RequestBody<'/auth/check-verification-code', 'post'>
   >({
     mutationFn: (params) => authService.checkVerificationCode(params),
+    onError: (error) => {
+      toast.error(error.message)
+    },
   })
 }
 
