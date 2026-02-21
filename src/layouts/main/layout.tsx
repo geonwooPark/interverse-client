@@ -9,10 +9,7 @@ export default function RoomLayout({ children }: PropsWithChildren) {
       <Header />
 
       {/* 게임 */}
-      <div
-        id="game-container"
-        style={{ position: 'fixed', zIndex: -1, inset: 0 }}
-      />
+      <div id="game-container" className="fixed inset-0 z-[-1]" />
 
       {/* UI */}
       <main className="flex-1 overflow-y-auto">
