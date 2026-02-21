@@ -288,6 +288,10 @@ INTERVERSE(이하 "회사"라 함)는 다음의 목적을 위하여 개인정보
       password_placeholder: '비밀번호',
       headcount_label: '참여인원',
       submit: '생성하기',
+      map_required: '맵을 선택해주세요.',
+      map_placeholder_loading: '맵 불러오는 중...',
+      map_placeholder_empty: '사용 가능한 맵이 없습니다.',
+      map_load_error: '맵을 불러오지 못했습니다.',
     },
   },
   game: {

@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import Button from '@components/Button'
 import { useCreateRoomMutation } from '@hooks/mutations/roomsMutation'
 import { paths } from '@routes/paths'
-import MapSelector from './MapSelector'
+import Boundary from '@components/Boundary'
+import Icon from '@components/Icon'
+import MapSelectorLoading from './MapSelector/Loading'
+import MapSelectorError from './MapSelector/Error'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from './schema'
@@ -11,13 +14,14 @@ import RhfTextField from '@components/Rhf/RhfTextField'
 import FormProvider from '@components/Rhf/FormProvider'
 import RhfCounter from '@components/Rhf/RhfCounter'
 import { useTranslation } from 'react-i18next'
+import { MapSelectorWithCaption } from './MapSelector'
 
 function CreateRoomPage() {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
 
   const { mutate: createRoomMutate } = useCreateRoomMutation()
-
-  const { t } = useTranslation()
 
   const methods = useForm({
     resolver: yupResolver(schema),
@@ -26,15 +30,13 @@ function CreateRoomPage() {
       title: '',
       password: '',
       headCount: 4,
-      mapSrc: undefined,
+      mapSrc: '',
     },
   })
 
-  const { handleSubmit, setValue, reset } = methods
+  const { handleSubmit, setValue, reset, formState } = methods
 
   const onSubmit = handleSubmit(async (data) => {
-    if (!data.mapSrc) return
-
     createRoomMutate(data, {
       onSuccess: () => {
         reset()
@@ -49,10 +51,27 @@ function CreateRoomPage() {
       <div className="relative z-10 mt-10 h-full w-[400px] rounded-3xl">
         <h4 className="mb-4 text-center text-h4">{t('rooms.create.title')}</h4>
 
-        <MapSelector onChange={(map) => setValue('mapSrc', map)} />
-
         <FormProvider methods={methods}>
           <div className="mb-6 space-y-3 text-center">
+            <Boundary
+              LoadingFallback={<MapSelectorLoading />}
+              ErrorFallback={MapSelectorError}
+            >
+              <MapSelectorWithCaption
+                onChange={(map) => setValue('mapSrc', map)}
+                caption={
+                  formState.errors.mapSrc?.message && (
+                    <div className="ml-2 mt-1 flex items-center gap-1 text-red-600">
+                      <Icon iconName="IconExclamation" className="size-4" />
+                      <p className="text-caption">
+                        {formState.errors.mapSrc.message}
+                      </p>
+                    </div>
+                  )
+                }
+              />
+            </Boundary>
+
             <RhfTextField
               type="text"
               name="title"

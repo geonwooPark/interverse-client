@@ -289,6 +289,10 @@ The Company designates a person in charge of personal information protection as 
       password_placeholder: 'Password',
       headcount_label: 'Participants',
       submit: 'Create',
+      map_required: 'Please select a map.',
+      map_placeholder_loading: 'Loading maps...',
+      map_placeholder_empty: 'No maps available.',
+      map_load_error: 'Failed to load maps.',
     },
   },
   game: {

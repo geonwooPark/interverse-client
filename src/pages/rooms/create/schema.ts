@@ -7,5 +7,5 @@ export const schema = yup.object().shape({
     .string()
     .required(() => i18n.t('validation.room_password_required')),
   headCount: yup.number().required(),
-  mapSrc: yup.string().required(),
+  mapSrc: yup.string().required(() => i18n.t('rooms.create.map_required')),
 })

@@ -288,6 +288,10 @@ INTERVERSE（以下「当社」といいます）は、次の目的のために�
       password_placeholder: 'パスワード',
       headcount_label: '参加人数',
       submit: '作成する',
+      map_required: 'マップを選択してください。',
+      map_placeholder_loading: 'マップを読み込み中...',
+      map_placeholder_empty: '利用可能なマップがありません。',
+      map_load_error: 'マップの読み込みに失敗しました。',
     },
   },
   game: {

@@ -1,5 +1,6 @@
 import Image from '@components/Image'
 import Swiper from '@components/Swiper'
+import withCaption from '@hocs/withCaption'
 import { useMapsQuery } from '@hooks/queries/assetsQueries'
 import React, { useEffect } from 'react'
 import { SwiperSlide } from 'swiper/react'
@@ -46,3 +47,5 @@ export default function MapSelector({ onChange }: MapSelectorProps) {
     </Swiper>
   )
 }
+
+export const MapSelectorWithCaption = withCaption(MapSelector)
