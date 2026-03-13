@@ -8,7 +8,7 @@ export default function Error({ error, onReset }: any) {
   return (
     <div className="flex h-full items-center justify-center">
       <div className="mb-10">
-        <Image src={ErrorImage} alt="error" className="block w-[360px]" />
+        <Image src={ErrorImage} alt="error" width={360} className="block" />
         <Button
           size="sm"
           variant="outlined"
